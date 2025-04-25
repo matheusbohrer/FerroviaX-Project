@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,76 +12,63 @@
   <div class="app">
     <header>
       <div>☰</div>
-      <div><strong>FerroviaX</strong></div>
-      <div class="usuario"><img
-          src="https://lh3.googleusercontent.com/a-/ALV-UjWzRmkRnyU7NX4SXCueWKl70i1Rpq9oJyHClfPzqZdfPk2hOe0=s80-p-k-rw-no"
-          alt="Avatar" style="border-radius: 50%"></div>
+      <div><strong>Relatório e Análises</strong></div>
+      <div class="usuario">
+        <img src="https://i.pravatar.cc/40" alt="Avatar" style="border-radius: 50%">
+      </div>
     </header>
 
     <div class="tabs">
-      <button>Hoje</button>
-      <button>Semana</button>
-      <button>Mês</button>
+      <button class="tab active">hoje</button>
+      <button class="tab">semana</button>
+      <button class="tab">mês</button>
+      <button class="tab download">⬇️</button>
     </div>
 
-    <div class="horarios">
-      <div class="box">
-        <h2>20:00</h2>
-        <p>Próximo Trem</p>
-      </div>
-      <div class="box">
-        <h2>23:00</h2>
-        <p>Próximo Trem</p>
-      </div>
+    <div class="grafico">
+      <h4>KPIs de Desempenho</h4>
+      <img src="../imagens/analize.png" alt="Gráfico" />
     </div>
 
-    <div class="mapa">
-      <input type="text" placeholder="Localização" class="input-localizacao">
-      <img src="../imagens/local.png" alt="Mapa">
+    <div class="filtros">
+      <button class="detalhes">detalhes</button>
+      <input type="text" placeholder="🔍 Data (viagem)" />
     </div>
 
-    <div class="usuarios">
-      <div class="usuario">
-        <img src="https://a.espncdn.com/i/headshots/nba/players/full/1966.png" alt="Lebron">
-        <div>
-          <div>Lebron</div>
-          <div class="email">lebron_goat@gmail.com</div>
-        </div>
+    <div class="tabela-vertical">
+      <div class="registro">
+        <div><strong>Data:</strong> 24/03</div>
+        <div><strong>Origem:</strong> SP</div>
+        <div><strong>Destino:</strong> Campinas</div>
+        <div><strong>Consumo:</strong> 500 kWh</div>
+        <div><strong>Tempo Total:</strong> 1h30m</div>
+        <div><strong>Atraso:</strong> 10 min</div>
+        <div><strong>Custo:</strong> R$ 120</div>
       </div>
-      <div class="usuario">
-        <img src="https://br.web.img3.acsta.net/c_310_420/pictures/210/152/21015281_20130625213155152.jpg"
-          alt="Jackson">
-        <div>
-          <div>Jackson</div>
-          <div class="email">jackson_ihi@gmail.com</div>
-        </div>
-      </div>
-      <div class="usuario">
-        <img
-          src="https://s2-g1.glbimg.com/8-LAH77xdJedv_shCDrx8Wtr9Qc=/1200x0/filters:format(jpeg)/https://i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/G/B/hX4UJ9TwaPRAlAvGXTdA/herobrine.jpg"
-          alt="Herobrine">
-        <div>
-          <div>Herobrine</div>
-          <div class="email">herobrine_gameplays12@gmail.com</div>
-        </div>
-      </div>
-      <div class="usuario">
-        <img src="https://projectn.com.br/wp-content/uploads/2020/11/awards-supermario.png" alt="Mario">
-        <div>
-          <div>Mario</div>
-          <div class="email">its_me_mario@gmail.com</div>
-        </div>
+    
+      <div class="registro">
+        <div><strong>Data:</strong> 27/03</div>
+        <div><strong>Origem:</strong> SP</div>
+        <div><strong>Destino:</strong> RJ</div>
+        <div><strong>Consumo:</strong> 700 kWh</div>
+        <div><strong>Tempo Total:</strong> 3h</div>
+        <div><strong>Atraso:</strong> 20 min</div>
+        <div><strong>Custo:</strong> R$ 130</div>
       </div>
     </div>
 
-    <footer>
-      <div class="footer">
-        <div><button onclick="location.href='geral.html'">🏠</button></div>
-        <div><button onclick="location.href='rotas.html'">🔍</button></div>
-        <div><button onclick="location.href='alertas.html'">🔔</button></div>
-        <div><img src="https://i.pravatar.cc/24" alt="Perfil" class="avatar"></div>
-      </div>
+    <div class="resumo">
+      <p>Subtotal (2): <strong>R$41.98</strong></p>
+      <p>Taxas: <strong>R$9.00</strong></p>
+      <p>Total: <strong>R$50.98</strong></p>
+    </div>
+
+    <footer class="footer">
+      <div><button onclick="location.href='geral.html'">🏠</button></div>
+      <div><button onclick="location.href='rotas.html'">🔍</button></div>
+      <div><button onclick="location.href='alertas.html'">🔔</button></div>
+      <div><img src="https://i.pravatar.cc/24" alt="Perfil" class="avatar"></div>
     </footer>
+  </div>
 </body>
-
 </html>
