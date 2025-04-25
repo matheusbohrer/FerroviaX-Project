@@ -89,12 +89,28 @@
     <div class="popup-avaliacao">
       <div class="topo-popup">
         <strong>Avalie nosso Aplicativo!</strong>
-        <span class="fechar">✕</span>
+        <button class="botao-fechar-popup">✕</button>
       </div>
       <p>E ganhe recompensas!</p>
       <div class="botoes-popup">
-        <button class="secundario">Mais tarde</button>
         <button class="primario">Quero avaliar!</button>
+        <button class="secundario" id="btn-mais-tarde">Mais tarde</button>
+      </div>
+    </div>
+    <div class="popup-avaliacao-estrelas">
+      <div class="topo-popup">
+        <strong>Avalie nosso aplicativo</strong>
+        <button class="botao-fechar-popup">✕</button>
+      </div>
+      <div class="estrelas-container">
+        <span class="estrela" data-valor="1">☆</span>
+        <span class="estrela" data-valor="2">☆</span>
+        <span class="estrela" data-valor="3">☆</span>
+        <span class="estrela" data-valor="4">☆</span>
+        <span class="estrela" data-valor="5">☆</span>
+      </div>
+      <div class="botoes-popup">
+        <button class="primario" id="btn-enviar-avaliacao">Enviar</button>
       </div>
     </div>
 
@@ -104,7 +120,7 @@
               src=https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png>
           </button></div>
         <div><button onclick="location.href='rotas.html'"> <img
-              src=https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/768px-Magnifying_glass_icon.svg.png></button>
+              src=https://cdn-icons-png.flaticon.com/512/49/49116.png></button>
         </div>
         <div><button onclick="location.href='alertas.html'"><img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button>
@@ -113,5 +129,52 @@
       </div>
     </footer>
 </body>
+
+<script>
+  document.querySelector('.botao-fechar-popup').addEventListener('click', fecharPopup);
+  document.getElementById('btn-mais-tarde').addEventListener('click', fecharPopup);
+
+  function fecharPopup() {
+    document.querySelector('.popup-avaliacao').style.display = 'none';
+  }
+
+document.querySelector('.primario').addEventListener('click', function() {
+  document.querySelector('.popup-avaliacao').style.display = 'none';
+  document.querySelector('.popup-avaliacao-estrelas').style.display = 'block';
+});
+
+document.querySelectorAll('.botao-fechar-popup')[1].addEventListener('click', function() {
+  document.querySelector('.popup-avaliacao-estrelas').style.display = 'none';
+});
+
+const estrelas = document.querySelectorAll('.estrela');
+let avaliacao = 0;
+
+estrelas.forEach(estrela => {
+  estrela.addEventListener('click', function() {
+    const valor = parseInt(this.getAttribute('data-valor'));
+    avaliacao = valor;
+    
+    estrelas.forEach((e, index) => {
+      if (index < valor) {
+        e.textContent = '★';
+        e.classList.add('selecionada');
+      } else {
+        e.textContent = '☆';
+        e.classList.remove('selecionada');
+      }
+    });
+  });
+});
+
+document.getElementById('btn-enviar-avaliacao').addEventListener('click', function() {
+  if (avaliacao > 0) {
+    alert(`Obrigado por sua avaliação de ${avaliacao} estrela(s)!`);
+    document.querySelector('.popup-avaliacao-estrelas').style.display = 'none';
+  } else {
+    alert('Por favor, selecione uma avaliação antes de enviar.');
+  }
+});
+</script>
 
 </html>

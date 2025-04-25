@@ -19,57 +19,60 @@
       </div>
 
     </header>
-    <div class="flex">
-      <div class="tabs">
-        <button id="hoje-btn">Ontem</button>
-        <button id="semana-btn">Hoje</button>
-        <button id="mes-btn">Amanha</button>
-        <script>
-          document.getElementById('hoje-btn').addEventListener('click', function () {
-            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '20:00'; // Horário para Hoje
-            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '23:00'; // Horário para Hoje
-            setActiveTab(this);
-          });
-
-          document.getElementById('semana-btn').addEventListener('click', function () {
-            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '15:00'; // Horário para a Semana
-            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '18:00'; // Horário para a Semana
-            setActiveTab(this);
-          });
-
-          document.getElementById('mes-btn').addEventListener('click', function () {
-            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '10:00'; // Horário para o Mês
-            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '12:00'; // Horário para o Mês
-            setActiveTab(this);
-          });
-
-          function setActiveTab(tab) {
-            const tabs = document.querySelectorAll('.tabs button');
-            tabs.forEach(function (button) {
-              button.classList.remove('active');
+      <div class="flex">
+        <div class="tabs">
+          <button id="hoje-btn">Ontem</button>
+          <button id="semana-btn">Hoje</button>
+          <button id="mes-btn">Amanha</button>
+          <script>
+            document.getElementById('hoje-btn').addEventListener('click', function () {
+              document.querySelector('.horarios .box:nth-child(1) h2').textContent = '20:00'; 
+              document.querySelector('.horarios .box:nth-child(2) h2').textContent = '23:00'; 
+              setActiveTab(this);
             });
-            tab.classList.add('active');
-          }
-        </script>
+
+            document.getElementById('semana-btn').addEventListener('click', function () {
+              document.querySelector('.horarios .box:nth-child(1) h2').textContent = '15:00'; 
+              document.querySelector('.horarios .box:nth-child(2) h2').textContent = '18:00';
+              setActiveTab(this);
+            });
+
+            document.getElementById('mes-btn').addEventListener('click', function () {
+              document.querySelector('.horarios .box:nth-child(1) h2').textContent = '10:00'; 
+              document.querySelector('.horarios .box:nth-child(2) h2').textContent = '12:00'; 
+              setActiveTab(this);
+            });
+
+            function setActiveTab(tab) {
+              const tabs = document.querySelectorAll('.tabs button');
+              tabs.forEach(function (button) {
+                button.classList.remove('active');
+              });
+              tab.classList.add('active');
+            }
+          </script>
+        </div>
+
+        <div class="horarios">
+          <div class="box">
+            <h2>20:00</h2>
+            <p>Próximo Trem</p>
+          </div>
+          <div class="box">
+            <h2>23:00</h2>
+            <p>Próximo Trem</p>
+          </div>
+        </div>
+      </div>
+      <div class="mapa">
+        <input type="text" placeholder="Localização" class="input-localizacao">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1264.5093050086411!2d-48.838927049095645!3d-26.307957990166763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94deb187e1aad16f%3A0xef9a7e18b1d0e8e9!2sEscola%20SESI%20de%20Refer%C3%AAncia%20Joinville!5e0!3m2!1spt-BR!2sbr!4v1745594411868!5m2!1spt-BR!2sbr"
+          width="60%" height="45%" style="border:0;" 
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
    
-
-      <div class="horarios">
-        <div class="box">
-          <h2>20:00</h2>
-          <p>Próximo Trem</p>
-        </div>
-        <div class="box">
-          <h2>23:00</h2>
-          <p>Próximo Trem</p>
-        </div>
-      </div>
-    </div>
-    <div class="mapa">
-      <input type="text" placeholder="Localização" class="input-localizacao">
-      <img src="../imagens/local.png" alt="Mapa">
-    </div>
-
+    <div class="maquinistas"><a>Maquinistas Disponíveis</a></div>
     <div class="usuarios">
       <div class="usuario">
         <img src="https://a.espncdn.com/i/headshots/nba/players/full/1966.png" alt="Lebron">
@@ -143,7 +146,7 @@
               src=https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png>
           </button></div>
         <div><button onclick="location.href='rotas.html'"> <img
-              src=https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/768px-Magnifying_glass_icon.svg.png></button>
+              src=https://cdn-icons-png.flaticon.com/512/49/49116.png></button>
         </div>
         <div><button onclick="location.href='alertas.html'"><img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button>
@@ -152,4 +155,5 @@
       </div>
     </footer>
 </body>
+
 </html>
