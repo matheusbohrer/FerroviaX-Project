@@ -100,12 +100,13 @@ header {
 
 .mapa {
   padding: 16px;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
-.mapa iframe {
-  align-items: center;
-  width: 30%;
-  padding: 10%;
+.mapa img {
+  position: center;
+  width: 100%;
 }
 
 .input-localizacao {
@@ -113,7 +114,7 @@ header {
   padding: 12px;
   border-radius: 12px;
   border: 1px solid #ccc;
-  margin-bottom: 12px;
+  margin-bottom: 8%;
 }
 
 .mapa iframe {
@@ -136,6 +137,7 @@ header {
   color: #333;
   background: #f0f0f0;
 }
+
 .usuario {
   display: flex;
   align-items: center;
@@ -274,11 +276,9 @@ header {
     padding: 16px;
   }
 
-  .mapa iframe {
-    align-items: center;
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+  .mapa img {
+    position: center;
+    width: 100%;
   }
 
   .input-localizacao {
