@@ -102,6 +102,12 @@ header {
   padding: 16px;
 }
 
+.mapa iframe {
+  align-items: center;
+  width: 30%;
+  padding: 10%;
+}
+
 .input-localizacao {
   width: 100%;
   padding: 12px;
@@ -113,9 +119,6 @@ header {
 .mapa iframe {
   width: 350px;
   height: 350px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: block;
   position: center;
 }
 
@@ -127,17 +130,12 @@ header {
 }
 
 .maquinistas {
-  text-align: center;
-  margin: 20px 0;
   padding: 10px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  color: #fff;
-  background-color: #4a4d4e;
-  border-radius: 8px;
-  box-shadow: none;
+  color: #333;
+  background: #f0f0f0;
 }
-
 .usuario {
   display: flex;
   align-items: center;
