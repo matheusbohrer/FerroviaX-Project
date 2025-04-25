@@ -254,8 +254,6 @@ header {
     margin-bottom: 12px;
   }
 
-
-
   .usuarios {
     padding: 16px;
     overflow-y: auto;
@@ -315,7 +313,7 @@ header {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    font-size: 26px;
   }
 
   body {
@@ -353,12 +351,10 @@ header {
   .tabs {
     display: flex;
     justify-content: center;
-    gap: 10px;
     margin: 8px 0;
   }
 
   .tabs button {
-    padding: 8px 12px;
     border: none;
     border-radius: 20px;
     background: #f0f0f0;
@@ -372,10 +368,7 @@ header {
     cursor: pointer;
   }
 
-  .tabs .active {
-    background: #000;
-    color: #fff;
-  }
+
 
   .horarios {
     display: flex;
@@ -392,22 +385,24 @@ header {
   }
 
   .mapa {
-    padding: 16px;
-    width: 70%;
-    margin-right: 15%;
-    margin-left: 15%;
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
+  }
+
+  .input-localizacao {
+    width: 40%;
   }
 
   .mapa img {
-    padding: 16px;
-    width: 68%;
-    margin-right: 16%;
-    margin-left: 16%;
+    width: 30%;
+    margin-right: 35%;
+    margin-left: 35%;
   }
 
 
   .input-localizacao {
-    width: 100%;
+    width: 30%;
     padding: 12px;
     border-radius: 12px;
     border: 1px solid #ccc;
