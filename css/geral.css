@@ -32,6 +32,12 @@ header {
   padding: 16px;
 }
 
+.footer button {
+  border: none;
+  background: none;
+  cursor: pointer; 
+}
+
 .tabs {
   display: flex;
   justify-content: center;

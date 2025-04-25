@@ -35,6 +35,9 @@
     padding: 16px;
   }
   
+  
+  
+  
   .tabs {
     display: flex;
     justify-content: center;
@@ -62,60 +65,7 @@
     color: #fff;
   }
   
-  .horarios {
-    display: flex;
-    justify-content: space-around;
-    padding: 16px 0;
-  }
-  
-  .box {
-    text-align: center;
-  }
-  
-  .box h2 {
-    font-size: 24px;
-  }
-  
-  .mapa {
-    padding: 16px;
-  }
-  
-  .input-localizacao {
-    width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    margin-bottom: 12px;
-  }
-  
-  .mapa img {
-    width: 100%;
-    border-radius: 12px;
-  }
-  
-  .usuarios {
-    padding: 16px;
-    flex: 1;
-    overflow-y: auto;
-  }
-  
-  .usuario {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
-  }
-  
-  .usuario img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-  }
-  
-  .email {
-    color: #666;
-    font-size: 14px;
-  }
+ 
   
   .bottom-nav {
     display: flex;

@@ -33,6 +33,12 @@ header {
   border-bottom: 1px solid #eee;
 }
 
+.footer button {
+  border: none;
+  background: none;
+  cursor: pointer; 
+}
+
 .usuarios {
   padding: 16px;
   overflow-y: auto;
