@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,30 +12,59 @@
 <body>
   <div class="app">
     <header>
-      <div>☰</div>
+      <div id="menu-toggle">☰</div>
       <div><strong>FerroviaX</strong></div>
-      <div class="usuario"><img
-          src="https://lh3.googleusercontent.com/a-/ALV-UjWzRmkRnyU7NX4SXCueWKl70i1Rpq9oJyHClfPzqZdfPk2hOe0=s80-p-k-rw-no"
-          alt="Avatar" style="border-radius: 50%"></div>
+      <div class="usuario">
+        <img src="../../imagens/perfil.png" alt="Avatar" style="border-radius: 50%">
+      </div>
+
     </header>
+    <div class="flex">
+      <div class="tabs">
+        <button id="hoje-btn">Hoje</button>
+        <button id="semana-btn">Semana</button>
+        <button id="mes-btn">Mês</button>
+        <script>
+          document.getElementById('hoje-btn').addEventListener('click', function () {
+            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '20:00'; // Horário para Hoje
+            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '23:00'; // Horário para Hoje
+            setActiveTab(this);
+          });
 
-    <div class="tabs">
-      <button>Hoje</button>
-      <button>Semana</button>
-      <button>Mês</button>
-    </div>
+          document.getElementById('semana-btn').addEventListener('click', function () {
+            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '15:00'; // Horário para a Semana
+            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '18:00'; // Horário para a Semana
+            setActiveTab(this);
+          });
 
-    <div class="horarios">
-      <div class="box">
-        <h2>20:00</h2>
-        <p>Próximo Trem</p>
+          document.getElementById('mes-btn').addEventListener('click', function () {
+            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '10:00'; // Horário para o Mês
+            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '12:00'; // Horário para o Mês
+            setActiveTab(this);
+          });
+
+          // Função para marcar a aba ativa
+          function setActiveTab(tab) {
+            const tabs = document.querySelectorAll('.tabs button');
+            tabs.forEach(function (button) {
+              button.classList.remove('active');
+            });
+            tab.classList.add('active');
+          }
+        </script>
       </div>
-      <div class="box">
-        <h2>23:00</h2>
-        <p>Próximo Trem</p>
+
+      <div class="horarios">
+        <div class="box">
+          <h2>20:00</h2>
+          <p>Próximo Trem</p>
+        </div>
+        <div class="box">
+          <h2>23:00</h2>
+          <p>Próximo Trem</p>
+        </div>
       </div>
     </div>
-
     <div class="mapa">
       <input type="text" placeholder="Localização" class="input-localizacao">
       <img src="../imagens/local.png" alt="Mapa">
@@ -78,7 +108,31 @@
           alt="Steve">
         <div>
           <div>Steve</div>
-          <div class="email">iAm_steve@gmail.com</div>
+          <div class="email">iam_steve@gmail.com</div>
+        </div>
+      </div>
+      <div class="usuario">
+        <img
+          src="https://images.theconversation.com/files/304864/original/file-20191203-67028-qfiw3k.jpeg?ixlib=rb-4.1.0&rect=638%2C2%2C795%2C745&q=20&auto=format&w=320&fit=clip&dpr=2&usm=12&cs=strip"
+          alt="Bean">
+        <div>
+          <div>Mr. Bean</div>
+          <div class="email">mister_bean@gmail.com</div>
+        </div>
+      </div>
+      <div class="usuario">
+        <img src="https://i.pinimg.com/474x/8b/ff/4a/8bff4a7645a1a2f322e0add49180cef8.jpg" alt="McLovin">
+        <div>
+          <div>McLovin</div>
+          <div class="email">mclovin_hawaii@gmail.com</div>
+        </div>
+      </div>
+      <div class="usuario">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Ted_Kaczynski_2_%28cropped%29.jpg"
+          alt="Kaczynski">
+        <div>
+          <div>Kaczynski</div>
+          <div class="email">embrace_da_wilderness@gmail.com</div>
         </div>
       </div>
     </div>
@@ -94,7 +148,7 @@
         <div><button onclick="location.href='alertas.html'"><img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button>
         </div>
-        <div><img src="https://lh3.googleusercontent.com/a-/ALV-UjWzRmkRnyU7NX4SXCueWKl70i1Rpq9oJyHClfPzqZdfPk2hOe0=s80-p-k-rw-no" alt="Perfil" class="avatar"></div>
+        <div><img src="../imagens/perfil.png" alt="Perfil" class="avatar"></div>
       </div>
     </footer>
 </body>

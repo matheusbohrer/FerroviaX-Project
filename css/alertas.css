@@ -33,10 +33,23 @@ header {
   border-bottom: 1px solid #eee;
 }
 
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #ccc;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  padding-top: 2%;
+  width: 100%;
+}
+
 .footer button {
   border: none;
   background: none;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .footer img {
@@ -115,9 +128,9 @@ header {
 .popup-avaliacao {
   position: fixed;
   bottom: 15%;
-  left: 40%;
+  left: 5%;
   right: 10%;
-  width: 100%;
+  width: 90%;
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -155,35 +168,6 @@ header {
 
 .secundario {
   background: #e0e0e0;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-around;
-  padding: 0;
-  margin: 0;
-  border-top: 1px solid #ccc;
-  background: #fff;
-  position: fixed;
-  bottom: 0;
-  padding-top: 2%;
-  width: 100%;
-}
-
-.Home-icon {
-  width: 24px;
-  height: 24px;
-
-}
-
-.Search-icon{
-  width: 24px;
-  height: 24px;
-}
-
-.Bell-icon{
-  width: 24px;
-  height: 24px;
 }
 
 .avatar {

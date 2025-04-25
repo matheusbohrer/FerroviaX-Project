@@ -15,10 +15,23 @@
   background: #f0f0f0;
 }
 
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #ccc;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  padding-top: 2%;
+  width: 100%;
+}
+
 .footer button {
   border: none;
   background: none;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .footer img {
@@ -88,7 +101,7 @@
   padding: 16px 5%;
   display: flex;
   flex-direction: column;
-  gap: 16px;;
+  gap: 16px;
 }
 
 .item {
@@ -154,17 +167,4 @@
   background: #000;
   color: #fff;
   box-shadow: none;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-around;
-  padding: 0;
-  margin: 0;
-  border-top: 1px solid #ccc;
-  background: #fff;
-  position: fixed;
-  bottom: 0;
-  padding-top: 2%;
-  width: 100%;
 }

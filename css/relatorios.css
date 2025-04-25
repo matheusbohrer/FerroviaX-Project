@@ -118,7 +118,8 @@ table {
   margin-top: 10px;
 }
 
-th, td {
+th,
+td {
   padding: 8px;
   border: 1px solid #ccc;
   font-size: 14px;
@@ -154,22 +155,6 @@ th, td {
   border: none;
   font-size: 18px;
   cursor: pointer;
-}
-
-.Home-icon {
-  width: 24px;
-  height: 24px;
-
-}
-
-.Search-icon{
-  width: 24px;
-  height: 24px;
-}
-
-.Bell-icon{
-  width: 24px;
-  height: 24px;
 }
 
 .avatar {
