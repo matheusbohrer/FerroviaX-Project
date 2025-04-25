@@ -21,9 +21,9 @@
     </header>
     <div class="flex">
       <div class="tabs">
-        <button id="hoje-btn">Hoje</button>
-        <button id="semana-btn">Semana</button>
-        <button id="mes-btn">Mês</button>
+        <button id="hoje-btn">Ontem</button>
+        <button id="semana-btn">Hoje</button>
+        <button id="mes-btn">Amanha</button>
         <script>
           document.getElementById('hoje-btn').addEventListener('click', function () {
             document.querySelector('.horarios .box:nth-child(1) h2').textContent = '20:00'; // Horário para Hoje
@@ -43,7 +43,6 @@
             setActiveTab(this);
           });
 
-          // Função para marcar a aba ativa
           function setActiveTab(tab) {
             const tabs = document.querySelectorAll('.tabs button');
             tabs.forEach(function (button) {
@@ -53,6 +52,7 @@
           }
         </script>
       </div>
+   
 
       <div class="horarios">
         <div class="box">
@@ -152,5 +152,4 @@
       </div>
     </footer>
 </body>
-
 </html>
