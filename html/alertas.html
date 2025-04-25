@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FerroviaX</title>
+  <title>FerroviaX - Alertas</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/alertas.css">
 </head>
@@ -17,51 +17,90 @@
       <div><img src="https://i.pravatar.cc/30" alt="Avatar" style="border-radius: 50%"></div>
     </header>
 
-    <div class="tabs">
-      <button class="active">Hoje</button>
-      <button>Semana</button>
-      <button>Mês</button>
-    </div>
-
-    <div class="horarios">
-      <div class="box">
-        <h2>20:00</h2>
-        <p>Próximo Trem</p>
-      </div>
-      <div class="box">
-        <h2>23:00</h2>
-        <p>Próximo Trem</p>
-      </div>
-    </div>
-
-    <div class="mapa">
-      <input type="text" placeholder="Localização" class="input-localizacao">
-      <img src="https://via.placeholder.com/300x200.png?text=Mapa" alt="Mapa">
-    </div>
-
     <div class="usuarios">
-      <div class="usuario">
-        <img src="https://i.pravatar.cc/36?img=1" alt="Lebron">
-        <div>
-          <div>Lebron</div>
-          <div class="email">lebron_goat@gmail.com</div>
+      <h2 class="titulo">Alertas e Notificações</h2>
+
+      <div class="alerta">
+        <span class="ponto-vermelho">•</span>
+        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem">
+        <div class="info">
+          <div><strong>Novo trem chegando!</strong> <span class="tempo">1d</span></div>
+          <div>Saindo às 11:00</div>
         </div>
+        <button class="botao-ver">Ver mais</button>
       </div>
-      <div class="usuario">
-        <img src="https://i.pravatar.cc/36?img=2" alt="Jackson">
-        <div>
-          <div>Jackson</div>
-          <div class="email">jackson_wah@gmail.com</div>
+
+      <div class="alerta">
+        <span class="ponto-vermelho">•</span>
+        <img src="https://pt.quizur.com/_image?href=https://img.quizur.com/f/img642dc2884e0ea2.31871377.jpg?lastEdited=1680720556&w=600&h=600&f=webp" alt="Avatar">
+        <div class="info">
+          <div><strong>Carlinhos</strong> <span class="tempo">1d</span></div>
+          <div>Avalie o maquinista</div>
         </div>
+        <button class="estrela">☆</button>
+      </div>
+
+      <div class="alerta">
+        <span class="ponto-vermelho">•</span>
+        <img src="https://i.pravatar.cc/36?img=6" alt="Avatar">
+        <div class="info">
+          <div><strong>Manoel Gomes</strong> <span class="tempo">3d</span></div>
+          <div>Avalie o maquinista</div>
+        </div>
+        <button class="estrela">☆</button>
+      </div>
+
+      <div class="alerta">
+        <span class="ponto-vermelho">•</span>
+        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem">
+        <div class="info">
+          <div><strong>Novo trem chegando!</strong> <span class="tempo">3d</span></div>
+          <div>Saindo às 20:00</div>
+        </div>
+        <button class="botao-ver">Ver mais</button>
+      </div>
+
+      <div class="alerta">
+        <span class="ponto-vermelho">•</span>
+        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem">
+        <div class="info">
+          <div><strong>Novo trem chegando!</strong> <span class="tempo">4d</span></div>
+          <div>Saindo às 13:30</div>
+        </div>
+        <button class="botao-ver">Ver mais</button>
+      </div>
+
+      <div class="alerta">
+        <span class="ponto-vermelho">•</span>
+        <img src="https://i.pravatar.cc/36?img=7" alt="Avatar">
+        <div class="info">
+          <div><strong>Max Verstappen</strong> <span class="tempo">4d</span></div>
+          <div>Avalie o maquinista</div>
+        </div>
+        <button class="estrela">☆</button>
       </div>
     </div>
 
-    <div class="bottom-nav">
-      <div>🏠</div>
-      <div>🔍</div>
-      <div>🔔<span class="notificacao">•</span></div>
-      <div><img src="https://i.pravatar.cc/24" alt="Perfil" class="avatar"></div>
+    <div class="popup-avaliacao">
+      <div class="topo-popup">
+        <strong>Avalie nosso Aplicativo!</strong>
+        <span class="fechar">✕</span>
+      </div>
+      <p>E ganhe recompensas!</p>
+      <div class="botoes-popup">
+        <button class="secundario">Mais tarde</button>
+        <button class="primario">Quero avaliar!</button>
+      </div>
     </div>
+
+    <footer>
+      <div class="footer">
+        <div>🏠</div>
+        <div>🔍</div>
+        <div>🔔<span class="notificacao">5</span></div>
+        <div><img src="https://i.pravatar.cc/24" alt="Perfil" class="avatar"></div>
+      </div>
+    </footer>
   </div>
 </body>
 

@@ -7,21 +7,18 @@
 
 body {
   background: #fff;
-  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
 }
 
 .app {
-  width: 390px; /* padrão de celular */
-  height: 844px; /* padrão de celular */
-  border: 1px solid #ccc;
-  border-radius: 24px;
-  overflow: hidden;
+  width: 100%;
+  /* padrão de celular */
+  height: 100%;
+  /* padrão de celular */
   display: flex;
   flex-direction: column;
   background: white;
@@ -52,7 +49,7 @@ header {
 
 .tabs button:hover {
   background: #1e1f22;
-  color:#f0f0f0;
+  color: #f0f0f0;
   transition: 0.7s;
   cursor: pointer;
 }
@@ -95,15 +92,17 @@ header {
 
 .usuarios {
   padding: 16px;
-  flex: 1;
   overflow-y: auto;
+  padding-bottom: 50%;
+  background: #f0f0f0;
+
 }
 
 .usuario {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .usuario img {
@@ -113,17 +112,20 @@ header {
 }
 
 .email {
-  color: #666;
   font-size: 14px;
 }
 
-.bottom-nav {
+.footer {
   display: flex;
   justify-content: space-around;
   padding: 12px 0;
   border-top: 1px solid #ccc;
   background: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
+
 
 .avatar {
   width: 24px;
