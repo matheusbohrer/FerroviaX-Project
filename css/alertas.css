@@ -39,6 +39,11 @@ header {
   cursor: pointer; 
 }
 
+.footer img {
+  width: 24px;
+  height: 24px;
+}
+
 .usuarios {
   padding: 16px;
   overflow-y: auto;
@@ -155,13 +160,30 @@ header {
 .footer {
   display: flex;
   justify-content: space-around;
-  padding: 12px 0;
+  padding: 0;
+  margin: 0;
   border-top: 1px solid #ccc;
   background: #fff;
   position: fixed;
   bottom: 0;
+  padding-top: 2%;
   width: 100%;
-  max-width: 420px;
+}
+
+.Home-icon {
+  width: 24px;
+  height: 24px;
+
+}
+
+.Search-icon{
+  width: 24px;
+  height: 24px;
+}
+
+.Bell-icon{
+  width: 24px;
+  height: 24px;
 }
 
 .avatar {

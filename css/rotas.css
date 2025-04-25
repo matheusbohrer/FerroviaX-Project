@@ -122,6 +122,11 @@ header {
   cursor: pointer;
 }
 
+.footer img {
+  width: 24px;
+  height: 24px;
+}
+
 .avatar {
   width: 24px;
   height: 24px;
