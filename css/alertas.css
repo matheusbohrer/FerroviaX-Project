@@ -35,6 +35,7 @@ header {
 
 .footer {
   display: flex;
+  position: fixed;
   justify-content: space-around;
   padding: 0;
   margin: 0;
@@ -50,6 +51,7 @@ header {
   border: none;
   background: none;
   cursor: pointer;
+  padding-bottom: 10px;
 }
 
 .footer img {
