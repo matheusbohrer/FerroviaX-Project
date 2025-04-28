@@ -3,10 +3,12 @@
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
+  max-width: 100%;
 }
 
 body {
-  background: #fff;
+  background: #111111;
+  color: #FFFFFF;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +21,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: #1C1C1E;
 }
 
 header {
@@ -27,6 +29,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+  background: #1C1C1E;
+  border-bottom: 1px solid #2C2C2E;
 }
 
 .usuario img {
@@ -43,13 +47,15 @@ header {
 .busca input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #2C2C2E;
+  background: #2C2C2E;
+  color: #FFFFFF;
   border-radius: 12px;
   margin-bottom: 4px;
 }
 
 .busca small {
-  color: gray;
+  color: #AFAFAF;
 }
 
 .filtros {
@@ -62,10 +68,17 @@ header {
 
 .filtros button {
   padding: 6px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #2C2C2E;
   border-radius: 8px;
-  background: #f9f9f9;
+  background: #1C1C1E;
+  color: #FFFFFF;
   cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.filtros button:hover {
+  background: #FFFFFF;
+  color: #111111;
 }
 
 .mapa img {
@@ -88,8 +101,8 @@ header {
 }
 
 .numero {
-  background: #bfd8ff;
-  color: #000;
+  background: #2C2C2E;
+  color: #FFFFFF;
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -106,216 +119,24 @@ header {
 
 .footer {
   display: flex;
-  position: fixed;
   justify-content: space-around;
-  padding: 0;
-  margin: 0;
-  border-top: 1px solid #ccc;
-  background: #fff;
+  background: #1C1C1E;
+  border-top: 1px solid #2C2C2E;
   position: fixed;
   bottom: 0;
-  padding-top: 2%;
   width: 100%;
+  padding: 12px 0;
 }
 
 .footer button {
-  background: none;
   border: none;
+  background: none;
   cursor: pointer;
+  color: #FFFFFF;
 }
 
 .footer img {
   width: 24px;
   height: 24px;
-}
-
-.avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-}
-
-.notificacao {
-  background: red;
-  color: white;
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 12px;
-  margin-left: 4px;
-}
-
-.pesquisa {
-  position: sticky;
-  top: 3%;
-  background-color: white;
-}
-
-@media (min-width : 768px) {
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    font-size: 106%;
-  }
-
-  body {
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-  }
-
-  .app {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background: white;
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-  }
-
-  .usuario img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-  }
-
-  .pesquisa {
-    display: flex;
-    position: sticky;
-    top: 3%;
-    background-color: white;
-    width: 80%;
-    padding-left: 10%;
-    padding
-  }
-
-  .busca {
-    width: 70%;
-    padding: 16px;
-  }
-
-  .mapinha {
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: 15%;
-    margin-right: 15%;
-    max-width: 70%;
-  }
-
-  .busca input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    margin-bottom: 4px;
-  }
-
-  .busca small {
-    color: gray;
-  }
-
-  .filtros {
-    display: flex;
-    gap: 10px;
-    padding: 0 16px;
-    margin: 8px 0;
-  }
-
-  .filtros button {
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: #f9f9f9;
-    cursor: pointer;
-  }
-
-  .mapa img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-  }
-
-  .cargas {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-right: 5%;
-    margin-left: 5%;
-    padding-bottom: 30%;
-  }
-
-  .item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .numero {
-    background: #bfd8ff;
-    color: #000;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-  }
-
-  .info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .footer {
-    display: flex;
-    justify-content: space-around;
-    padding: 0;
-    margin: 0;
-    border-top: 1px solid #ccc;
-    background: #fff;
-    position: fixed;
-    bottom: 0;
-    padding-top: 2%;
-    width: 100%;
-  }
-
-  .footer button {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .footer img {
-    width: 24px;
-    height: 24px;
-  }
-
-  .avatar {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-  }
-
-  .notificacao {
-    background: red;
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 12px;
-    margin-left: 4px;
-  }
-
+  filter: invert(100%);
 }

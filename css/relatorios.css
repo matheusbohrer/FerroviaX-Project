@@ -3,15 +3,12 @@
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
+  max-width: 100%;
 }
 
 body {
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-  width: 100vw;
+  background: #111111;
+  color: #FFFFFF;
 }
 
 .app {
@@ -19,14 +16,16 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: #1C1C1E;
 }
 
-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #1C1C1E;
   padding: 16px;
+  border-radius: 12px;
 }
 
 .tabs {
@@ -40,33 +39,22 @@ header {
   padding: 8px 16px;
   border: none;
   border-radius: 20px;
-  background: #f0f0f0;
-  color: #000;
+  background: #2C2C2E;
+  color: #FFFFFF;
   font-weight: 600;
   cursor: pointer;
 }
 
 .tab:hover {
-  background: #000;
-  color: #f0f0f0;
+  background: #FFFFFF;
+  color: #111111;
   transition: 0.4s;
-}
-
-.tab {
-  background-color: #f0f0f0;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
 }
 
 .tab.black {
   background-color: #000000;
   color: white;
   font-weight: bold;
-}
-
-.tab.download {
-  font-size: 18px;
 }
 
 .grafico {
@@ -91,8 +79,8 @@ header {
 }
 
 .filtros .detalhes {
-  background: #000;
-  color: #fff;
+  background: #2C2C2E;
+  color: #FFFFFF;
   border: none;
   border-radius: 20px;
   padding: 8px 16px;
@@ -102,7 +90,7 @@ header {
 
 .filtros input {
   padding: 8px 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #2C2C2E;
   border-radius: 20px;
   width: 50%;
 }
@@ -115,7 +103,7 @@ header {
 }
 
 .registro {
-  background: #f9f9f9;
+  background: #1C1C1E;
   padding: 12px;
   border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
@@ -135,9 +123,16 @@ table {
 th,
 td {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #2C2C2E;
   font-size: 14px;
   text-align: center;
+}
+
+.grafico img {
+  margin-left: 3%;
+  padding-left: 10%;
+  align-items: center;
+  filter: invert(100%);
 }
 
 .resumo {
@@ -151,12 +146,12 @@ td {
   justify-content: space-around;
   padding: 0;
   margin: 0;
-  border-top: 1px solid #ccc;
-  background: #fff;
+  border-top: 1px solid #2C2C2E;
+  background: #1C1C1E;
   position: fixed;
   bottom: 0;
-  padding-top: 2%;
   width: 100%;
+  padding-top: 2%;
 }
 
 .footer button {
@@ -169,6 +164,7 @@ td {
 .footer img {
   width: 24px;
   height: 24px;
+  filter: invert(100%);
 }
 
 .avatar {

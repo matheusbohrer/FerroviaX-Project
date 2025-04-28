@@ -6,7 +6,8 @@
 }
 
 body {
-  background: #fff;
+  background: #111111; /* Fundo escuro */
+  color: #FFFFFF; /* Texto branco */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,27 +21,31 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: #1C1C1E; /* Fundo preto */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
+/* Cabeçalho */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #2C2C2E; /* Borda escura */
+  background: #09091A; /* Fundo preto */
+  color: #FFFFFF; /* Texto branco */
 }
 
+/* Rodapé */
 .footer {
   display: flex;
   position: fixed;
   justify-content: space-around;
   padding: 0;
   margin: 0;
-  border-top: 1px solid #ccc;
-  background: #fff;
+  border-top: 1px solid #2C2C2E; /* Borda escura */
+  background: #1C1C1E; /* Fundo preto */
   position: fixed;
   bottom: 0;
   padding-top: 2%;
@@ -59,28 +64,33 @@ header {
   height: 24px;
 }
 
+/* Usuários */
 .usuarios {
   padding: 16px;
   overflow-y: auto;
   flex: 1;
-  background: #f7f7f7;
+  background: #2C2C2E; /* Fundo cinza escuro */
 }
 
+/* Título */
 .titulo {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 16px;
+  color: #FFFFFF;
 }
 
+/* Alerta */
 .alerta {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #fff;
+  background: #1C1C1E; /* Fundo escuro */
   padding: 12px;
   border-radius: 10px;
   margin-bottom: 12px;
   position: relative;
+  border: 1px solid #2C2C2E; /* Borda escura */
 }
 
 .ponto-vermelho {
@@ -103,50 +113,58 @@ header {
 }
 
 .tempo {
-  color: #666;
+  color: #AFAFAF; /* Cinza claro */
   font-weight: normal;
   font-size: 12px;
 }
 
+/* Botão Ver */
 .botao-ver,
 .estrela {
-  background: #f0f0f0;
+  background: #2C2C2E; /* Fundo cinza escuro */
   border: none;
   padding: 6px 12px;
   border-radius: 12px;
   font-size: 14px;
   cursor: pointer;
+  color: #FFFFFF;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .botao-ver:hover {
-  background: #000;
-  color: #fff;
+  background: #1fbad6; /* Azul */
+  color: #111111; /* Texto escuro */
 }
 
 .estrela {
   font-size: 20px;
 }
 
+/* Popup de Avaliação */
 .popup-avaliacao {
   position: fixed;
   bottom: 15%;
   left: 5%;
   right: 10%;
   width: 90%;
-  background: #fff;
+  background: #1C1C1E; /* Fundo escuro */
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 16px;
   z-index: 10;
+  color: #FFFFFF;
 }
 
+/* Topo do Popup */
 .topo-popup {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
+  color: #FFFFFF;
 }
 
+/* Botões do Popup */
 .botoes-popup {
   display: flex;
   justify-content: space-between;
@@ -161,23 +179,37 @@ header {
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .primario {
-  background: #000;
-  color: #fff;
+  background: #09091A; /* Fundo preto */
+  color: #FFFFFF;
+}
+
+.primario:hover {
+  background: #1fbad6; /* Azul */
+  color: #111111;
 }
 
 .secundario {
-  background: #e0e0e0;
+  background: #2C2C2E; /* Fundo cinza escuro */
+  color: #FFFFFF;
 }
 
+.secundario:hover {
+  background-color: #1fbad6; /* Azul */
+  color: #111111;
+}
+
+/* Avatar */
 .avatar {
   width: 24px;
   height: 24px;
   border-radius: 50%;
 }
 
+/* Notificação */
 .notificacao {
   color: red;
   font-weight: bold;
@@ -188,20 +220,20 @@ header {
 .botao-fechar-popup {
   background: none;
   border: none;
-  color: #666;
+  color: #AFAFAF; /* Cinza claro */
   font-size: 18px;
   cursor: pointer;
   padding: 5px 10px;
 }
 
 .botao-fechar-popup:hover {
-  color: #333;
+  color: #FFFFFF;
 }
 
 /* Estilo do botão "Mais tarde" */
 .secundario {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #2C2C2E; /* Fundo cinza escuro */
+  color: #FFFFFF;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
@@ -209,6 +241,6 @@ header {
 }
 
 .secundario:hover {
-  background-color: #e0e0e0;
+  background-color: #1fbad6; /* Azul */
+  color: #111111;
 }
-
