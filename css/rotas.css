@@ -27,6 +27,10 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+  background-color: #09091a;
+  /* Fundo preto Uber */
+  color: #ffffff;
+  /* Texto branco */
 }
 
 .usuario img {

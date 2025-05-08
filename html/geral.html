@@ -12,66 +12,69 @@
 <body>
   <div class="app">
     <header>
-      <div><strong>FerroviaX</strong></div>
+      <div><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=AOo0EEXQT089h2HlQDTXBPu3kHgckW4rSg1VIlOCN%2FkADvLQA0M6NL1DjWKc5NjEd22WnZQbmVgThYp3T1clw1CAOZW9kerW1bsfgle%2FK0bTmAWiLYKnLfO%2FzhlLpXuqD6eGnkyyJTzooaC55nhrLZ22A3lj%2BHPyYWoGsregWtYRsT7NVy6WIpc40TkZU7kZIzxjw%2FL5o9knSjse%2BFqEUZ6oW%2F8wI19VvRXvlyTfzngv4iUNUieensAQsT6%2BQD%2F1TBekG%2BqYXuT6%2F8iIWlnYNf2URFZjxXF9a0uxetVXt1HFyOIPkFIM93PWtNKyrM5raqj%2FMQLLi4wZgfZmau1jEWJOHUGoSStELn8EEbM4Tv%2BtihAera%2Fu5E52j5q%2FHpMesPkQp68see67vh7oQmFVcqC9c61HAje763n21HtxgpIUb2nYC%2B7X3bD67j39JLkXf4LF5XZCIwQkxm%2BKI4iZk7hWRbaz7jvZjwpmlOt5OVp9DWM2%2B1Fzl6TKesgijmMjZJVOaYXckv6aLFWd0IUxFngLhNBTj1wZxJnW1%2FfYOXrUYoTQmnhMi8crjdX4j1X8B5eY&allow_caching=true&sz=w512
+        " alt="" class="fototrem" style="width: 65%;"></div>
       <div id="menu-toggle">☰</div>
     </header>
-      <div class="flex_grande">
-        <div class="tabs">
-          <button id="hoje-btn">Ontem</button>
-          <button id="semana-btn">Hoje</button>
-          <button id="mes-btn">Amanha</button>
-          <script>
-            document.getElementById('hoje-btn').addEventListener('click', function () {
-              document.querySelector('.horarios .box:nth-child(1) h2').textContent = '20:00'; 
-              document.querySelector('.horarios .box:nth-child(2) h2').textContent = '23:00'; 
-              setActiveTab(this);
-            });
+    <div class="flex_grande">
+      <div class="tabs">
+        <button id="hoje-btn">Ontem</button>
+        <button id="semana-btn">Hoje</button>
+        <button id="mes-btn">Amanhã</button>
+        <script>
+          document.getElementById('hoje-btn').addEventListener('click', function () {
+            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '20:00';
+            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '23:00';
+            setActiveTab(this);
+          });
 
-            document.getElementById('semana-btn').addEventListener('click', function () {
-              document.querySelector('.horarios .box:nth-child(1) h2').textContent = '15:00'; 
-              document.querySelector('.horarios .box:nth-child(2) h2').textContent = '18:00';
-              setActiveTab(this);
-            });
+          document.getElementById('semana-btn').addEventListener('click', function () {
+            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '15:00';
+            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '18:00';
+            setActiveTab(this);
+          });
 
-            document.getElementById('mes-btn').addEventListener('click', function () {
-              document.querySelector('.horarios .box:nth-child(1) h2').textContent = '10:00'; 
-              document.querySelector('.horarios .box:nth-child(2) h2').textContent = '12:00'; 
-              setActiveTab(this);
-            });
+          document.getElementById('mes-btn').addEventListener('click', function () {
+            document.querySelector('.horarios .box:nth-child(1) h2').textContent = '10:00';
+            document.querySelector('.horarios .box:nth-child(2) h2').textContent = '12:00';
+            setActiveTab(this);
+          });
 
-            function setActiveTab(tab) {
-              const tabs = document.querySelectorAll('.tabs button');
-              tabs.forEach(function (button) {
-                button.classList.remove('active');
-              });
-              tab.classList.add('active');
-            }
-          </script>
+          function setActiveTab(tab) {
+            const tabs = document.querySelectorAll('.tabs button');
+            tabs.forEach(function (button) {
+              button.classList.remove('active');
+            });
+            tab.classList.add('active');
+          }
+        </script>
+      </div>
+
+      <div class="horarios">
+        <div class="box">
+          <h2>20:00</h2>
+          <p>Próximo Trem</p>
         </div>
-
-        <div class="horarios">
-          <div class="box">
-            <h2>20:00</h2>
-            <p>Próximo Trem</p>
-          </div>
-          <div class="box">
-            <h2>23:00</h2>
-            <p>Próximo Trem</p>
-          </div>
+        <div class="box">
+          <h2>23:00</h2>
+          <p>Próximo Trem</p>
         </div>
       </div>
-      <div class="mapa">
-        <input type="text" placeholder="Localização" class="input-localizacao">
-        <img src="/imagens/local.png" class="mapa">
-      </div>
-   
+    </div>
+    <div class="mapa">
+      <input type="text" placeholder="Localização" class="input-localizacao">
+      <img src="/imagens/local.png" class="mapa">
+    </div>
+
     <div class="maquinistas"><a>Maquinistas Disponíveis</a></div>
     <div class="usuarios">
       <div class="usuario">
-        <img src="https://a.espncdn.com/i/headshots/nba/players/full/1966.png" alt="Lebron">
+        <img
+          src="https://hips.hearstapps.com/hmg-prod/images/shaquille-oneal-looks-on-prior-to-a-game-between-the-boston-news-photo-1698169169.jpg"
+          alt="Shaq">
         <div>
-          <div>Lebron</div>
-          <div class="email">lebron_goat@gmail.com</div>
+          <div>Shaq</div>
+          <div class="email">shaquille_oneal@gmail.com</div>
         </div>
       </div>
       <div class="usuario">
@@ -124,27 +127,34 @@
         </div>
       </div>
       <div class="usuario">
-        <img src="https://upload.wikimedia.org/wikipedia/pt/3/38/Seu_Madruga.jpg"
-          alt="DonRamon">
+        <img src="https://upload.wikimedia.org/wikipedia/pt/3/38/Seu_Madruga.jpg" alt="DonRamon">
         <div>
           <div>Seu Madruga</div>
           <div class="email">don_ramon@gmail.com</div>
         </div>
       </div>
       <div class="usuario">
-        <img src="https://upload.wikimedia.org/wikipedia/en/0/03/Walter_White_S5B.png"
-          alt="Heisenberg">
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/03/Walter_White_S5B.png" alt="Heisenberg">
         <div>
           <div>Walter White</div>
           <div class="email">saymy_name@gmail.com</div>
         </div>
       </div>
       <div class="usuario">
-        <img src="https://hartco.com.au/cdn/shop/products/Productimagesforwebsite-2020-09-15T164407.477.jpg?v=1600152262"
+        <img
+          src="https://hartco.com.au/cdn/shop/products/Productimagesforwebsite-2020-09-15T164407.477.jpg?v=1600152262"
           alt="aPepsiCola">
         <div>
           <div>Olavo</div>
           <div class="email">olavo_of_oak.@gmail.com</div>
+        </div>
+      </div>
+      <div class="usuario">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvkkiA3NuAPWa9TagFHnmQdjxo3HOwWLlVqQ&s"
+          alt="zap">
+        <div>
+          <div>Roger</div>
+          <div class="email">passaroamao_em.@gmail.com</div>
         </div>
       </div>
     </div>
@@ -160,7 +170,8 @@
         <div><button onclick="location.href='alertas.html'"><img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button>
         </div>
-        <div><button onclick="location.href='usuari.html'"><img src="../../imagens/perfil.png" alt="Avatar" style="border-radius: 50%"></button>
+        <div><button onclick="location.href='usuario.html'"><img src="../../imagens/perfil.png" alt="Avatar"
+              style="border-radius: 50%"></button>
         </div>
     </footer>
 </body>

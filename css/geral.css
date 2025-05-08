@@ -197,6 +197,14 @@ header {
   margin-left: 4px;
 }
 
+/* marlene */
+.mapa-circular {
+  width: 368px;
+  height: 368px;
+  padding: 16px;
+  position: center;
+}
+
 /* Responsivo para Telas Maiores */
 @media (min-width: 768px) {
   * {
