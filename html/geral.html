@@ -5,17 +5,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FerroviaX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/geral.css">
 </head>
 
 <body>
   <div class="app">
-    <header>
-      <div><img src="https://chat.google.com/u/0/api/get_attachment_url?url_type=FIFE_URL&content_type=image%2Fpng&attachment_token=AOo0EEXQT089h2HlQDTXBPu3kHgckW4rSg1VIlOCN%2FkADvLQA0M6NL1DjWKc5NjEd22WnZQbmVgThYp3T1clw1CAOZW9kerW1bsfgle%2FK0bTmAWiLYKnLfO%2FzhlLpXuqD6eGnkyyJTzooaC55nhrLZ22A3lj%2BHPyYWoGsregWtYRsT7NVy6WIpc40TkZU7kZIzxjw%2FL5o9knSjse%2BFqEUZ6oW%2F8wI19VvRXvlyTfzngv4iUNUieensAQsT6%2BQD%2F1TBekG%2BqYXuT6%2F8iIWlnYNf2URFZjxXF9a0uxetVXt1HFyOIPkFIM93PWtNKyrM5raqj%2FMQLLi4wZgfZmau1jEWJOHUGoSStELn8EEbM4Tv%2BtihAera%2Fu5E52j5q%2FHpMesPkQp68see67vh7oQmFVcqC9c61HAje763n21HtxgpIUb2nYC%2B7X3bD67j39JLkXf4LF5XZCIwQkxm%2BKI4iZk7hWRbaz7jvZjwpmlOt5OVp9DWM2%2B1Fzl6TKesgijmMjZJVOaYXckv6aLFWd0IUxFngLhNBTj1wZxJnW1%2FfYOXrUYoTQmnhMi8crjdX4j1X8B5eY&allow_caching=true&sz=w512
-        " alt="" class="fototrem" style="width: 65%;"></div>
-      <div id="menu-toggle">☰</div>
+    <header
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <div class="col-md-3 mb-2 mb-md-0"> <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+          <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
+            <use xlink:href="#bootstrap"></use>
+          </svg> </a> </div>
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+        <li><a href="#" class="nav-link px-2">Features</a></li>
+        <li><a href="#" class="nav-link px-2">Pricing</a></li>
+        <li><a href="#" class="nav-link px-2">FAQs</a></li>
+        <li><a href="#" class="nav-link px-2">About</a></li>
+      </ul>
+      <div class="col-md-3 text-end"> <button type="button" class="btn btn-outline-primary me-2">Login</button>
+        <button type="button" class="btn btn-primary">Sign-up</button>
+      </div>
     </header>
+
     <div class="flex_grande">
       <div class="tabs">
         <button id="hoje-btn">Ontem</button>
@@ -49,6 +63,8 @@
           }
         </script>
       </div>
+
+
 
       <div class="horarios">
         <div class="box">
@@ -158,22 +174,24 @@
         </div>
       </div>
     </div>
-
     <footer>
       <div class="footer">
-        <div><button onclick="location.href='geral.html'"> <img
-              src=https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png>
-          </button></div>
-        <div><button onclick="location.href='rotas.html'"> <img
-              src=https://cdn-icons-png.flaticon.com/512/49/49116.png></button>
+        <div><button onclick="location.href='geral.html'"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png"></button>
         </div>
+        <div><button onclick="location.href='rotas.html'"><img
+              src="https://cdn-icons-png.flaticon.com/512/49/49116.png"></button></div>
         <div><button onclick="location.href='alertas.html'"><img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button>
         </div>
         <div><button onclick="location.href='usuario.html'"><img src="../../imagens/perfil.png" alt="Avatar"
-              style="border-radius: 50%"></button>
-        </div>
+              style="border-radius: 50%"></button></div>
+      </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+      crossorigin="anonymous"></script>
+
 </body>
 
 </html>

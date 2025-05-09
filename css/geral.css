@@ -44,32 +44,6 @@ header {
   /* Texto branco */
 }
 
-/* Rodapé */
-.footer {
-  display: flex;
-  justify-content: space-around;
-  border-top: 1px solid #c0c0c8;
-  /* Borda cinza Uber */
-  background-color: #ffffff;
-  /* Fundo branco */
-  position: fixed;
-  bottom: 0;
-  padding: 2% 0;
-  width: 100%;
-}
-
-.footer button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding-bottom: 10px;
-}
-
-.footer img {
-  width: 24px;
-  height: 24px;
-}
-
 /* Abas */
 .tabs {
   padding-top: 5%;
@@ -225,6 +199,7 @@ header {
     margin: 0 auto;
     display: block;
   }
+
   .flex_grande {
     display: flex;
     max-width: 60%;
@@ -235,22 +210,21 @@ header {
   .tabs {
     max-width: 80%;
     padding-left: 40%;
-  padding-right: 5%;
-padding-bottom: 3%;
-}
+    padding-right: 5%;
+    padding-bottom: 3%;
+  }
 
-  .horarios{
-    padding-left: 20%;
-    padding-right: 20%;
-    margin-right: ;
-  }
-  
-  .mapa{
+  .horarios {
     padding-left: 20%;
     padding-right: 20%;
   }
-  
- .box {
+
+  .mapa {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+
+  .box {
     padding-left: 8%;
     padding-right: 8%;
   }
@@ -259,4 +233,30 @@ padding-bottom: 3%;
     width: 100%;
     height: auto;
   }
+}
+
+.footer {
+  display: flex;
+  position: fixed;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #ccc;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  padding-top: 2%;
+  width: 100%;
+}
+
+.footer button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding-bottom: 10px;
+}
+
+.footer img {
+  width: 24px;
+  height: 24px;
 }
