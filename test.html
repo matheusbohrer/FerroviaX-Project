@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Botões e Blocos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .botoes button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    .blocos {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .bloco {
+      width: 150px;
+      height: 100px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="botoes">
+    <button id="botao1">Botão 1</button>
+    <button id="botao2">Botão 2</button>
+    <button id="botao3">Botão 3</button>
+  </div>
+
+  <div class="blocos">
+    <div id="bloco1" class="bloco"></div>
+    <div id="bloco2" class="bloco"></div>
+    <div id="bloco3" class="bloco"></div>
+  </div>
+
+  <script>
+    // Textos associados a cada botão
+    const conteudos = {
+      botao1: ["Texto A1", "Texto A2", "Texto A3"],
+      botao2: ["Texto B1", "Texto B2", "Texto B3"],
+      botao3: ["Texto C1", "Texto C2", "Texto C3"]
+    };
+
+    // Função para atualizar os blocos com base no botão clicado
+    function atualizarBlocos(textos) {
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`bloco${i}`).textContent = textos[i - 1];
+      }
+    }
+
+    // Adiciona eventos aos botões
+    document.getElementById("botao1").addEventListener("click", () => {
+      atualizarBlocos(conteudos.botao1);
+    });
+
+    document.getElementById("botao2").addEventListener("click", () => {
+      atualizarBlocos(conteudos.botao2);
+    });
+
+    document.getElementById("botao3").addEventListener("click", () => {
+      atualizarBlocos(conteudos.botao3);
+    });
+  </script>
+
+</body>
+</html>

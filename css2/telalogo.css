@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-body {
+.body {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -38,6 +38,7 @@ p {
     opacity: 0;
     transform: translateY(30px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
