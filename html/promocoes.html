@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Promoções - FerroviaX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/promocoes.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="promo-header">
+      <h1>Promoções</h1>
+    </header>
+
+    <main class="promo-container">
+      <section class="promo-codigo">
+        <h2>Adicionar Código Promocional</h2>
+        <input type="text" placeholder="Digite seu código" />
+        <button onclick="alert('Código aplicado!')">Aplicar</button>
+      </section>
+
+      <section class="promo-ativas">
+        <h3>Promoções Ativas</h3>
+
+        <div class="promo-card">
+          <h4>Viagem Grátis</h4>
+          <p>Ganhe uma viagem grátis ao indicar um amigo para o FerroviaX.</p>
+          <span>Válido até: 30/06/2025</span>
+        </div>
+
+        <div class="promo-card">
+          <h4>Desconto de 20%</h4>
+          <p>Use o código "TRENO20" na sua próxima viagem e ganhe 20% de desconto.</p>
+          <span>Válido até: 15/07/2025</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div><button onclick="location.href='geral.html'"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png"></button></div>
+      <div><button onclick="location.href='rotas.html'"><img src="https://cdn-icons-png.flaticon.com/512/49/49116.png"></button></div>
+      <div><button onclick="location.href='alertas.html'"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button></div>
+      <div><button onclick="location.href='usuario.html'"><img src="../../imagens/perfil.png" alt="Avatar" style="border-radius: 50%"></button></div>
+    </footer>
+  </div>
+</body>
+</html>

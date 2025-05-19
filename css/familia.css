@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  max-width: 100%;
+}
+
+body {
+  background-color: #111111;
+  color: #ffffff;
+  padding-bottom: 80px;
+}
+
+.familia-header {
+  padding: 16px;
+  background-color: #1C1C1E;
+  text-align: center;
+  border-bottom: 1px solid #2C2C2E;
+}
+
+.familia-header h1 {
+  font-size: 20px;
+}
+
+.familia-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.familia-explicacao p {
+  font-size: 14px;
+  color: #cccccc;
+  line-height: 1.5;
+  background-color: #1C1C1E;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #2C2C2E;
+}
+
+.familia-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.familia-card {
+  background-color: #1C1C1E;
+  border: 1px solid #2C2C2E;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.familia-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.familia-card p {
+  font-size: 14px;
+  color: #cccccc;
+  margin-bottom: 12px;
+}
+
+.familia-card button {
+  background-color: #ffffff;
+  color: #111111;
+  font-weight: bold;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.familia-card button:hover {
+  background-color: #dddddd;
+  transform: scale(1.03);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background: #1C1C1E;
+  border-top: 1px solid #2C2C2E;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 0;
+}
+
+.footer button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+.footer img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%);
+}

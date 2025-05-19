@@ -1,0 +1,55 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saldo - FerroviaX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/saldo.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="saldo-header">
+      <h1>Saldo</h1>
+    </header>
+
+    <main class="saldo-container">
+      <section class="saldo-total">
+        <span>Saldo disponível</span>
+        <h2>R$ 128,75</h2>
+      </section>
+
+      <section class="acoes-saldo">
+        <button onclick="alert('Recarregar')">Adicionar Saldo</button>
+        <button onclick="alert('Transferir')">Transferir</button>
+      </section>
+
+      <section class="historico">
+        <h3>Histórico</h3>
+        <ul>
+          <li>
+            <div class="descricao">
+              <strong>Transferência Recebida</strong>
+              <span>Ontem</span>
+            </div>
+            <span class="valor positivo">+R$ 25,00</span>
+          </li>
+          <li>
+            <div class="descricao">
+              <strong>Compra de Bilhete</strong>
+              <span>15/05/2025</span>
+            </div>
+            <span class="valor negativo">-R$ 4,50</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div><button onclick="location.href='geral.html'"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png"></button></div>
+      <div><button onclick="location.href='rotas.html'"><img src="https://cdn-icons-png.flaticon.com/512/49/49116.png"></button></div>
+      <div><button onclick="location.href='alertas.html'"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button></div>
+      <div><button onclick="location.href='usuario.html'"><img src="../../imagens/perfil.png" alt="Avatar" style="border-radius: 50%"></button></div>
+    </footer>
+  </div>
+</body>
+</html>

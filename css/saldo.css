@@ -1,0 +1,139 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  max-width: 100%;
+}
+
+body {
+  background-color: #111111;
+  color: #ffffff;
+  padding-bottom: 80px; /* espaço para o footer */
+}
+
+.saldo-header {
+  padding: 16px;
+  background-color: #1C1C1E;
+  text-align: center;
+  border-bottom: 1px solid #2C2C2E;
+}
+
+.saldo-header h1 {
+  font-size: 20px;
+}
+
+.saldo-container {
+  padding: 16px;
+}
+
+.saldo-total {
+  background-color: #1C1C1E;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.saldo-total span {
+  color: #AFAFAF;
+  font-size: 14px;
+}
+
+.saldo-total h2 {
+  font-size: 32px;
+  color: #00FF94;
+  margin-top: 8px;
+}
+
+.acoes-saldo {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.acoes-saldo button {
+  flex: 1;
+  background-color: #00FF94;
+  color: #111111;
+  padding: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.acoes-saldo button:hover {
+  transform: scale(1.03);
+}
+
+.historico {
+  background-color: #1C1C1E;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.historico h3 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.historico ul {
+  list-style: none;
+}
+
+.historico li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #2C2C2E;
+}
+
+.historico li:last-child {
+  border-bottom: none;
+}
+
+.descricao span {
+  font-size: 13px;
+  color: #AFAFAF;
+}
+
+.valor {
+  font-weight: bold;
+}
+
+.valor.positivo {
+  color: #00FF94;
+}
+
+.valor.negativo {
+  color: #FF5C5C;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background: #1C1C1E;
+  border-top: 1px solid #2C2C2E;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 0;
+}
+
+.footer button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+.footer img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%);
+}

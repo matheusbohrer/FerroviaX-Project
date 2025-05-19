@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  max-width: 100%;
+}
+
+body {
+  background-color: #111111;
+  color: #ffffff;
+  padding-bottom: 80px;
+}
+
+.mensagens-header {
+  padding: 16px;
+  background-color: #1C1C1E;
+  text-align: center;
+  border-bottom: 1px solid #2C2C2E;
+}
+
+.mensagens-header h1 {
+  font-size: 20px;
+}
+
+.mensagens-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mensagem-item {
+  background-color: #1C1C1E;
+  padding: 14px 16px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid #2C2C2E;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.mensagem-item:hover {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+.mensagem-dados h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.mensagem-dados p {
+  font-size: 14px;
+  color: #AFAFAF;
+}
+
+.mensagem-hora {
+  font-size: 12px;
+  color: #777;
+  margin-left: 12px;
+  white-space: nowrap;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background: #1C1C1E;
+  border-top: 1px solid #2C2C2E;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 0;
+}
+
+.footer button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+.footer img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%);
+}

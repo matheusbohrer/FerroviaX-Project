@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  max-width: 100%;
+}
+
+body {
+  background-color: #111111;
+  color: #ffffff;
+  padding-bottom: 80px;
+}
+
+.config-header {
+  padding: 16px;
+  background-color: #1C1C1E;
+  text-align: center;
+  border-bottom: 1px solid #2C2C2E;
+}
+
+.config-header h1 {
+  font-size: 20px;
+}
+
+.config-container {
+  padding: 16px;
+}
+
+.config-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.config-item {
+  background-color: #1C1C1E;
+  padding: 16px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  border: 1px solid #2C2C2E;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.config-item:hover {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+.config-item .seta {
+  font-size: 18px;
+  opacity: 0.5;
+}
+
+.config-item.sair {
+  background-color: #2C2C2E;
+  justify-content: center;
+  color: #FF5C5C;
+  font-weight: bold;
+}
+
+.config-item.sair:hover {
+  background-color: #FF5C5C;
+  color: #ffffff;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background: #1C1C1E;
+  border-top: 1px solid #2C2C2E;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 0;
+}
+
+.footer button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+.footer img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%);
+}
