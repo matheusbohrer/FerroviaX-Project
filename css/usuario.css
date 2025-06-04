@@ -1,158 +1,156 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    max-width: 100%;
-  }
-  
-  body {
-    background: #111111;
-    color: #FFFFFF;
-  }
-  
-  .perfil-container {
-    padding: 16px;
-  }
-  
-  .perfil-topo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #1C1C1E;
-    padding: 16px;
-    border-radius: 12px;
-    margin-bottom: 24px;
-  }
-  
-  .perfil-nome h2 {
-    font-size: 20px;
-    margin-bottom: 8px;
-    color: #FFFFFF;
-  }
-  
-  .rating {
-    background-color: #2C2C2E;
-    border-radius: 12px;
-    padding: 4px 8px;
-    display: inline-block;
-    font-size: 14px;
-    color: #AFAFAF;
-  }
-  
-  .perfil-foto {
-    position: relative;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  
-  .perfil-foto img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .perfil-caixas {
-    display: flex;
-    justify-content: space-around;
-    margin: 24px 0;
-    gap: 8px;
-  }
-  
-  .caixa {
-    background: #1C1C1E;
-    padding: 12px 20px;
-    border-radius: 12px;
-    text-align: center;
-    font-weight: bold;
-    flex: 1;
-    color: #FFFFFF;
-    border: 1px solid #2C2C2E;
-  }
-  
-  .opcoes-lista {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .opcao {
-    background: #1C1C1E;
-    padding: 14px;
-    border-radius: 10px;
-    font-weight: 500;
-    border: 1px solid #2C2C2E;
-    color: #FFFFFF;
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  
-  .opcao:hover {
-    background: #FFFFFF;
-    color: #111111;
-  }
-  
-  .footer {
-    display: flex;
-    justify-content: space-around;
-    background: #1C1C1E;
-    border-top: 1px solid #2C2C2E;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 12px 0;
-  }
-  
-  .footer button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: #FFFFFF;
-  }
-  
-  .footer img {
-    width: 24px;
-    height: 24px;
-    filter: invert(100%);
-  }
-  
-  .foto-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .icone-camera {
-    width: 24px;
-    height: 24px;
-    filter: invert(1);
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  max-width: 100%;
+}
 
-  .caixa {
-    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .caixa:hover {
-    background: #FFFFFF;
-    color: #111111;
-    transform: scale(1.05);
-  }
-  
-  .avaliacao-popup {
+body {
+  background: #f9f9f9;
+  color: #111111;
+}
+
+.perfil-container {
+  padding: 16px;
+}
+
+.perfil-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  border: 1px solid #ddd;
+}
+
+.perfil-nome h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #111111;
+}
+
+.rating {
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  padding: 4px 8px;
+  display: inline-block;
+  font-size: 14px;
+  color: #555555;
+}
+
+.perfil-foto {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.perfil-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.perfil-caixas {
+  display: flex;
+  justify-content: space-around;
+  margin: 24px 0;
+  gap: 8px;
+}
+
+.caixa {
+  background: #ffffff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  flex: 1;
+  color: #111111;
+  border: 1px solid #ccc;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.caixa:hover {
+  background: #111111;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.opcoes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.opcao {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  color: #111111;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.opcao:hover {
+  background: #111111;
+  color: #ffffff;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 0;
+}
+
+.footer button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #111111;
+}
+
+.footer img {
+  width: 24px;
+  height: 24px;
+  filter: invert(0%);
+}
+
+.foto-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icone-camera {
+  width: 24px;
+  height: 24px;
+  filter: invert(0);
+}
+
+.avaliacao-popup {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #1C1C1E;
-  border-top: 1px solid #2C2C2E;
+  background: #ffffff;
+  border-top: 1px solid #ddd;
   padding: 16px;
   display: none;
   flex-direction: column;
@@ -170,7 +168,7 @@
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: #FFFFFF;
+  color: #111111;
 }
 
 .estrelas {
@@ -188,8 +186,8 @@
 }
 
 .btn-enviar {
-  background-color: #FFFFFF;
-  color: #111111;
+  background-color: #111111;
+  color: #ffffff;
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -199,5 +197,5 @@
 }
 
 .btn-enviar:hover {
-  background-color: #E5E5E5;
+  background-color: #333333;
 }

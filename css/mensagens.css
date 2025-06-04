@@ -7,16 +7,16 @@
 }
 
 body {
-  background-color: #111111;
-  color: #ffffff;
+  background-color: #f9f9f9;
+  color: #111111;
   padding-bottom: 80px;
 }
 
 .mensagens-header {
   padding: 16px;
-  background-color: #1C1C1E;
+  background-color: #ffffff;
   text-align: center;
-  border-bottom: 1px solid #2C2C2E;
+  border-bottom: 1px solid #dddddd;
 }
 
 .mensagens-header h1 {
@@ -31,20 +31,20 @@ body {
 }
 
 .mensagem-item {
-  background-color: #1C1C1E;
+  background-color: #ffffff;
   padding: 14px 16px;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  border: 1px solid #2C2C2E;
+  border: 1px solid #dddddd;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .mensagem-item:hover {
-  background-color: #ffffff;
-  color: #111111;
+  background-color: #111111;
+  color: #ffffff;
 }
 
 .mensagem-dados h3 {
@@ -54,12 +54,12 @@ body {
 
 .mensagem-dados p {
   font-size: 14px;
-  color: #AFAFAF;
+  color: #555555;
 }
 
 .mensagem-hora {
   font-size: 12px;
-  color: #777;
+  color: #888888;
   margin-left: 12px;
   white-space: nowrap;
 }
@@ -67,8 +67,8 @@ body {
 .footer {
   display: flex;
   justify-content: space-around;
-  background: #1C1C1E;
-  border-top: 1px solid #2C2C2E;
+  background: #ffffff;
+  border-top: 1px solid #dddddd;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -79,11 +79,11 @@ body {
   border: none;
   background: none;
   cursor: pointer;
-  color: #FFFFFF;
+  color: #111111;
 }
 
 .footer img {
   width: 24px;
   height: 24px;
-  filter: invert(100%);
+  filter: invert(0%);
 }

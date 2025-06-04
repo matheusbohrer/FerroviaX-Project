@@ -7,16 +7,16 @@
 }
 
 body {
-  background-color: #111111;
-  color: #ffffff;
+  background-color: #f9f9f9;
+  color: #111111;
   padding-bottom: 80px;
 }
 
 .cartao-header {
   padding: 16px;
-  background-color: #1C1C1E;
+  background-color: #ffffff;
   text-align: center;
-  border-bottom: 1px solid #2C2C2E;
+  border-bottom: 1px solid #dddddd;
 }
 
 .cartao-header h1 {
@@ -37,7 +37,7 @@ body {
 
 .cartao-descricao p {
   font-size: 14px;
-  color: #AFAFAF;
+  color: #555555;
 }
 
 .cartao-formulario {
@@ -48,11 +48,11 @@ body {
 
 .cartao-formulario input,
 .cartao-formulario textarea {
-  background-color: #1C1C1E;
-  border: 1px solid #2C2C2E;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
   border-radius: 10px;
   padding: 12px;
-  color: #FFFFFF;
+  color: #111111;
   font-size: 14px;
 }
 
@@ -62,8 +62,8 @@ body {
 }
 
 .cartao-formulario button {
-  background-color: #ffffff;
-  color: #111111;
+  background-color: #111111;
+  color: #ffffff;
   font-weight: bold;
   border: none;
   padding: 14px;
@@ -73,15 +73,15 @@ body {
 }
 
 .cartao-formulario button:hover {
-  background-color: #dddddd;
+  background-color: #333333;
   transform: scale(1.03);
 }
 
 .footer {
   display: flex;
   justify-content: space-around;
-  background: #1C1C1E;
-  border-top: 1px solid #2C2C2E;
+  background: #ffffff;
+  border-top: 1px solid #dddddd;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -92,11 +92,11 @@ body {
   border: none;
   background: none;
   cursor: pointer;
-  color: #FFFFFF;
+  color: #111111;
 }
 
 .footer img {
   width: 24px;
   height: 24px;
-  filter: invert(100%);
+  filter: invert(0%);
 }

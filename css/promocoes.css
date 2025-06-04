@@ -7,16 +7,16 @@
 }
 
 body {
-  background-color: #111111;
-  color: #ffffff;
+  background-color: #f9f9f9;
+  color: #111111;
   padding-bottom: 80px;
 }
 
 .promo-header {
   padding: 16px;
-  background-color: #1C1C1E;
+  background-color: #ffffff;
   text-align: center;
-  border-bottom: 1px solid #2C2C2E;
+  border-bottom: 1px solid #dddddd;
 }
 
 .promo-header h1 {
@@ -36,18 +36,18 @@ body {
 }
 
 .promo-codigo input {
-  background-color: #1C1C1E;
-  border: 1px solid #2C2C2E;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
   border-radius: 10px;
   padding: 12px;
-  color: #ffffff;
+  color: #111111;
   width: 100%;
   margin-bottom: 12px;
 }
 
 .promo-codigo button {
-  background-color: #ffffff;
-  color: #111111;
+  background-color: #111111;
+  color: #ffffff;
   font-weight: bold;
   border: none;
   padding: 14px;
@@ -58,7 +58,7 @@ body {
 }
 
 .promo-codigo button:hover {
-  background-color: #dddddd;
+  background-color: #333333;
   transform: scale(1.03);
 }
 
@@ -68,8 +68,8 @@ body {
 }
 
 .promo-card {
-  background-color: #1C1C1E;
-  border: 1px solid #2C2C2E;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;
@@ -78,12 +78,12 @@ body {
 .promo-card h4 {
   margin-bottom: 6px;
   font-size: 16px;
-  color: #ffffff;
+  color: #111111;
 }
 
 .promo-card p {
   font-size: 14px;
-  color: #cccccc;
+  color: #555555;
   margin-bottom: 8px;
 }
 
@@ -95,8 +95,8 @@ body {
 .footer {
   display: flex;
   justify-content: space-around;
-  background: #1C1C1E;
-  border-top: 1px solid #2C2C2E;
+  background: #ffffff;
+  border-top: 1px solid #dddddd;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -107,11 +107,11 @@ body {
   border: none;
   background: none;
   cursor: pointer;
-  color: #FFFFFF;
+  color: #111111;
 }
 
 .footer img {
   width: 24px;
   height: 24px;
-  filter: invert(100%);
+  filter: invert(0%);
 }
