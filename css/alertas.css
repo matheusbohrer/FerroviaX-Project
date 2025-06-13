@@ -5,7 +5,11 @@
   font-family: 'Inter', sans-serif;
 }
 
-
+.logo-container img {
+  display: block;
+  max-height: 48px;
+  width: auto;
+}
 
 header {
   display: flex;

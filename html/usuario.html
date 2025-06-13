@@ -52,7 +52,7 @@
         <div class="opcao" onclick="location.href='promocoes.html'">Promoções</div>
         <div class="opcao" onclick="location.href='familia.html'">Família e Adolescentes</div>
         <div class="opcao" onclick="location.href='diretrizes.html'">Diretrizes da Comunidade</div>
-       <div class="opcao" onclick="abrirPopupAvaliacao()">Avalie nosso site</div>
+        <div class="opcao" onclick="abrirPopupAvaliacao()">Avalie nosso site</div>
         <div class="avaliacao-popup" id="avaliacaoPopup">
           <div class="avaliacao-conteudo">
             <p class="avaliacao-titulo">Como você avalia nosso site?</p>
@@ -80,42 +80,42 @@
         <div><button onclick="location.href='alertas.html'"><img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button>
         </div>
-        <div><button onclick="location.href='usuario.html'"><img src="../../imagens/perfil.png" alt="Avatar"
-              style="border-radius: 50%"></button></div>
-      </div>
-    </footer>
+        <div><button onclick="location.href='usuario.html'">
+            <img src="../imagens/perfil.png" alt="Avatar" style="border-radius: 50%; width: 32px; height: 32px;">
+  </div>
+  </footer>
 
   </div>
   <script>
-  let avaliacaoSelecionada = 0;
+    let avaliacaoSelecionada = 0;
 
-  function abrirPopupAvaliacao() {
-    document.getElementById('avaliacaoPopup').style.display = 'flex';
-  }
-
-  function enviarAvaliacao() {
-    if (avaliacaoSelecionada > 0) {
-      alert(`Obrigado pela sua avaliação de ${avaliacaoSelecionada} estrela(s)!`);
-      document.getElementById('avaliacaoPopup').style.display = 'none';
-    } else {
-      alert('Por favor, selecione uma quantidade de estrelas.');
+    function abrirPopupAvaliacao() {
+      document.getElementById('avaliacaoPopup').style.display = 'flex';
     }
-  }
 
-  document.querySelectorAll('.estrela').forEach(star => {
-    star.addEventListener('click', function () {
-      avaliacaoSelecionada = parseInt(this.getAttribute('data-valor'));
-      atualizarEstrelas(avaliacaoSelecionada);
-    });
-  });
+    function enviarAvaliacao() {
+      if (avaliacaoSelecionada > 0) {
+        alert(`Obrigado pela sua avaliação de ${avaliacaoSelecionada} estrela(s)!`);
+        document.getElementById('avaliacaoPopup').style.display = 'none';
+      } else {
+        alert('Por favor, selecione uma quantidade de estrelas.');
+      }
+    }
 
-  function atualizarEstrelas(valor) {
     document.querySelectorAll('.estrela').forEach(star => {
-      const starValue = parseInt(star.getAttribute('data-valor'));
-      star.style.opacity = starValue <= valor ? '1' : '0.3';
+      star.addEventListener('click', function () {
+        avaliacaoSelecionada = parseInt(this.getAttribute('data-valor'));
+        atualizarEstrelas(avaliacaoSelecionada);
+      });
     });
-  }
-</script>
+
+    function atualizarEstrelas(valor) {
+      document.querySelectorAll('.estrela').forEach(star => {
+        const starValue = parseInt(star.getAttribute('data-valor'));
+        star.style.opacity = starValue <= valor ? '1' : '0.3';
+      });
+    }
+  </script>
 </body>
 
 </html>

@@ -6,7 +6,11 @@
   max-width: 100%;
 }
 
-
+.logo-container img {
+  display: block;
+  max-height: 48px;
+  width: auto;
+}
 
 /* Corpo da Página */
 body {

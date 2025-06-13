@@ -22,6 +22,12 @@ body {
   background: white;
 }
 
+.logo-container img {
+  display: block;
+  max-height: 48px;
+  width: auto;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -201,7 +207,6 @@ header {
     background-color: white;
     width: 80%;
     padding-left: 10%;
-    padding
   }
 
   .busca {
