@@ -169,3 +169,39 @@
   color: #fff;
   box-shadow: none;
 }
+
+.logo-container img {
+  display: block;
+  max-height: 48px;
+  width: auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #09091a;
+ 
+  color: #ffffff;
+}
+
+.tabs {
+  padding-top: 5%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.voltar-btn {
+  left: 16px;
+  top: 50%;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -17,9 +17,7 @@ header {
   align-items: center;
   padding: 16px;
   background-color: #09091a;
-  /* Fundo preto Uber */
   color: #ffffff;
-  /* Texto branco */
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -177,7 +175,6 @@ header {
   margin-left: 4px;
 }
 
-/* Estilo do botão de fechar (X) */
 .botao-fechar-popup {
   background: none;
   border: none;
@@ -191,7 +188,6 @@ header {
   color: #333;
 }
 
-/* Estilo do botão "Mais tarde" */
 .secundario {
   background-color: #f0f0f0;
   color: #333;

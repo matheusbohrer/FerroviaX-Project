@@ -88,17 +88,6 @@ body {
   filter: invert(0%);
 }
 
-.voltar-btn {
-  position: absolute;
-  left: 16px;
-  top: 16px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #111111;
-}
-
 .config-header {
   position: relative;
   padding: 16px;
@@ -112,11 +101,11 @@ body {
   margin: 0;
 }
 
-.voltar-btn {
-  position: absolute;
+.voltar-btn {  
   left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 16px;
+  font-size: 20px;
+  color: #111111;
   background: none;
   border: none;
   padding: 8px;
@@ -131,6 +120,7 @@ body {
   height: 24px;
   stroke: #111111;
   transition: stroke 0.2s ease;
+  align-items: left;
 }
 
 .voltar-btn:hover svg {
