@@ -80,7 +80,7 @@
         <div><button onclick="location.href='alertas.html'"><img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button>
         </div>
-        <div><button onclick="location.href='usuario.html'">
+        <div><button onclick="location.href='usuario.php'">
             <img src="../imagens/perfil.png" alt="Avatar" style="border-radius: 50%; width: 32px; height: 32px;">
   </div>
   </footer>

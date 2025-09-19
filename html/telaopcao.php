@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FerroviaX</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css2/telaopcao.css" />
+  <link rel="stylesheet" href="../css/telaopcao.css" />
 </head>
 <body>
   <div class="container">
     <div class="top">
       <img src="../imagens/logoBranca.png" alt="FerroviaX Logo">
-      <a href="telalogin.html" class="balao">Já tem uma conta?</a>
+      <a href="telalogin.php" class="balao">Já tem uma conta?</a>
     </div>
 
     <div class="content">
@@ -20,8 +20,8 @@
     </div>
 
     <div class="actions">
-      <a href="telaregistro.html" class="btn">Cadastre-se <span>→</span></a>
-      <a href="telalogin.html" class="btn secondary">Fazer login <span>→</span></a>
+      <a href="telaregistro.php" class="btn">Cadastre-se <span>→</span></a>
+      <a href="telalogin.php" class="btn secondary">Fazer login <span>→</span></a>
     </div>
   </div>
 </body>

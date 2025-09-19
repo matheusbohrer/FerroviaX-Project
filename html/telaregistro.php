@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registrar - FerroviaX</title>
-  <link rel="stylesheet" href="/css2/telaregistro.css">
+  <link rel="stylesheet" href="../css/telaregistro.css">
 </head>
 
 <body>
@@ -27,14 +27,14 @@
         const senha = document.getElementById('senha').value.trim();
     
         if (nome && email && senha) {
-          location.href = '/html/geral.html';
+          location.href = 'geral.html';
         } else {
           alert('Por favor, preencha todos os campos antes de continuar.');
         }
       }
     </script>
     <div class="login-link">
-      Já tem uma conta? <a href="telalogin.html">Entrar</a>
+      Já tem uma conta? <a href="telalogin.php">Entrar</a>
     </div>
   </div>
 </body>
