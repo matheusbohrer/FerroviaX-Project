@@ -1,38 +1,44 @@
- <?php
+<?php
   require "bd.php";
 
   session_start();
 
-  if (isset($_SESSION["nome_usuario"])) {
-    header("Location: usuario.php");
-    exit;
-  }
-
   $erro = "";
 
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
+    if (isset($_POST["login"])) {
     $email = trim($_POST["email"] ?? "");
     $senha = trim($_POST["senha"] ?? "");
 
-    $stmt = $conn->prepare("SELECT pk_usuario, nome_usuario, senha_usuario FROM usuario WHERE email_usuario = ? AND senha_usuario= ?");
-    $stmt->bind_param("ss", $email, $senha);
+    $stmt = $conn->prepare("SELECT * FROM usuario WHERE email_usuario = ?");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
+
     if ($resultado->num_rows === 1) {
       $dados = $resultado->fetch_assoc();
-      $_SESSION["nome_usuario"] = $dados["nome_usuario"];
-      $_SESSION["usuario_id"] = $dados["pk_usuario"];
-      $_SESSION["conectado"] = true;
+      $senha_armazenada_rash = $dados["senha_usuario"];
+
+      if (password_verify($senha, $senha_armazenada_rash)) {
+
+        $_SESSION["nome_usuario"] = $dados["nome_usuario"];
+        $_SESSION["usuario_id"] = $dados["pk_usuario"];
+        $_SESSION["email_usuario"] = $dados["email_usuario"];
+        $_SESSION["conectado"] = true;
 
 
-      header("Location: geral.php");
-      exit;
-    } else {
-      $erro = "E-mail ou senha inválidos.";
+
+
+        header("Location: ../html/geral.php");
+        exit;
+      } else {
+        $erro = "E-mail ou senha inválidos.";
+      }
     }
-  } ?>
+  } 
+}
+  ?>
  <!DOCTYPE html>
  <html lang="pt-BR">
 
@@ -52,7 +58,7 @@
      <form id="login-form" method="post">
        <input id="email" type="email" placeholder="E-mail" name="email" required />
        <input id="senha" type="password" placeholder="Senha" name="senha" required />
-       <button type="submit">Entrar</button>
+       <button type="submit" name="login">Entrar</button>
      </form>
 
      <div class="login-link">

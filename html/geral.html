@@ -1,3 +1,11 @@
+<?php
+session_start();
+  if (!isset($_SESSION["conectado"]) || $_SESSION["conectado"] !== true) {
+    header("Location: login.php");
+    exit;
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -76,8 +84,12 @@
           src="https://hips.hearstapps.com/hmg-prod/images/shaquille-oneal-looks-on-prior-to-a-game-between-the-boston-news-photo-1698169169.jpg"
           alt="Shaq">
         <div>
-          <div>Shaq</div>
-          <div class="email">shaquille_oneal@gmail.com</div>
+          <div>
+            <?php echo htmlspecialchars($_SESSION['nome_usuario']); ?>
+          </div>
+          <div class="email">
+            <?php echo htmlspecialchars($_SESSION['email_usuario']); ?>
+          </div>
         </div>
       </div>
       <div class="usuario">
