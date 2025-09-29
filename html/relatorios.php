@@ -93,23 +93,23 @@ require_once "buscar.php";
     </div>
   </div>
 
-  <!-- Rodapé fixo -->
-  <footer class="bg-white border-top py-3 fixed-bottom">
+  <footer class="bg-white border-top py-2 fixed-bottom">
     <div class="container">
       <div class="d-flex justify-content-around">
         <button class="btn btn-link" onclick="location.href='geral.php'">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
         </button>
-        <button class="btn btn-link" onclick="location.href='rotas.php'">
+        <button class="btn btn-link" onclick="location.href='relatorios.php'">
           <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
         </button>
         <button class="btn btn-link" onclick="location.href='alertas.php'">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
         </button>
         <button class="btn btn-link" onclick="location.href='usuario.php'">
-          <img src="../../imagens/perfil.png" alt="Avatar" style="height:32px; border-radius:50%;" />
+          <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
         </button>
       </div>
     </div>
   </footer>
-  <script src
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
