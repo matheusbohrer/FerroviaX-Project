@@ -121,23 +121,22 @@ require_once "buscar.php";
     </div>
   </div>
 
-  <footer class="secondary py-3 mt-auto fixed-bottom">
-    <div class="container d-flex justify-content-around">
-      <a href="alertas.html">
-        <button class="btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;">
+  <footer class="bg-white border-top py-2 fixed-bottom">
+    <div class="container">
+      <div class="d-flex justify-content-around">
+        <button class="btn btn-link" onclick="location.href='geral.php'">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
         </button>
-      </a>
-      <a href="relatorios.html">
-        <button class="btn">
-          <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;">
+        <button class="btn btn-link" onclick="location.href='relatorios.php'">
+          <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
         </button>
-      </a>
-      <a href="usuario.php">
-        <button class="btn">
-          <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt=" Avatar" style="border-radius:50%;height:32px;">
+        <button class="btn btn-link" onclick="location.href='alertas.php'">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
         </button>
-      </a>
+        <button class="btn btn-link" onclick="location.href='usuario.php'">
+          <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
+        </button>
+      </div>
     </div>
   </footer>
 
