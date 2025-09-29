@@ -123,12 +123,12 @@ require_once "buscar.php";
 
   <footer class="secondary py-3 mt-auto fixed-bottom">
     <div class="container d-flex justify-content-around">
-      <a href="alertas.html">
+      <a href="alertas.php">
         <button class="btn">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;">
         </button>
       </a>
-      <a href="relatorios.html">
+      <a href="relatorios.php">
         <button class="btn">
           <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;">
         </button>
