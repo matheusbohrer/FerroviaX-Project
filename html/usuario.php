@@ -77,7 +77,7 @@ require_once "buscar.php";
 
     <div class="row mb-4">
       <div class="col-4">
-        <div class="card text-center h-100" onclick="location.href='manutencao.html'" style="cursor:pointer;">
+        <div class="card text-center h-100" onclick="location.href='manutencao.php'" style="cursor:pointer;">
           <div class="card-body">
             <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png" alt="Manutenção" class="mb-2" style="width:32px; height:32px;">
             <div>Manutenção</div>
@@ -85,7 +85,7 @@ require_once "buscar.php";
         </div>
       </div>
       <div class="col-4">
-        <div class="card text-center h-100" onclick="location.href='saldo.html'" style="cursor:pointer;">
+        <div class="card text-center h-100" onclick="location.href='saldo.php'" style="cursor:pointer;">
           <div class="card-body">
             <img src="https://cdn-icons-png.flaticon.com/512/126/126083.png" alt="Saldo" class="mb-2" style="width:32px; height:32px;">
             <div>Saldo</div>
@@ -93,7 +93,7 @@ require_once "buscar.php";
         </div>
       </div>
       <div class="col-4">
-        <div class="card text-center h-100" onclick="location.href='relatorios.html'" style="cursor:pointer;">
+        <div class="card text-center h-100" onclick="location.href='relatorios.php'" style="cursor:pointer;">
           <div class="card-body">
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Relatórios" class="mb-2" style="width:32px; height:32px;">
             <div>Relatórios</div>
@@ -104,12 +104,12 @@ require_once "buscar.php";
 
     <div class="opcoes-lista mb-4">
       <ul class="list-group">
-        <li class="list-group-item" onclick="location.href='configuracoes.html'">Configurações de Conta</li>
-        <li class="list-group-item" onclick="location.href='mensagens.html'">Mensagens</li>
-        <li class="list-group-item" onclick="location.href='presente.html'">Cartão Presente</li>
-        <li class="list-group-item" onclick="location.href='promocoes.html'">Promoções</li>
-        <li class="list-group-item" onclick="location.href='familia.html'">Família e Adolescentes</li>
-        <li class="list-group-item" onclick="location.href='diretrizes.html'">Diretrizes da Comunidade</li>
+        <li class="list-group-item" onclick="location.href='configuracoes.php'">Configurações de Conta</li>
+        <li class="list-group-item" onclick="location.href='mensagens.php'">Mensagens</li>
+        <li class="list-group-item" onclick="location.href='presente.php'">Cartão Presente</li>
+        <li class="list-group-item" onclick="location.href='promocoes.php'">Promoções</li>
+        <li class="list-group-item" onclick="location.href='familia.php'">Família e Adolescentes</li>
+        <li class="list-group-item" onclick="location.href='diretrizes.php'">Diretrizes da Comunidade</li>
         <li class="list-group-item" onclick="abrirPopupAvaliacao()">Avalie nosso site</li>
       </ul>
       <div class="avaliacao-popup" id="avaliacaoPopup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
