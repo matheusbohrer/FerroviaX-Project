@@ -7,5 +7,6 @@ CREATE TABLE usuario(
     nome_usuario VARCHAR(50),
     email_usuario VARCHAR(50),
     senha_usuario VARCHAR(200),
-    foto_usuario VARCHAR(255)
+    foto_usuario VARCHAR(255),
+    cargo INT
     );

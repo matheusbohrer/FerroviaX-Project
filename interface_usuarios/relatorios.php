@@ -1,5 +1,5 @@
 <?php
-require_once "buscar.php";
+require_once "../php/buscar.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

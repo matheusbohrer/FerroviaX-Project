@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../php/bd.php";
+require_once "../php/buscar.php";
 
 $mensagem = "";
 $usuario_id = $_SESSION['usuario_id'] ?? null;

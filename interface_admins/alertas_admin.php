@@ -1,5 +1,5 @@
 <?php
-require_once "buscar.php";
+require_once "../php/buscar.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -110,16 +110,16 @@ require_once "buscar.php";
   <footer class="bg-white border-top py-2 fixed-bottom">
     <div class="container">
       <div class="d-flex justify-content-around">
-        <button class="btn btn-link" onclick="location.href='geral.php'">
+        <button class="btn btn-link" onclick="location.href='geral_admin.php'">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
         </button>
-        <button class="btn btn-link" onclick="location.href='relatorios.php'">
+        <button class="btn btn-link" onclick="location.href='relatorios_admin.php'">
           <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
         </button>
-        <button class="btn btn-link" onclick="location.href='alertas.php'">
+        <button class="btn btn-link" onclick="location.href='alertas_admin.php'">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
         </button>
-        <button class="btn btn-link" onclick="location.href='usuario.php'">
+        <button class="btn btn-link" onclick="location.href='usuario_admin.php'">
           <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
         </button>
       </div>

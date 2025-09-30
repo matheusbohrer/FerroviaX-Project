@@ -1,5 +1,5 @@
 <?php
-require_once "buscar.php";
+require_once "../php/buscar.php";
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ require_once "buscar.php";
     <div class="container d-flex flex-wrap justify-content-between align-items-center">
       <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
       <h1 class="h5 mb-0" id="header-username" style="opacity:0; transition:opacity 0.5s;">
-        Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? "Bem-vindo $usuario"); ?>
+        Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? "$usuario"); ?>
       </h1>
     </div>
     <div id="slide-username" class="slide-username">
