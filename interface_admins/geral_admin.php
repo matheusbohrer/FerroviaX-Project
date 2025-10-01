@@ -118,7 +118,16 @@ $result = $conn->query($sql);
             </tr>
           </thead>
           <tbody>
-            <!-- Tabela vazia para preencher depois -->
+            <tr>
+              <td>1</td>
+              <td>Exemplo</td>
+              <td>Dados</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Teste</td>
+              <td>Info</td>
+            </tr>
           </tbody>
         </table>
       </div>
