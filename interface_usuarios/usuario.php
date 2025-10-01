@@ -128,24 +128,33 @@ require_once "../php/buscar.php";
     </div>
   </div>
 
-  <footer class="bg-white border-top py-2 fixed-bottom">
-    <div class="container">
-      <div class="d-flex justify-content-around">
-        <button class="btn btn-link" onclick="location.href='geral.php'">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='relatorios.php'">
-          <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='alertas.php'">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='usuario.php'">
-          <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
-        </button>
-      </div>
-    </div>
-  </footer>
+  <footer class="footer-nav fixed-bottom">
+  <div class="nav-container">
+    <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
+      <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
+      <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
+      <span>Início</span>
+    </button>
+
+    <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
+      <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
+      <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
+      <span>Relatórios</span>
+    </button>
+
+    <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
+      <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
+      <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
+      <span>Alertas</span>
+    </button>
+
+    <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
+      <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
+      <span>Perfil</span>
+    </button>
+  </div>
+</footer>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
   <script>
@@ -180,4 +189,100 @@ require_once "../php/buscar.php";
   </script>
 </body>
 
+<style>
+  .footer-nav {
+  background: #fff;
+  border-top: 1px solid #ddd;
+  padding: 6px 0;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 6px 0;
+  color: #666;
+  font-size: 12px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-item span {
+  display: block;
+  font-size: 11px;
+  margin-top: 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.nav-item .icon {
+  height: 26px;
+  width: 26px;
+  display: block;
+  margin: auto;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+/* avatar do usuário */
+.user-icon {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.nav-item .active-icon {
+  display: none;
+}
+
+.nav-item.active .default,
+.nav-item.active .user-icon {
+  opacity: 1;
+  transform: scale(1.15);
+  box-shadow: 0 0 6px #007bff;
+}
+
+.nav-item.active span {
+  opacity: 1;
+  color: #007bff;
+}
+
+.nav-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 40%;
+  height: 3px;
+  background: #007bff;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+</style>
+<script>
+   document.addEventListener("DOMContentLoaded", () => {
+    const navItems = document.querySelectorAll(".nav-item");
+    const path = window.location.pathname.split("/").pop();
+
+    navItems.forEach(item => {
+      const page = item.getAttribute("data-page") + ".php";
+      if (path === page) {
+        item.classList.add("active");
+      } else {
+        item.classList.remove("active");
+      }
+    });
+  });
+</script>
 </html>
