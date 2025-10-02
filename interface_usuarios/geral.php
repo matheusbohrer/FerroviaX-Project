@@ -139,7 +139,7 @@ require_once "../php/buscar.php";
       <span>Alertas</span>
     </button>
     <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
-      <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
+      <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default " />
       <span>Perfil</span>
     </button>
   </div>
