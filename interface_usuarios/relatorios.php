@@ -94,108 +94,120 @@ require_once "../php/buscar.php";
   </div>
 
   <footer class="footer-nav fixed-bottom">
-  <div class="nav-container">
-    <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
-      <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
-      <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
-      <span>Início</span>
-    </button>
+    <div class="nav-container">
+      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
+        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
+        <span>Início</span>
+      </button>
 
-    <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
-      <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
-      <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
-      <span>Relatórios</span>
-    </button>
+      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
+        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
+        <span>Relatórios</span>
+      </button>
 
-    <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
-      <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
-      <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
-      <span>Alertas</span>
-    </button>
+      <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
+        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
+        <span>Alertas</span>
+      </button>
 
-    <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
-      <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
-      <span>Perfil</span>
-    </button>
-  </div>
-</footer>
+      <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
+        <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
+        <span>Perfil</span>
+      </button>
+    </div>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 <style>
   .footer-nav {
-  background: #fff;
-  border-top: 1px solid #ddd;
-  padding: 6px 0;
-}
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 6px 0;
+  }
 
-.nav-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
+  .nav-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 
-.nav-item {
-  flex: 1;
-  text-align: center;
-  background: none;
-  border: none;
-  outline: none;
-  padding: 6px 0;
-  color: #666;
-  font-size: 12px;
-  transition: color 0.3s ease;
-  position: relative;
-}
+  .nav-item {
+    flex: 1;
+    text-align: center;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 6px 0;
+    color: #666;
+    font-size: 12px;
+    transition: color 0.3s ease;
+    position: relative;
+  }
 
-.nav-item span {
-  display: block;
-  font-size: 11px;
-  margin-top: 2px;
-  opacity: 0.6;
-  transition: 0.3s;
-}
+  .nav-item span {
+    display: block;
+    font-size: 11px;
+    margin-top: 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
 
-.nav-item .icon {
-  height: 26px;
-  width: 26px;
-  display: block;
-  margin: auto;
-  opacity: 0.6;
-  transition: 0.3s;
-}
+  .nav-item .icon {
+    height: 26px;
+    width: 26px;
+    display: block;
+    margin: auto;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
 
-.nav-item .active-icon {
-  display: none;
-}
+  .nav-item .active-icon {
+    display: none;
+  }
 
-.nav-item.active .default {
-  display: none;
-}
+  .nav-item.active .default {
+    display: none;
+  }
 
-.nav-item.active .active-icon {
-  display: block;
-}
+  .nav-item.active .active-icon {
+    display: block;
+  }
 
-.nav-item.active .icon,
-.nav-item.active span {
-  opacity: 1;
-  color: #007bff; /* azul destaque */
-  transform: scale(1.1);
-}
+  .nav-item.active .icon,
+  .nav-item.active span {
+    opacity: 1;
+    color: #007bff;
+    /* azul destaque */
+    transform: scale(1.1);
+  }
 
-.nav-item.active::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 30%;
-  width: 40%;
-  height: 3px;
-  background: #007bff;
-  border-radius: 2px;
-  transition: 0.3s;
-}
+  .nav-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    width: 40%;
+    height: 3px;
+    background: #007bff;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
 
+  .user-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    /* Garante que nunca fique gigante */
+    max-width: 32px;
+    max-height: 32px;
+  }
 </style>
 
 <script>
