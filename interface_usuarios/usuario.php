@@ -269,6 +269,16 @@ require_once "../php/buscar.php";
   border-radius: 2px;
   transition: 0.3s;
 }
+
+.list-group-item {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.list-group-item:hover {
+  background: #f1f1f1; /* leve destaque no hover */
+}
+
 </style>
 <script>
    document.addEventListener("DOMContentLoaded", () => {
