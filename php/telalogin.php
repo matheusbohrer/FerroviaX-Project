@@ -32,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           header("Location: ../interface_usuarios/geral.php");
         } elseif ($dados["cargo"] == 2) {
           header("Location: ../interface_admins/geral_admin.php");
+        } elseif ($dados["cargo"] == 3) {
+          header("Location: ../interface_maquinista/geral_maquinista.php");
         } else {
           $erro = "Cargo inválido.";
         }

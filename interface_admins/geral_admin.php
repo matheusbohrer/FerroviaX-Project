@@ -1,7 +1,7 @@
 <?php
 require_once "../php/buscar.php";
 
-// Atualiza o cargo se o formulário for enviado
+// Atualiza o cargo se o formulário for enviado (primeira aba)
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["usuario_id"], $_POST["novo_cargo"])) {
   $usuario_id = intval($_POST["usuario_id"]);
   $novo_cargo = intval($_POST["novo_cargo"]);
@@ -10,8 +10,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["usuario_id"], $_POST[
   $stmt->execute();
 }
 
+// Atualiza linha_maquinista e horario_maquinista se o formulário for enviado (segunda aba)
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["maq_id"], $_POST["linha_maquinista"], $_POST["horario_maquinista"], $_POST["indentificador"])) {
+  $maq_id = intval($_POST["maq_id"]);
+  $linha_maquinista = trim($_POST["linha_maquinista"]);
+  $horario_maquinista = trim($_POST["horario_maquinista"]);
+  $indentificador = trim($_POST["indentificador"]);
+  $stmt = $conn->prepare("UPDATE usuario SET linha_maquinista = ?, horario_maquinista = ?, indentificador = ? WHERE pk_usuario = ?");
+  $stmt->bind_param("sssi", $linha_maquinista, $horario_maquinista, $indentificador, $maq_id);
+  $stmt->execute();
+}
+
 // Consulta todos os usuários
-$sql = "SELECT pk_usuario, nome_usuario, email_usuario, cargo FROM usuario";
+$sql = "SELECT pk_usuario, nome_usuario, email_usuario, cargo, linha_maquinista, horario_maquinista, indentificador FROM usuario";
 $result = $conn->query($sql);
 ?>
 
@@ -57,7 +68,7 @@ $result = $conn->query($sql);
         <button class="nav-link active" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button" role="tab">Administrar Usuários</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="area2-tab" data-bs-toggle="tab" data-bs-target="#area2" type="button" role="tab">Área em Branco</button>
+        <button class="nav-link" id="maquinistas-tab" data-bs-toggle="tab" data-bs-target="#maquinistas" type="button" role="tab">Administrar Maquinistas</button>
       </li>
     </ul>
     <div class="tab-content mb-4" id="adminTabContent">
@@ -90,6 +101,7 @@ $result = $conn->query($sql);
                       <select name="novo_cargo" class="form-select form-select-sm me-2">
                         <option value="1" <?= $row['cargo'] == 1 ? 'selected' : '' ?>>Usuário</option>
                         <option value="2" <?= $row['cargo'] == 2 ? 'selected' : '' ?>>Admin</option>
+                        <option value="3" <?= $row['cargo'] == 3 ? 'selected' : '' ?>>Maquinista</option>
                       </select>
                       <button type="submit" class="btn btn-secondary btn-sm">Salvar</button>
                     </form>
@@ -104,30 +116,56 @@ $result = $conn->query($sql);
           </tbody>
         </table>
       </div>
-      <!-- Área em Branco -->
-      <div class="tab-pane fade" id="area2" role="tabpanel">
+      <!-- Área Administrar Maquinistas -->
+      <div class="tab-pane fade" id="maquinistas" role="tabpanel">
         <div class="text-dark text-center mb-6">
-          <h2>Área em Branco</h2>
+          <h2>Maquinistas</h2>
         </div>
         <table class="table table-striped mt-3">
           <thead>
             <tr>
               <th>ID</th>
               <th>Nome</th>
-              <th>Outro</th>
+              <th>Linha</th>
+              <th>Horário</th>
+              <th>Alterar Dados</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Exemplo</td>
-              <td>Dados</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Teste</td>
-              <td>Info</td>
-            </tr>
+            <?php
+            // Refaça a consulta para garantir o ponteiro do resultado
+            $result2 = $conn->query($sql);
+            if ($result2 && $result2->num_rows > 0):
+              while ($row = $result2->fetch_assoc()):
+                if ($row['cargo'] != 3) continue; // Só mostra maquinistas
+            ?>
+                <tr>
+                  <td><?= $row['pk_usuario'] ?></td>
+                  <td><?= htmlspecialchars($row['nome_usuario']) ?></td>
+                  <form method="post" class="d-flex align-items-center">
+                    <input type="hidden" name="maq_id" value="<?= $row['pk_usuario'] ?>">
+                    <td>
+                      <input type="text" name="linha_maquinista" class="form-control form-control-sm me-2" value="<?= htmlspecialchars($row['linha_maquinista']) ?>" required>
+                    </td>
+                    <td>
+                      <input type="text" name="horario_maquinista" class="form-control form-control-sm me-2" value="<?= htmlspecialchars($row['horario_maquinista']) ?>" required>
+                    </td>
+                    <td>
+                      <input type="text" name="indentificador" class="form-control form-control-sm me-2" value="<?= htmlspecialchars($row['indentificador']) ?>" required>
+                    </td>
+                    <td>
+                      <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+                    </td>
+                  </form>
+                </tr>
+              <?php
+              endwhile;
+            else:
+              ?>
+              <tr>
+                <td colspan="5">Nenhum maquinista encontrado.</td>
+              </tr>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>

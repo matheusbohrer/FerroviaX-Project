@@ -1,5 +1,35 @@
 <?php
 require_once "../php/buscar.php";
+
+$stmt = $conn->prepare("SELECT * FROM linha WHERE id_linha = 1");
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+$dados = $resultado->fetch_assoc();
+$linha1 = $dados["nome_linha"];
+
+$stmt = $conn->prepare("SELECT * FROM linha WHERE id_linha = 2");
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+$dados = $resultado->fetch_assoc();
+$linha2 = $dados["nome_linha"];
+
+$stmt = $conn->prepare("SELECT * FROM linha WHERE id_linha = 3");
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+$dados = $resultado->fetch_assoc();
+$linha3 = $dados["nome_linha"];
+
+// pausa
+
+
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -57,16 +87,14 @@ require_once "../php/buscar.php";
           <div class="col-md-6 mb-3">
             <div class="card bg-secondary text-light">
               <div class="card-body">
-                <h2 class="card-title">20:00</h2>
-                <p class="card-text">Trem mais Próximo</p>
+                <h2 class="card-title"><?php echo $horario ?></h2>
               </div>
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <div class="card bg-secondary text-light">
               <div class="card-body">
-                <h2 class="card-title">23:00</h2>
-                <p class="card-text">Trem mais Tarde</p>
+                <h2 class="card-title"><?php echo $linha1 ?></h2>
               </div>
             </div>
           </div>
@@ -77,8 +105,9 @@ require_once "../php/buscar.php";
           <div class="col-md-6 mb-3">
             <div class="card bg-secondary text-light">
               <div class="card-body">
-                <h2 class="card-title">15:00</h2>
-                <p class="card-text">Trem mais Próximo</p>
+                <h2 class="card-title">12:00 - 23:00
+                </h2>
+                <p class="card-text">Linha Verde</p>
               </div>
             </div>
           </div>
