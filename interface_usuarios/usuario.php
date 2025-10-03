@@ -104,12 +104,12 @@ require_once "../php/buscar.php";
 
     <div class="opcoes-lista mb-4">
       <ul class="list-group">
-        <li class="list-group-item" onclick="location.href='configuracoes.php'">Configurações de Conta</li>
-        <li class="list-group-item" onclick="location.href='mensagens.php'">Mensagens</li>
-        <li class="list-group-item" onclick="location.href='presente.php'">Cartão Presente</li>
-        <li class="list-group-item" onclick="location.href='promocoes.php'">Promoções</li>
-        <li class="list-group-item" onclick="location.href='familia.php'">Família e Adolescentes</li>
-        <li class="list-group-item" onclick="location.href='diretrizes.php'">Diretrizes da Comunidade</li>
+        <li class="list-group-item" onclick="location.href='configuracoes.html'">Configurações de Conta</li>
+        <li class="list-group-item" onclick="location.href='mensagens.html'">Mensagens</li>
+        <li class="list-group-item" onclick="location.href='presente.html'">Cartão Presente</li>
+        <li class="list-group-item" onclick="location.href='promocoes.html'">Promoções</li>
+        <li class="list-group-item" onclick="location.href='familia.html'">Família e Adolescentes</li>
+        <li class="list-group-item" onclick="location.href='diretrizes.html'">Diretrizes da Comunidade</li>
         <li class="list-group-item" onclick="abrirPopupAvaliacao()">Avalie nosso site</li>
       </ul>
       <div class="avaliacao-popup" id="avaliacaoPopup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
@@ -269,6 +269,16 @@ require_once "../php/buscar.php";
   border-radius: 2px;
   transition: 0.3s;
 }
+
+.list-group-item {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.list-group-item:hover {
+  background: #f1f1f1; /* leve destaque no hover */
+}
+
 </style>
 <script>
    document.addEventListener("DOMContentLoaded", () => {

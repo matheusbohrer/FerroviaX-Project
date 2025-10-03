@@ -48,18 +48,171 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div><button onclick="location.href='geral.html'"><img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png"></button>
-      </div>
-      <div><button onclick="location.href='rotas.html'"><img
-            src="https://cdn-icons-png.flaticon.com/512/49/49116.png"></button></div>
-      <div><button onclick="location.href='alertas.html'"><img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png"></button>
-      </div>
-      <div><button onclick="location.href='usuario.html'"><img src="../../imagens/perfil.png" alt="Avatar"
-            style="border-radius: 50%"></button></div>
-    </footer>
+   <footer class="footer-nav fixed-bottom">
+    <div class="nav-container">
+      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
+        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
+        <span>Início</span>
+      </button>
+
+      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
+        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
+        <span>Relatórios</span>
+      </button>
+
+      <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
+        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
+        <span>Alertas</span>
+      </button>
+
+      <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
+        <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
+        <span>Perfil</span>
+      </button>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+<style>
+  .nav-tabs .nav-link {
+    color: #212529 !important;
+    /* texto preto */
+    background-color: transparent !important;
+    border: none;
+  }
+
+  .nav-tabs .nav-link.active {
+    background-color: #fff !important;
+    /* fundo branco */
+    color: #212529 !important;
+    /* texto preto */
+    border: 1px solid #dee2e6 !important;
+    border-bottom: none !important;
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .slide-username {
+    position: absolute;
+    left: 30%;
+    top: 100%;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+  }
+
+  .footer-nav {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 6px 0;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .nav-item {
+    flex: 1;
+    text-align: center;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 6px 0;
+    color: #666;
+    font-size: 12px;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-item span {
+    display: block;
+    font-size: 11px;
+    margin-top: 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
+
+  .nav-item .icon {
+    height: 26px;
+    width: 26px;
+    display: block;
+    margin: auto;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
+
+  .nav-item .active-icon {
+    display: none;
+  }
+
+  .nav-item.active .default {
+    display: none;
+  }
+
+  .nav-item.active .active-icon {
+    display: block;
+  }
+
+  .nav-item.active .icon,
+  .nav-item.active span {
+    opacity: 1;
+    color: #007bff;
+    /* azul de destaque */
+    transform: scale(1.1);
+  }
+
+  .nav-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    width: 40%;
+    height: 3px;
+    background: #007bff;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  .user-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    /* Garante que nunca fique gigante */
+    max-width: 32px;
+    max-height: 32px;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navItems = document.querySelectorAll(".nav-item");
+    const path = window.location.pathname.split("/").pop();
+
+    navItems.forEach(item => {
+      const page = item.getAttribute("data-page") + ".php";
+      if (path === page) {
+        item.classList.add("active");
+      } else {
+        item.classList.remove("active");
+      }
+    });
+  });
+</script>
   </div>
 </body>
 

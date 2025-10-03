@@ -40,9 +40,12 @@ $linha3 = $dados["nome_linha"];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FerroviaX Bootstrap</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 
-<body class=" text-light">
+<body class="text-light">
 
   <header class="bg-dark py-3 mb-4 border-bottom position-relative">
     <div class="container d-flex flex-wrap justify-content-between align-items-center">
@@ -65,13 +68,13 @@ $linha3 = $dados["nome_linha"];
       setTimeout(function() {
         slide.style.opacity = '0';
         header.style.opacity = '1';
-      }, 2500); // tempo da animação
+      }, 2500);
     };
   </script>
 
   <div class="container">
     <ul class="nav nav-tabs mb-4 justify-content-center" id="horariosTab" role="tablist">
-      <li class="nav-item " role="presentation">
+      <li class="nav-item" role="presentation">
         <button class="nav-link active" id="ontem-tab" data-bs-toggle="tab" data-bs-target="#ontem" type="button" role="tab">Ontem</button>
       </li>
       <li class="nav-item" role="presentation">
@@ -143,12 +146,19 @@ $linha3 = $dados["nome_linha"];
       </div>
     </div>
 
-    <h4 class="mb-3">Maquinistas Disponíveis</h4>
-    <div class="row mb-5">
+    <!-- Campo de busca + mapa -->
+    <div class="mb-3">
+      <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
+    </div>
+    <h4 class="mb-3">Mapa de Navegação</h4>
+    <div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
 
-      <!-- Adicione mais cards de maquinistas aqui -->
+    <h4 class="mb-3 mt-4">Maquinistas Disponíveis</h4>
+    <div class="row mb-5">
+      <!-- Cards de maquinistas -->
     </div>
   </div>
+
   <footer class="footer-nav fixed-bottom">
     <div class="nav-container">
       <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
@@ -176,141 +186,150 @@ $linha3 = $dados["nome_linha"];
     </div>
   </footer>
 
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-</body>
 
-</html>
+  <style>
+    .nav-tabs .nav-link {
+      color: #212529 !important;
+      background-color: transparent !important;
+      border: none;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #fff !important;
+      color: #212529 !important;
+      border: 1px solid #dee2e6 !important;
+      border-bottom: none !important;
+    }
+    .nav-tabs { border-bottom: 1px solid #dee2e6; }
+    .slide-username {
+      position: absolute;
+      left: 30%;
+      top: 100%;
+      padding: 10px 30px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+    }
+    .footer-nav {
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 6px 0;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .nav-item {
+      flex: 1;
+      text-align: center;
+      background: none;
+      border: none;
+      outline: none;
+      padding: 6px 0;
+      color: #666;
+      font-size: 12px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    .nav-item span {
+      display: block;
+      font-size: 11px;
+      margin-top: 2px;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+    .nav-item .icon {
+      height: 26px;
+      width: 26px;
+      display: block;
+      margin: auto;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+    .nav-item .active-icon { display: none; }
+    .nav-item.active .default { display: none; }
+    .nav-item.active .active-icon { display: block; }
+    .nav-item.active .icon,
+    .nav-item.active span {
+      opacity: 1;
+      color: #007bff;
+      transform: scale(1.1);
+    }
+    .nav-item.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 30%;
+      width: 40%;
+      height: 3px;
+      background: #007bff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    .user-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: auto;
+      max-width: 32px;
+      max-height: 32px;
+    }
+  </style>
 
-<style>
-  .nav-tabs .nav-link {
-    color: #212529 !important;
-    /* texto preto */
-    background-color: transparent !important;
-    border: none;
-  }
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const navItems = document.querySelectorAll(".nav-item");
+      const path = window.location.pathname.split("/").pop();
+      navItems.forEach(item => {
+        const page = item.getAttribute("data-page") + ".php";
+        if (path === page) {
+          item.classList.add("active");
+        } else {
+          item.classList.remove("active");
+        }
+      });
+    });
 
-  .nav-tabs .nav-link.active {
-    background-color: #fff !important;
-    /* fundo branco */
-    color: #212529 !important;
-    /* texto preto */
-    border: 1px solid #dee2e6 !important;
-    border-bottom: none !important;
-  }
+    // Inicializar o mapa
+    var map = L.map('map').setView([-23.5505, -46.6333], 12);
 
-  .nav-tabs {
-    border-bottom: 1px solid #dee2e6;
-  }
+    // Tiles do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-  .slide-username {
-    position: absolute;
-    left: 30%;
-    top: 100%;
-    padding: 10px 30px;
-    border-radius: 20px;
-    font-size: 1.2rem;
-  }
+    var marker; // marcador global
 
-  .footer-nav {
-    background: #fff;
-    border-top: 1px solid #ddd;
-    padding: 6px 0;
-  }
+    // Função de busca
+    document.getElementById('search').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var query = this.value;
+        if (!query) return;
 
-  .nav-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              var lat = data[0].lat;
+              var lon = data[0].lon;
 
-  .nav-item {
-    flex: 1;
-    text-align: center;
-    background: none;
-    border: none;
-    outline: none;
-    padding: 6px 0;
-    color: #666;
-    font-size: 12px;
-    transition: color 0.3s ease;
-    position: relative;
-  }
+              // Centralizar mapa
+              map.setView([lat, lon], 14);
 
-  .nav-item span {
-    display: block;
-    font-size: 11px;
-    margin-top: 2px;
-    opacity: 0.6;
-    transition: 0.3s;
-  }
-
-  .nav-item .icon {
-    height: 26px;
-    width: 26px;
-    display: block;
-    margin: auto;
-    opacity: 0.6;
-    transition: 0.3s;
-  }
-
-  .nav-item .active-icon {
-    display: none;
-  }
-
-  .nav-item.active .default {
-    display: none;
-  }
-
-  .nav-item.active .active-icon {
-    display: block;
-  }
-
-  .nav-item.active .icon,
-  .nav-item.active span {
-    opacity: 1;
-    color: #007bff;
-    /* azul de destaque */
-    transform: scale(1.1);
-  }
-
-  .nav-item.active::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 30%;
-    width: 40%;
-    height: 3px;
-    background: #007bff;
-    border-radius: 2px;
-    transition: 0.3s;
-  }
-
-  .user-icon {
-    width: 28px;
-    height: 28px;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
-    margin: auto;
-    /* Garante que nunca fique gigante */
-    max-width: 32px;
-    max-height: 32px;
-  }
-</style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const navItems = document.querySelectorAll(".nav-item");
-    const path = window.location.pathname.split("/").pop();
-
-    navItems.forEach(item => {
-      const page = item.getAttribute("data-page") + ".php";
-      if (path === page) {
-        item.classList.add("active");
-      } else {
-        item.classList.remove("active");
+              // Colocar marcador
+              if (marker) map.removeLayer(marker);
+              marker = L.marker([lat, lon]).addTo(map)
+                .bindPopup(data[0].display_name)
+                .openPopup();
+            } else {
+              alert("Endereço não encontrado!");
+            }
+          })
+          .catch(err => console.error(err));
       }
     });
-  });
-</script>
+  </script>
+</body>
+</html>
