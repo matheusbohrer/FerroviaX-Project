@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once "../php/buscar.php";
 
 $mensagem = "";
@@ -59,6 +58,17 @@ if ($usuario_id) {
 </head>
 
 <body class="bg-light">
+
+    <div class="p-3">
+        <button onclick="history.back()" class="btn btn-outline-secondary">
+         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#111" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+        </button>
+    </div>
+
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
