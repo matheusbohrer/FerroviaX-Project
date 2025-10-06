@@ -1,7 +1,6 @@
 <?php
 require_once "../php/buscar.php";
 
-
 // Garante que só maquinistas (cargo 3) acessem
 if (!isset($_SESSION['cargo']) || $_SESSION['cargo'] != 3) {
   header("Location: ../php/telalogin.php");
@@ -11,12 +10,13 @@ if (!isset($_SESSION['cargo']) || $_SESSION['cargo'] != 3) {
 $usuario_id = $_SESSION['usuario_id'];
 $mensagem = "";
 
-// Atualiza linha_maquinista e horario_maquinista se o formulário for enviado
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["linha_maquinista"], $_POST["horario_maquinista"])) {
+// Atualiza linha_maquinista, horario_maquinista e indentificador se o formulário for enviado
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["linha_maquinista"], $_POST["horario_maquinista"], $_POST["indentificador"])) {
   $linha_maquinista = trim($_POST["linha_maquinista"]);
   $horario_maquinista = trim($_POST["horario_maquinista"]);
-  $stmt = $conn->prepare("UPDATE usuario SET linha_maquinista = ?, horario_maquinista = ? WHERE pk_usuario = ?");
-  $stmt->bind_param("ssi", $linha_maquinista, $horario_maquinista, $usuario_id);
+  $indentificador = trim($_POST["indentificador"]);
+  $stmt = $conn->prepare("UPDATE usuario SET linha_maquinista = ?, horario_maquinista = ?, indentificador = ? WHERE pk_usuario = ?");
+  $stmt->bind_param("sssi", $linha_maquinista, $horario_maquinista, $indentificador, $usuario_id);
   if ($stmt->execute()) {
     $mensagem = "Dados atualizados com sucesso!";
   } else {
@@ -24,12 +24,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["linha_maquinista"], $
   }
 }
 
+// Busca todos os maquinistas para montar as abas de dias
+$stmt = $conn->prepare("SELECT nome_usuario, linha_maquinista, horario_maquinista, indentificador, pk_usuario FROM usuario WHERE cargo = 3 AND indentificador IS NOT NULL ORDER BY indentificador ASC");
+$stmt->execute();
+$result = $stmt->get_result();
+$maquinistas = [];
+while ($row = $result->fetch_assoc()) {
+  $maquinistas[] = $row;
+}
+
 // Busca os dados do maquinista logado
-$stmt = $conn->prepare("SELECT nome_usuario, linha_maquinista, horario_maquinista FROM usuario WHERE pk_usuario = ?");
+$stmt = $conn->prepare("SELECT nome_usuario, linha_maquinista, horario_maquinista, indentificador FROM usuario WHERE pk_usuario = ?");
 $stmt->bind_param("i", $usuario_id);
 $stmt->execute();
 $stmt->store_result();
-$stmt->bind_result($nome_usuario, $linha_maquinista, $horario_maquinista);
+$stmt->bind_result($nome_usuario, $linha_maquinista, $horario_maquinista, $indentificador);
 $stmt->fetch();
 ?>
 
@@ -70,176 +79,288 @@ $stmt->fetch();
   </script>
 
   <div class="container">
+    <!-- Abas de dias iguais à tela geral.php -->
     <ul class="nav nav-tabs mb-4 justify-content-center" id="horariosTab" role="tablist">
-      <li class="nav-item " role="presentation">
-        <button class="nav-link active" id="ontem-tab" data-bs-toggle="tab" data-bs-target="#ontem" type="button" role="tab">Ontem</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="hoje-tab" data-bs-toggle="tab" data-bs-target="#hoje" type="button" role="tab">Hoje</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="amanha-tab" data-bs-toggle="tab" data-bs-target="#amanha" type="button" role="tab">Amanhã</button>
-      </li>
+      <?php foreach ($maquinistas as $idx => $maq): ?>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link<?= $idx === 0 ? ' active' : '' ?>" id="dia<?= $maq['indentificador'] ?>-tab" data-bs-toggle="tab" data-bs-target="#dia<?= $maq['indentificador'] ?>" type="button" role="tab">
+            Dia <?= htmlspecialchars($maq['indentificador']) ?>
+          </button>
+        </li>
+      <?php endforeach; ?>
     </ul>
-    
+
     <div class="tab-content mb-4" id="horariosTabContent">
-      <div class="tab-pane fade show active" id="ontem" role="tabpanel">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <div class="card bg-secondary text-light">
-              <div class="card-body">
-                <h2 class="card-title">20:00</h2>
-                <p class="card-text">Trem mais Próximo</p>
+      <?php foreach ($maquinistas as $idx => $maq): ?>
+        <div class="tab-pane fade<?= $idx === 0 ? ' show active' : '' ?>" id="dia<?= $maq['indentificador'] ?>" role="tabpanel">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="card bg-secondary text-light">
+                <div class="card-body">
+                  <h6 class="card-title mb-1">Maquinista</h6>
+                  <div><?= htmlspecialchars($maq['nome_usuario']) ?></div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <div class="card bg-secondary text-light">
-              <div class="card-body">
-                <h2 class="card-title">23:00</h2>
-                <p class="card-text">Trem mais Tarde</p>
+            <div class="col-md-4 mb-3">
+              <div class="card bg-secondary text-light">
+                <div class="card-body">
+                  <h6 class="card-title mb-1">Linha</h6>
+                  <div><?= htmlspecialchars($maq['linha_maquinista']) ?></div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane fade" id="hoje" role="tabpanel">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <div class="card bg-secondary text-light">
-              <div class="card-body">
-                <h2 class="card-title">15:00</h2>
-                <p class="card-text">Trem mais Próximo</p>
+            <div class="col-md-2 mb-3">
+              <div class="card bg-secondary text-light">
+                <div class="card-body">
+                  <h6 class="card-title mb-1">Horário</h6>
+                  <div><?= htmlspecialchars($maq['horario_maquinista']) ?></div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <div class="card bg-secondary text-light">
-              <div class="card-body">
-                <h2 class="card-title">18:00</h2>
-                <p class="card-text">Trem mais Tarde</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane fade" id="amanha" role="tabpanel">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <div class="card bg-secondary text-light">
-              <div class="card-body">
-                <h2 class="card-title">10:00</h2>
-                <p class="card-text">Trem mais Próximo</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <div class="card bg-secondary text-light">
-              <div class="card-body">
-                <h2 class="card-title">12:00</h2>
-                <p class="card-text">Trem mais Tarde</p>
+            <div class="col-md-2 mb-3">
+              <div class="card bg-secondary text-light">
+                <div class="card-body">
+                  <h6 class="card-title mb-1">Identificador</h6>
+                  <div><?= htmlspecialchars($maq['indentificador']) ?></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      <?php endforeach; ?>
     </div>
 
-    <br>
-
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
-
-          <table class="table table-striped mt-3">
-
-            </thead>
-            <tbody>
-              <div class="tab-pane fade" id="maquinistas" role="tabpanel">
-                <tr>
-                  <form method="post" class="d-flex align-items-center">
-                    <div class="mb-3">
-                      <label class="form-label ">Nome</label>
-                      <input type="text" class="form-control" value="<?= htmlspecialchars($nome_usuario) ?>" disabled>
-                    </div>
-                    <td>
-                      <div class="mb-3">
-                        <label class="form-label">Linha</label>
-                        <input type="text" name="linha_maquinista" class="form-control" value="<?= htmlspecialchars($linha_maquinista) ?>" required>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="mb-3">
-                        <label class="form-label">Horário</label>
-                        <input type="text" name="horario_maquinista" class="form-control" value="<?= htmlspecialchars($horario_maquinista) ?>" required>
-                      </div>
-                    </td>
-                    <td>
-                      <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-                    </td>
-                  </form>
-                </tr>
-              </div>
-            </tbody>
-          </table>
-
-
-
-        </div>
-      </div>
+    <!-- Formulário para alterar os próprios horários -->
+    <hr class="my-4">
+    <div class="text-dark text-center mb-4">
+      <h2>Alterar Meus Dados</h2>
+      <?php if ($mensagem): ?>
+        <div class="alert alert-info py-2"><?= htmlspecialchars($mensagem) ?></div>
+      <?php endif; ?>
     </div>
-
-
-
-    <footer class="bg-white border-top py-2 fixed-bottom">
-      <div class="container">
-        <div class="d-flex justify-content-around">
-          <button class="btn btn-link" onclick="location.href='geral_admin.php'">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
-          </button>
-          <button class="btn btn-link" onclick="location.href='relatorios_admin.php'">
-            <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
-          </button>
-          <button class="btn btn-link" onclick="location.href='alertas_admin.php'">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
-          </button>
-          <button class="btn btn-link" onclick="location.href='usuario_admin.php'">
-            <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
-          </button>
-        </div>
+    <form method="post" class="row g-3 justify-content-center">
+      <div class="col-md-4">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" value="<?= htmlspecialchars($nome_usuario) ?>" disabled>
       </div>
-    </footer>
+      <div class="col-md-4">
+        <label class="form-label">Linha</label>
+        <input type="text" name="linha_maquinista" class="form-control" value="<?= htmlspecialchars($linha_maquinista) ?>" required>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Horário</label>
+        <input type="text" name="horario_maquinista" class="form-control" value="<?= htmlspecialchars($horario_maquinista) ?>" required>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Identificador</label>
+        <input type="text" name="indentificador" class="form-control" value="<?= htmlspecialchars($indentificador) ?>" required>
+      </div>
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+    <div class="mb-3">
+      <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
+    </div>
+    <h4 class="mb-3">Mapa de Navegação</h4>
+    <div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <h4 class="mb-3 mt-4">Maquinistas Disponíveis</h4>
+    <div class="row mb-5">
+      <!-- Cards de maquinistas -->
+    </div>
+  </div>
 
-</html>
+  <footer class="footer-nav fixed-bottom">
+    <div class="nav-container">
+      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
+        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
+        <span>Início</span>
+      </button>
 
-<style>
-  .nav-tabs .nav-link {
-    color: #212529 !important;
-    background-color: transparent !important;
-    border: none;
-  }
+      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
+        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
+        <span>Relatórios</span>
+      </button>
 
-  .nav-tabs .nav-link.active {
-    background-color: #fff !important;
-    color: white !important;
-    border: 1px solid #dee2e6 !important;
-    border-bottom: none !important;
-  }
+      <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
+        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
+        <span>Alertas</span>
+      </button>
 
-  .nav-tabs {
-    border-bottom: 1px solid #dee2e6;
-  }
+      <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
+        <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" class="user-icon default" />
+        <span>Perfil</span>
+      </button>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const navItems = document.querySelectorAll(".nav-item");
+      const path = window.location.pathname.split("/").pop();
+      navItems.forEach(item => {
+        const page = item.getAttribute("data-page") + ".php";
+        if (path === page) {
+          item.classList.add("active");
+        } else {
+          item.classList.remove("active");
+        }
+      });
+    });
 
-  .slide-username {
-    color: white;
-    position: absolute;
-    left: 30%;
-    top: 100%;
-    padding: 10px 30px;
-    border-radius: 20px;
-    font-size: 1.2rem;
-  }
-</style>
+    // Inicializar o mapa
+    var map = L.map('map').setView([-23.5505, -46.6333], 12);
+
+    // Tiles do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var marker; // marcador global
+
+    // Função de busca
+    document.getElementById('search').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        var query = this.value;
+        if (!query) return;
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              var lat = data[0].lat;
+              var lon = data[0].lon;
+
+              // Centralizar mapa
+              map.setView([lat, lon], 14);
+
+              // Colocar marcador
+              if (marker) map.removeLayer(marker);
+              marker = L.marker([lat, lon]).addTo(map)
+                .bindPopup(data[0].display_name)
+                .openPopup();
+            } else {
+              alert("Endereço não encontrado!");
+            }
+          })
+          .catch(err => console.error(err));
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    .nav-tabs .nav-link {
+      color: #212529 !important;
+      background-color: transparent !important;
+      border: none;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: #fff !important;
+      color: #212529 !important;
+      border: 1px solid #dee2e6 !important;
+      border-bottom: none !important;
+    }
+
+    .nav-tabs {
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .slide-username {
+      position: absolute;
+      left: 30%;
+      top: 100%;
+      padding: 10px 30px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .footer-nav {
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 6px 0;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .nav-item {
+      flex: 1;
+      text-align: center;
+      background: none;
+      border: none;
+      outline: none;
+      padding: 6px 0;
+      color: #666;
+      font-size: 12px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 11px;
+      margin-top: 2px;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+
+    .nav-item .icon {
+      height: 26px;
+      width: 26px;
+      display: block;
+      margin: auto;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+
+    .nav-item .active-icon {
+      display: none;
+    }
+
+    .nav-item.active .default {
+      display: none;
+    }
+
+    .nav-item.active .active-icon {
+      display: block;
+    }
+
+    .nav-item.active .icon,
+    .nav-item.active span {
+      opacity: 1;
+      color: #007bff;
+      transform: scale(1.1);
+    }
+
+    .nav-item.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 30%;
+      width: 40%;
+      height: 3px;
+      background: #007bff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .user-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: auto;
+      max-width: 32px;
+      max-height: 32px;
+    }

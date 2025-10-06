@@ -70,6 +70,9 @@ $result = $conn->query($sql);
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="maquinistas-tab" data-bs-toggle="tab" data-bs-target="#maquinistas" type="button" role="tab">Administrar Maquinistas</button>
       </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="horarios-tab" data-bs-toggle="tab" data-bs-target="#horarios" type="button" role="tab">Horários para Usuários</button>
+      </li>
     </ul>
     <div class="tab-content mb-4" id="adminTabContent">
       <!-- Área Administrar Usuários -->
@@ -128,6 +131,7 @@ $result = $conn->query($sql);
               <th>Nome</th>
               <th>Linha</th>
               <th>Horário</th>
+              <th>Identificador</th>
               <th>Alterar Dados</th>
             </tr>
           </thead>
@@ -163,7 +167,55 @@ $result = $conn->query($sql);
             else:
               ?>
               <tr>
-                <td colspan="5">Nenhum maquinista encontrado.</td>
+                <td colspan="6">Nenhum maquinista encontrado.</td>
+              </tr>
+            <?php endif; ?>
+          </tbody>
+        </table>
+      </div>
+      <!-- Nova Área: Horários para Usuários -->
+      <div class="tab-pane fade" id="horarios" role="tabpanel">
+        <div class="text-dark text-center mb-6">
+          <h2>Horários dos Maquinistas</h2>
+        </div>
+        <table class="table table-striped mt-3">
+          <thead>
+            <tr>
+              <th>Nome do Maquinista</th>
+              <th>Linha</th>
+              <th>Horário</th>
+              <th>Identificador</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            // Consulta novamente para garantir ponteiro correto
+            $result3 = $conn->query($sql);
+            if ($result3 && $result3->num_rows > 0):
+              $tem_maquinista = false;
+              while ($row = $result3->fetch_assoc()):
+                if ($row['cargo'] != 3) continue;
+                $tem_maquinista = true;
+            ?>
+                <tr>
+                  <td><?= htmlspecialchars($row['nome_usuario']) ?></td>
+                  <td><?= htmlspecialchars($row['linha_maquinista']) ?></td>
+                  <td><?= htmlspecialchars($row['horario_maquinista']) ?></td>
+                  <td><?= htmlspecialchars($row['indentificador']) ?></td>
+                </tr>
+              <?php
+              endwhile;
+              if (!$tem_maquinista):
+              ?>
+                <tr>
+                  <td colspan="4">Nenhum horário de maquinista encontrado.</td>
+                </tr>
+              <?php
+              endif;
+            else:
+              ?>
+              <tr>
+                <td colspan="4">Nenhum horário de maquinista encontrado.</td>
               </tr>
             <?php endif; ?>
           </tbody>
@@ -190,7 +242,59 @@ $result = $conn->query($sql);
       </div>
     </div>
   </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const navItems = document.querySelectorAll(".nav-item");
+      const path = window.location.pathname.split("/").pop();
+      navItems.forEach(item => {
+        const page = item.getAttribute("data-page") + ".php";
+        if (path === page) {
+          item.classList.add("active");
+        } else {
+          item.classList.remove("active");
+        }
+      });
+    });
 
+    // Inicializar o mapa
+    var map = L.map('map').setView([-23.5505, -46.6333], 12);
+
+    // Tiles do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var marker; // marcador global
+
+    // Função de busca
+    document.getElementById('search').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        var query = this.value;
+        if (!query) return;
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              var lat = data[0].lat;
+              var lon = data[0].lon;
+
+              // Centralizar mapa
+              map.setView([lat, lon], 14);
+
+              // Colocar marcador
+              if (marker) map.removeLayer(marker);
+              marker = L.marker([lat, lon]).addTo(map)
+                .bindPopup(data[0].display_name)
+                .openPopup();
+            } else {
+              alert("Endereço não encontrado!");
+            }
+          })
+          .catch(err => console.error(err));
+      }
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
@@ -222,4 +326,3 @@ $result = $conn->query($sql);
     border-radius: 20px;
     font-size: 1.2rem;
   }
-</style>
