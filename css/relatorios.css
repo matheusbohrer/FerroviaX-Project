@@ -1,169 +1,107 @@
-/* relatorios.css - estilos para a área central (não tocar no header/footer) */
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
-  }
-
-/* Ajuste do container para garantir espaço ao footer fixo */
-.container.pb-5 {
-padding-top: 8px;
-padding-bottom: 88px; /* espaço para footer */
 }
 
-/* Card geral */
+/* Preview e formulário */
 .card {
-border-radius: 12px;
+  border-radius: 12px;
 }
 
-/* Título do card */
 .card-title {
-font-weight: 600;
-color: #333;
+  font-weight: 600;
+  color: #333;
 }
 
-/* Preview */
-#previewCard .card-body {
-padding: 14px 18px;
-}
-#previewContent p {
-margin: 0;
-color: #333;
-}
-#previewContent p + p {
-margin-top: 6px;
+#mensagemSucesso {
+  font-size: 14px;
+  text-align: center;
+  border-radius: 8px;
 }
 
-/* Formulário */
-.form-label {
-font-weight: 600;
-font-size: 14px;
-}
-.form-control,
-.form-select,
-textarea {
-border-radius: 8px;
-border: 1px solid #ddd;
-padding: 10px;
-}
-textarea {
-resize: vertical;
-}
-
-/* Estilo para campos inválidos */
-.form-control.is-invalid,
-.form-select.is-invalid,
-textarea.is-invalid {
-border-color: #dc3545;
-box-shadow: none;
-}
-
-/* Botões */
-.btn-primary {
-background-color: #0b5ed7;
-border-color: #0b5ed7;
-}
-.btn-primary:hover {
-background-color: #084298;
-border-color: #084298;
-}
-
-/* Mensagem de sucesso */
-#successAlert {
-border-radius: 8px;
-font-size: 14px;
-}
-
-/* Footer nav (mantive o mesmo visual que você tinha) */
+/* Footer já existente */
 .footer-nav {
-background: #fff;
-border-top: 1px solid #ddd;
-padding: 6px 0;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  padding: 6px 0;
 }
 
 .nav-container {
-display: flex;
-justify-content: space-around;
-align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .nav-item {
-flex: 1;
-text-align: center;
-background: none;
-border: none;
-outline: none;
-padding: 6px 0;
-color: #666;
-font-size: 12px;
-transition: color 0.3s ease;
-position: relative;
+  flex: 1;
+  text-align: center;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 6px 0;
+  color: #666;
+  font-size: 12px;
+  transition: color 0.3s ease;
+  position: relative;
 }
 
 .nav-item span {
-display: block;
-font-size: 11px;
-margin-top: 2px;
-opacity: 0.6;
-transition: 0.3s;
+  display: block;
+  font-size: 11px;
+  margin-top: 2px;
+  opacity: 0.6;
+  transition: 0.3s;
 }
 
 .nav-item .icon {
-height: 26px;
-width: 26px;
-display: block;
-margin: auto;
-opacity: 0.6;
-transition: 0.3s;
+  height: 26px;
+  width: 26px;
+  display: block;
+  margin: auto;
+  opacity: 0.6;
+  transition: 0.3s;
 }
 
 .nav-item .active-icon {
-display: none;
+  display: none;
 }
 
 .nav-item.active .default {
-display: none;
+  display: none;
 }
 
 .nav-item.active .active-icon {
-display: block;
+  display: block;
 }
 
 .nav-item.active .icon,
 .nav-item.active span {
-opacity: 1;
-color: #007bff;
-transform: scale(1.1);
+  opacity: 1;
+  color: #007bff;
+  transform: scale(1.1);
 }
 
 .nav-item.active::after {
-content: "";
-position: absolute;
-bottom: 0;
-left: 30%;
-width: 40%;
-height: 3px;
-background: #007bff;
-border-radius: 2px;
-transition: 0.3s;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 40%;
+  height: 3px;
+  background: #007bff;
+  border-radius: 2px;
+  transition: 0.3s;
 }
 
 .user-icon {
-width: 28px;
-height: 28px;
-object-fit: cover;
-border-radius: 50%;
-display: block;
-margin: auto;
-max-width: 32px;
-max-height: 32px;
-}
-
-/* Responsividade */
-@media (min-width: 768px) {
-.container.pb-5 {
-max-width: 720px;
-}
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+  max-width: 32px;
+  max-height: 32px;
 }
