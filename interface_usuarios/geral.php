@@ -143,7 +143,7 @@ while ($row = $result->fetch_assoc()) {
               <td>Trem 002</td>
               <td><span class="badge bg-danger">Inativo</span></td>
               <td>10:00</td>
-              <td>Porto Velho</td>
+              <td>Porto belo</td>
               <td>Há 8 minutos</td>
             </tr>
             <tr>
