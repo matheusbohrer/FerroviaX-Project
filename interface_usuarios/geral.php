@@ -110,11 +110,61 @@ while ($row = $result->fetch_assoc()) {
         </div>
       <?php endforeach; ?>
     </div>
+
     <div class="mb-3">
       <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
     </div>
     <h4 class="mb-3">Mapa de Navegação</h4>
     <div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
+
+    <!-- ================= GERENCIADOR DE TRENS (CINZA) ================= -->
+    <h4 class="mt-5 mb-3">Gerenciador de Trens</h4>
+    <div class="card bg-secondary text-light mb-4">
+      <div class="card-body">
+        <table class="table table-bordered align-middle mb-0 train-table">
+          <thead>
+            <tr>
+              <th scope="col">Trem</th>
+              <th scope="col">Status</th>
+              <th scope="col">Horário de Saída</th>
+              <th scope="col">Destino</th>
+              <th scope="col">Última Atualização</th>
+            </tr>
+          </thead>
+          <tbody id="train-table-body">
+            <tr>
+              <td>Trem 001</td>
+              <td><span class="badge bg-success">Ativo</span></td>
+              <td>08:30</td>
+              <td>Estação Central</td>
+              <td>Há 5 minutos</td>
+            </tr>
+            <tr>
+              <td>Trem 002</td>
+              <td><span class="badge bg-danger">Inativo</span></td>
+              <td>10:00</td>
+              <td>Porto Velho</td>
+              <td>Há 8 minutos</td>
+            </tr>
+            <tr>
+              <td>Trem 003</td>
+              <td><span class="badge bg-success">Ativo</span></td>
+              <td>09:15</td>
+              <td>São Paulo</td>
+              <td>Há 2 minutos</td>
+            </tr>
+            <tr>
+              <td>Trem 004</td>
+              <td><span class="badge bg-secondary">Manutenção</span></td>
+              <td>--</td>
+              <td>--</td>
+              <td>Há 1 hora</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- ================================================================ -->
 
     <h4 class="mb-3 mt-4">Maquinistas Disponíveis</h4>
     <div class="row mb-5">
@@ -148,6 +198,7 @@ while ($row = $result->fetch_assoc()) {
       </button>
     </div>
   </footer>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const navItems = document.querySelectorAll(".nav-item");
@@ -314,3 +365,27 @@ while ($row = $result->fetch_assoc()) {
       max-width: 32px;
       max-height: 32px;
     }
+
+    /* ======== Tabela Cinza (Gerenciador de Trens) ======== */
+    .train-table {
+      background-color: #b0b0b0;
+      color: #212529;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .train-table th {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    .train-table tr:nth-child(even) {
+      background-color: #c8c8c8;
+    }
+
+    .train-table tr:hover {
+      background-color: #a8a8a8;
+    }
+  </style>
+</body>
+</html>
