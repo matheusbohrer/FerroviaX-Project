@@ -41,6 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir_alerta'])) {
   $stmt->execute();
 }
 
+// Processar inserção de novo trem
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir_trem'])) {
+  $nome_trem = trim($_POST['nome_trem']);
+  $linha_trem = trim($_POST['linha_trem']);
+  $stmt = $conn->prepare("INSERT INTO trens (nome_trem, linha_trem) VALUES (?, ?)");
+  $stmt->bind_param("ss", $nome_trem, $linha_trem);
+  $stmt->execute();
+}
+
 // Consulta todos os usuários
 $sql = "SELECT pk_usuario, nome_usuario, email_usuario, cargo, linha_maquinista, horario_maquinista, indentificador FROM usuario";
 $result = $conn->query($sql);
@@ -371,8 +380,13 @@ $result = $conn->query($sql);
             <?php endif; ?>
           </tbody>
         </table>
+
+        
       </div>
     </div>
+
+    
+
   </div>
 
   <footer class="bg-white border-top py-2 fixed-bottom">
