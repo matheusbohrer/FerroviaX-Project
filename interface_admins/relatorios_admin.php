@@ -23,7 +23,8 @@ require_once "../php/buscar.php";
   </nav>
 
   <div class="container pb-5">
-    <ul class="nav nav-tabs ">
+    <!-- Abas -->
+    <ul class="nav nav-tabs">
       <li class="nav-item">
         <button class="nav-link active" data-bs-toggle="tab">Hoje</button>
       </li>
@@ -38,13 +39,15 @@ require_once "../php/buscar.php";
       </li>
     </ul>
 
-    <div class="card mb-4">
+    <!-- KPIs -->
+    <div class="card mb-4 mt-3">
       <div class="card-body text-center">
         <h4 class="card-title mb-3">KPIs de Desempenho</h4>
         <img src="../imagens/analize.png" alt="Gráfico" class="img-fluid" />
       </div>
     </div>
 
+    <!-- Tabela de viagens -->
     <div class="d-flex align-items-center mb-3 gap-2">
       <button class="btn btn-dark">Detalhes</button>
       <input type="text" class="form-control w-auto" placeholder="🔍 Data (viagem)" />
@@ -86,13 +89,60 @@ require_once "../php/buscar.php";
       </table>
     </div>
 
+    <!-- Subtotais -->
     <div class="mb-4">
       <p>Subtotal (2): <strong>R$41.98</strong></p>
       <p>Taxas: <strong>R$9.00</strong></p>
       <p>Total: <strong>R$50.98</strong></p>
     </div>
+
+    <!-- SEÇÃO DE GERENCIAMENTO DE MANUTENÇÕES (visualização apenas) -->
+    <div class="card mb-5 shadow-sm">
+      <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Gerenciamento de Manutenções</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>ID Trem</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Descrição</th>
+                <th>Custo (R$)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TREM-008</td>
+                <td>09/10/2025</td>
+                <td><span class="badge bg-warning text-dark">Em manutenção</span></td>
+                <td>Troca de sistema elétrico</td>
+                <td>4.500</td>
+              </tr>
+              <tr>
+                <td>TREM-003</td>
+                <td>08/10/2025</td>
+                <td><span class="badge bg-success">Concluída</span></td>
+                <td>Revisão completa</td>
+                <td>3.200</td>
+              </tr>
+              <tr>
+                <td>TREM-007</td>
+                <td>6/10/2025</td>
+                <td><span class="badge bg-danger">Pendente por falta de peças</span></td>
+                <td>Troca de freios</td>
+                <td>2.500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- Rodapé -->
   <footer class="bg-white border-top py-2 fixed-bottom">
     <div class="container">
       <div class="d-flex justify-content-around">
@@ -111,5 +161,7 @@ require_once "../php/buscar.php";
       </div>
     </div>
   </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>
