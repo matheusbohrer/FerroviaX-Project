@@ -26,16 +26,26 @@ require_once "../php/buscar.php";
     <h2 class="mb-4 text-center fw-bold">Alertas e Notificações</h2>
 
     <div class="mb-3">
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Novo trem chegando!</strong> <span class="text-muted">1d</span></div>
-          <div class="small">Saindo às 11:00</div>
+
+      <!-- Alerta 1 -->
+      <div class="alerta-item border rounded p-2 mb-2 bg-white shadow-sm">
+        <div class="d-flex align-items-center">
+          <span class="text-danger fs-4 me-2">•</span>
+          <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
+          <div class="flex-grow-1">
+            <div><strong>Novo trem chegando!</strong> <span class="text-muted">1d</span></div>
+            <div class="small">Saindo às 11:00</div>
+          </div>
+          <button class="btn btn-outline-primary btn-sm ver-mais">Ver mais</button>
         </div>
-        <button class="btn btn-outline-primary btn-sm">Ver mais</button>
+        <div class="info-extra mt-2 text-muted small" style="display: none;">
+          <br>
+          <div><strong>Origem:</strong> Campo Grande - MS</div>
+          <div><strong>Destino:</strong> Corumbá - MS</div>
+        </div>
       </div>
 
+      <!-- Avaliação 1 -->
       <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
         <span class="text-danger fs-4 me-2">•</span>
         <img src="https://pm1.aminoapps.com/7687/4743f9ffed3bb00d39710c0bfc25bb82a0f43e55r1-304-304v2_00.jpg" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
@@ -43,9 +53,28 @@ require_once "../php/buscar.php";
           <div><strong>Moto Moto</strong> <span class="text-muted">1d</span></div>
           <div class="small">Avalie o maquinista</div>
         </div>
-        <button class="btn btn-warning btn-sm">☆</button>
+        <button class="btn btn-outline-warning btn-sm estrela-btn">☆</button>
       </div>
 
+      <!-- Alerta 2 -->
+      <div class="alerta-item border rounded p-2 mb-2 bg-white shadow-sm">
+        <div class="d-flex align-items-center">
+          <span class="text-danger fs-4 me-2">•</span>
+          <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
+          <div class="flex-grow-1">
+            <div><strong>Novo trem chegando!</strong> <span class="text-muted">3d</span></div>
+            <div class="small">Saindo às 20:00</div>
+          </div>
+          <button class="btn btn-outline-primary btn-sm ver-mais">Ver mais</button>
+        </div>
+        <div class="info-extra mt-2 text-muted small" style="display: none;">
+          <br>
+          <div><strong>Origem:</strong> Dourados - MS</div>
+          <div><strong>Destino:</strong> Campo Grande - MS</div>
+        </div>
+      </div>
+
+      <!-- Avaliação 2 -->
       <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
         <span class="text-danger fs-4 me-2">•</span>
         <img src="https://img.freepik.com/vetores-gratis/saudacao-alegre-do-papai-noel-dos-desenhos-animados-para-a-celebracao-do-natal_1308-153957.jpg?semt=ais_hybrid&w=740" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
@@ -53,60 +82,58 @@ require_once "../php/buscar.php";
           <div><strong>Santa Claus</strong> <span class="text-muted">3d</span></div>
           <div class="small">Avalie o maquinista</div>
         </div>
-        <button class="btn btn-warning btn-sm">☆</button>
+        <button class="btn btn-outline-warning btn-sm estrela-btn">☆</button>
       </div>
 
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Novo trem chegando!</strong> <span class="text-muted">3d</span></div>
-          <div class="small">Saindo às 20:00</div>
+      <!-- Alerta 3 -->
+      <div class="alerta-item border rounded p-2 mb-2 bg-white shadow-sm">
+        <div class="d-flex align-items-center">
+          <span class="text-danger fs-4 me-2">•</span>
+          <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
+          <div class="flex-grow-1">
+            <div><strong>Novo trem chegando!</strong> <span class="text-muted">4d</span></div>
+            <div class="small">Saindo às 13:30</div>
+          </div>
+          <button class="btn btn-outline-primary btn-sm ver-mais">Ver mais</button>
         </div>
-        <button class="btn btn-outline-primary btn-sm">Ver mais</button>
-      </div>
-
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Novo trem chegando!</strong> <span class="text-muted">4d</span></div>
-          <div class="small">Saindo às 13:30</div>
+        <div class="info-extra mt-2 text-muted small" style="display: none;">
+          <br>
+          <div><strong>Origem:</strong> Três Lagoas - MS</div>
+          <div><strong>Destino:</strong> Aquidauana - MS</div>
         </div>
-        <button class="btn btn-outline-primary btn-sm">Ver mais</button>
       </div>
 
+      <!-- Avaliação 3 -->
       <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
         <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://lojaautoformula.com.br/cdn/shop/collections/AF_FEED_IG_REDBULL_-_2023-10-10T221600.481.png?v=1741615741&width=1296" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
+        <img src="https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/redbullracing/maxver01/2025redbullracingmaxver01right.webp" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
         <div class="flex-grow-1">
           <div><strong>Max Verstappen</strong> <span class="text-muted">4d</span></div>
           <div class="small">Avalie o maquinista</div>
         </div>
-        <button class="btn btn-warning btn-sm">☆</button>
+        <button class="btn btn-outline-warning btn-sm estrela-btn">☆</button>
       </div>
     </div>
 
-    <!-- Popup de avaliação (exemplo visual, sem JS) -->
-    <div class="modal fade" id="avaliacaoModal" tabindex="-1" aria-labelledby="avaliacaoModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="avaliacaoModalLabel">Avalie nosso Aplicativo!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-          </div>
-          <div class="modal-body">
-            <p>E ganhe recompensas!</p>
-            <div class="d-flex gap-2">
-              <button class="btn btn-primary flex-fill">Quero avaliar!</button>
-              <button class="btn btn-secondary flex-fill" data-bs-dismiss="modal">Mais tarde</button>
-            </div>
-          </div>
+    <!-- Popup de Avaliação do Maquinista -->
+    <div class="avaliacao-popup" id="avaliacaoPopup" 
+         style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; 
+                background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
+      <div class="bg-white text-dark p-4 rounded-4 text-center" style="min-width:300px;">
+        <p class="fs-5 mb-3">Como você avalia o maquinista?</p>
+        <div class="estrelas mb-3" id="estrelas">
+          <span class="estrela" data-valor="1" style="font-size:2rem;cursor:pointer;opacity:0.3;">⭐</span>
+          <span class="estrela" data-valor="2" style="font-size:2rem;cursor:pointer;opacity:0.3;">⭐</span>
+          <span class="estrela" data-valor="3" style="font-size:2rem;cursor:pointer;opacity:0.3;">⭐</span>
+          <span class="estrela" data-valor="4" style="font-size:2rem;cursor:pointer;opacity:0.3;">⭐</span>
+          <span class="estrela" data-valor="5" style="font-size:2rem;cursor:pointer;opacity:0.3;">⭐</span>
         </div>
+        <button class="btn btn-primary" onclick="enviarAvaliacao()">Enviar</button>
       </div>
     </div>
   </main>
 
+  <!-- Rodapé -->
   <footer class="footer-nav fixed-bottom">
     <div class="nav-container">
       <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
@@ -133,6 +160,7 @@ require_once "../php/buscar.php";
       </button>
     </div>
   </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <style>
@@ -194,7 +222,6 @@ require_once "../php/buscar.php";
     .nav-item.active span {
       opacity: 1;
       color: #007bff;
-      /* cor de destaque */
       transform: scale(1.1);
     }
 
@@ -217,7 +244,6 @@ require_once "../php/buscar.php";
       border-radius: 50%;
       display: block;
       margin: auto;
-      /* Garante que nunca fique gigante */
       max-width: 32px;
       max-height: 32px;
     }
@@ -227,14 +253,51 @@ require_once "../php/buscar.php";
     document.addEventListener("DOMContentLoaded", () => {
       const navItems = document.querySelectorAll(".nav-item");
       const path = window.location.pathname.split("/").pop();
-
       navItems.forEach(item => {
         const page = item.getAttribute("data-page") + ".php";
-        if (path === page) {
-          item.classList.add("active");
-        } else {
-          item.classList.remove("active");
+        item.classList.toggle("active", path === page);
+      });
+
+      // Botão "Ver mais"
+      const botoes = document.querySelectorAll(".ver-mais");
+      botoes.forEach(botao => {
+        botao.addEventListener("click", () => {
+          const info = botao.closest(".alerta-item").querySelector(".info-extra");
+          const visivel = info.style.display === "block";
+          info.style.display = visivel ? "none" : "block";
+          botao.textContent = visivel ? "Ver mais" : "Ver menos";
+        });
+      });
+
+      // Botão de Avaliação (estrela)
+      const botoesEstrela = document.querySelectorAll(".estrela-btn");
+      botoesEstrela.forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.getElementById("avaliacaoPopup").style.display = "flex";
+        });
+      });
+
+      // Fechar popup ao clicar fora
+      document.getElementById("avaliacaoPopup").addEventListener("click", (e) => {
+        if (e.target.id === "avaliacaoPopup") {
+          e.target.style.display = "none";
         }
       });
+
+      // Lógica das estrelas dentro do popup
+      const estrelas = document.querySelectorAll(".estrela");
+      estrelas.forEach(estrela => {
+        estrela.addEventListener("click", () => {
+          const valor = parseInt(estrela.getAttribute("data-valor"));
+          estrelas.forEach(e => e.style.opacity = e.getAttribute("data-valor") <= valor ? "1" : "0.3");
+        });
+      });
     });
+
+    function enviarAvaliacao() {
+      alert("Obrigado pela sua avaliação!");
+      document.getElementById("avaliacaoPopup").style.display = "none";
+    }
   </script>
+</body>
+</html>
