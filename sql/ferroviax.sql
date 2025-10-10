@@ -7,6 +7,9 @@
 -- Versão do servidor: 8.0.21
 -- Versão do PHP: 8.2.12
 
+CREATE DATABASE ferroviax;
+USE ferroviax;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
