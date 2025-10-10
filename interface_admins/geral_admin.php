@@ -21,13 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["maq_id"], $_POST["lin
   $stmt->execute();
 }
 
-// Processar inserção de novo sensor
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir_sensor'])) {
+// Processar inserção de dados (se o formulário for enviado)
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir'])) {
   $tipo_sensor = trim($_POST['tipo_sensor']);
   $local_sensor = trim($_POST['local_sensor']);
   $data_sensor = $_POST['data_sensor'];
-  $stmt = $conn->prepare("INSERT INTO sensores (tipo_sensor, local_sensor, data_sensor) VALUES (?, ?, ?)");
-  $stmt->bind_param("sss", $tipo_sensor, $local_sensor, $data_sensor);
+  $stmt = $conn->prepare("UPDATE sensores SET tipo_sensor = ?, local_sensor = ?, data_sensor = ? WHERE id_sensor = ?");
+  $stmt->bind_param("sssi", $tipo_sensor, $local_sensor, $data_sensor, $id_sensor);
   $stmt->execute();
 }
 
@@ -38,15 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir_alerta'])) {
   $data_alerta = $_POST['data_alerta'];
   $stmt = $conn->prepare("INSERT INTO alertas (titulo_alerta, descricao_alerta, data_alerta) VALUES (?, ?, ?)");
   $stmt->bind_param("sss", $titulo_alerta, $descricao_alerta, $data_alerta);
-  $stmt->execute();
-}
-
-// Processar inserção de novo trem
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir_trem'])) {
-  $nome_trem = trim($_POST['nome_trem']);
-  $linha_trem = trim($_POST['linha_trem']);
-  $stmt = $conn->prepare("INSERT INTO trens (nome_trem, linha_trem) VALUES (?, ?)");
-  $stmt->bind_param("ss", $nome_trem, $linha_trem);
   $stmt->execute();
 }
 
@@ -106,9 +97,6 @@ $result = $conn->query($sql);
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="sensores-tab" data-bs-toggle="tab" data-bs-target="#sensores" type="button" role="tab">Inserir Sensor</button>
       </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="alertas-tab" data-bs-toggle="tab" data-bs-target="#alertas" type="button" role="tab">Alertas Especiais</button>
-      </li>
     </ul>
     <div class="tab-content mb-4" id="adminTabContent">
       <!-- Área Administrar Usuários -->
@@ -154,8 +142,7 @@ $result = $conn->query($sql);
             <?php endif; ?>
           </tbody>
         </table>
-      </div>
-      <!-- Área Administrar Maquinistas -->
+      </div><!-- Área Administrar Maquinistas -->
       <div class="tab-pane fade" id="maquinistas" role="tabpanel">
         <div class="text-dark text-center mb-6">
           <h2>Maquinistas</h2>
@@ -274,82 +261,45 @@ $result = $conn->query($sql);
       </div>
       <!-- Formulário de Inserção de Sensor -->
       <div class="tab-pane fade" id="sensores" role="tabpanel">
-        <div class="text-dark text-center mb-4">
-          <h2>Inserir Novo Sensor</h2>
-        </div>
-        <form method="post" class="mb-4">
-          <div class="row g-2">
-            <div class="col-md-3">
-              <input type="text" name="tipo_sensor" class="form-control" placeholder="Tipo do Sensor" required>
+        <div class="text-dark text-center mb-6">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">Inserir Novo Sensor</h5>
             </div>
-            <div class="col-md-3">
-              <input type="text" name="local_sensor" class="form-control" placeholder="Local do Sensor" required>
-            </div>
-            <div class="col-md-3">
-              <input type="date" name="data_sensor" class="form-control" required>
-            </div>
-            <div class="col-md-3">
-              <button type="submit" name="inserir_sensor" class="btn btn-success w-100">Inserir Sensor</button>
-            </div>
-          </div>
-        </form>
-
-        <div class="text-dark text-center mb-4">
-          <h2>Sensores Cadastrados</h2>
-        </div>
-        <?php
-        $resultSensores = $conn->query("SELECT id_sensor, tipo_sensor, local_sensor, data_sensor FROM sensores");
-        ?>
-        <table class="table table-striped mt-3">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Tipo</th>
-              <th>Local</th>
-              <th>Data</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php if ($resultSensores && $resultSensores->num_rows > 0): ?>
-              <?php while ($row = $resultSensores->fetch_assoc()): ?>
-                <tr>
-                  <td><?= $row['id_sensor'] ?></td>
-                  <td><?= htmlspecialchars($row['tipo_sensor']) ?></td>
-                  <td><?= htmlspecialchars($row['local_sensor']) ?></td>
-                  <td><?= htmlspecialchars($row['data_sensor']) ?></td>
-                </tr>
-              <?php endwhile; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="4">Nenhum sensor cadastrado.</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
-      </div>
-      <!-- Formulário de Alertas Especiais -->
-      <div class="tab-pane fade" id="alertas" role="tabpanel">
-        <div class="text-dark text-center mb-4">
-          <h2>Cadastrar Alerta Especial</h2>
-        </div>
-        <form method="post" class="mb-4">
-          <div class="row g-2">
-            <div class="col-md-3">
-              <input type="text" name="titulo_alerta" class="form-control" placeholder="Título do Alerta" required>
-            </div>
-            <div class="col-md-5">
-              <input type="text" name="descricao_alerta" class="form-control" placeholder="Descrição" required>
-            </div>
-            <div class="col-md-2">
-              <input type="date" name="data_alerta" class="form-control" required>
-            </div>
-            <div class="col-md-2">
-              <button type="submit" name="inserir_alerta" class="btn btn-danger w-100">Cadastrar Alerta</button>
+            <div class="card-body">
+              <?php if (isset($mensagem)): ?>
+                <div class="alert alert-success"><?php echo $mensagem; ?></div>
+              <?php endif; ?>
+              <?php if (isset($erro)): ?>
+                <div class="alert alert-danger"><?php echo $erro; ?></div>
+              <?php endif; ?>
+              <form method="POST">
+                <div class="row">
+                  <div class="col-md-4 mb-3">
+                    <label for="tipo_sensor" class="form-label">Tipo de Sensor</label>
+                    <select name="tipo_sensor" id="tipo_sensor" class="form-select" required>
+                      <option value="">Selecione...</option>
+                      <option value="Temperatura">Temperatura</option>
+                      <option value="Umidade">Umidade</option>
+                      <option value="Pressão">Pressão</option>
+                      <option value="Luz">Luz</option>
+                      <option value="Outro">Outro</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="local_sensor" class="form-label">Local do Sensor</label>
+                    <input type="text" name="local_sensor" id="local_sensor" class="form-control" placeholder="Ex: Sala 101" required>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="data_sensor" class="form-label">Data do Sensor</label>
+                    <input type="date" name="data_sensor" id="data_sensor" class="form-control" required>
+                  </div>
+                </div>
+                <button type="submit" name="inserir" class="btn btn-primary">Inserir Sensor</button>
+                <a href="?limpar=1" class="btn btn-secondary">Limpar Formulário</a>
+              </form>
             </div>
           </div>
-        </form>
-        <div class="text-dark text-center mb-4">
-          <h2>Alertas Cadastrados</h2>
         </div>
         <?php
         $resultAlertas = $conn->query("SELECT id_alerta, titulo_alerta, descricao_alerta, data_alerta FROM alertas ORDER BY data_alerta DESC");
@@ -380,8 +330,6 @@ $result = $conn->query($sql);
             <?php endif; ?>
           </tbody>
         </table>
-
-        
       </div>
     </div>
 
@@ -414,15 +362,18 @@ $result = $conn->query($sql);
       background-color: transparent !important;
       border: none;
     }
+
     .nav-tabs .nav-link.active {
       background-color: #fff !important;
       color: #212529 !important;
       border: 1px solid #dee2e6 !important;
       border-bottom: none !important;
     }
+
     .nav-tabs {
       border-bottom: 1px solid #dee2e6;
     }
+
     .slide-username {
       position: absolute;
       left: 30%;
@@ -433,3 +384,5 @@ $result = $conn->query($sql);
     }
   </style>
 </body>
+
+</html>
