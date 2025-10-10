@@ -25,20 +25,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["maq_id"], $_POST["lin
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir'])) {
   $tipo_sensor = trim($_POST['tipo_sensor']);
   $local_sensor = trim($_POST['local_sensor']);
-  $data_sensor = $_POST['data_sensor'];  // Formato YYYY-MM-DD do input date
-  if (!empty($tipo_sensor) && !empty($local_sensor) && !empty($data_sensor)) {
-    $stmt = $pdo->prepare("INSERT INTO sensores (tipo_sensor, local_sensor, data_sensor) VALUES (?, ?, ?)");
-    $stmt->execute([$tipo_sensor, $local_sensor, $data_sensor]);
-    $mensagem = "Dados inseridos com sucesso!";
-  } else {
-    $erro = "Todos os campos são obrigatórios!";
-  }
+  $data_sensor = $_POST['data_sensor'];
+  $stmt = $conn->prepare("UPDATE sensores SET tipo_sensor = ?, local_sensor = ?, data_sensor = ? WHERE id_sensor = ?");
+  $stmt->bind_param("sssi", $tipo_sensor, $local_sensor, $data_sensor, $id_sensor);
+  $stmt->execute();
 }
+
+
 // Consulta todos os usuários
 $sql = "SELECT pk_usuario, nome_usuario, email_usuario, cargo, linha_maquinista, horario_maquinista, indentificador FROM usuario";
 $result = $conn->query($sql);
-
-
 
 ?>
 
@@ -89,6 +85,9 @@ $result = $conn->query($sql);
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="horarios-tab" data-bs-toggle="tab" data-bs-target="#horarios" type="button" role="tab">Horários para Usuários</button>
       </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="sensores-tab" data-bs-toggle="tab" data-bs-target="#sensores" type="button" role="tab">Inserir Sensor</button>
+      </li>
     </ul>
     <div class="tab-content mb-4" id="adminTabContent">
       <!-- Área Administrar Usuários -->
@@ -134,9 +133,8 @@ $result = $conn->query($sql);
             <?php endif; ?>
           </tbody>
         </table>
-      </div>
-      <!-- Área Administrar Maquinistas -->
-      <div class="tab-pane fade " id="maquinistas" role="tabpanel">
+      </div><!-- Área Administrar Maquinistas -->
+      <div class="tab-pane fade" id="maquinistas" role="tabpanel">
         <div class="text-dark text-center mb-6">
           <h2>Maquinistas</h2>
         </div>
@@ -153,11 +151,10 @@ $result = $conn->query($sql);
           </thead>
           <tbody>
             <?php
-            // Refaça a consulta para garantir o ponteiro do resultado
             $result2 = $conn->query($sql);
             if ($result2 && $result2->num_rows > 0):
               while ($row = $result2->fetch_assoc()):
-                if ($row['cargo'] != 3) continue; // Só mostra maquinistas
+                if ($row['cargo'] != 3) continue;
             ?>
                 <tr>
                   <td><?= $row['pk_usuario'] ?></td>
@@ -189,10 +186,73 @@ $result = $conn->query($sql);
           </tbody>
         </table>
       </div>
-      <!-- Nova Área: Horários para Usuários -->
-      <!-- Formulário de Inserção -->
-      <div class="tab-pane fade " id="sensores" role="tabpanel">
-         <div class="text-dark text-center mb-6">
+      <!-- Horários para Usuários -->
+      <div class="tab-pane fade" id="horarios" role="tabpanel">
+        <div class="text-dark text-center mb-4">
+          <h2>Horários dos Maquinistas</h2>
+        </div>
+        <?php
+        $stmt = $conn->prepare("SELECT nome_usuario, linha_maquinista, horario_maquinista, indentificador FROM usuario WHERE cargo = 3 AND indentificador IS NOT NULL ORDER BY indentificador ASC");
+        $stmt->execute();
+        $resultTabs = $stmt->get_result();
+        $maquinistasTabs = [];
+        while ($row = $resultTabs->fetch_assoc()) {
+          $maquinistasTabs[] = $row;
+        }
+        ?>
+        <ul class="nav nav-tabs mb-4 justify-content-center" id="horariosTab" role="tablist">
+          <?php foreach ($maquinistasTabs as $idx => $maq): ?>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link<?= $idx === 0 ? ' active' : '' ?>" id="dia<?= $maq['indentificador'] ?>-tab" data-bs-toggle="tab" data-bs-target="#dia<?= $maq['indentificador'] ?>" type="button" role="tab">
+                Dia <?= htmlspecialchars($maq['indentificador']) ?>
+              </button>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+        <div class="tab-content mb-4" id="horariosTabContent">
+          <?php foreach ($maquinistasTabs as $idx => $maq): ?>
+            <div class="tab-pane fade<?= $idx === 0 ? ' show active' : '' ?>" id="dia<?= $maq['indentificador'] ?>" role="tabpanel">
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <div class="card bg-secondary text-light">
+                    <div class="card-body">
+                      <h6 class="card-title mb-1">Maquinista</h6>
+                      <div><?= htmlspecialchars($maq['nome_usuario']) ?></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="card bg-secondary text-light">
+                    <div class="card-body">
+                      <h6 class="card-title mb-1">Linha</h6>
+                      <div><?= htmlspecialchars($maq['linha_maquinista']) ?></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                  <div class="card bg-secondary text-light">
+                    <div class="card-body">
+                      <h6 class="card-title mb-1">Horário</h6>
+                      <div><?= htmlspecialchars($maq['horario_maquinista']) ?></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                  <div class="card bg-secondary text-light">
+                    <div class="card-body">
+                      <h6 class="card-title mb-1">Identificador</h6>
+                      <div><?= htmlspecialchars($maq['indentificador']) ?></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+      <!-- Formulário de Inserção de Sensor -->
+      <div class="tab-pane fade" id="sensores" role="tabpanel">
+        <div class="text-dark text-center mb-6">
           <div class="card">
             <div class="card-header bg-primary text-white">
               <h5 class="mb-0">Inserir Novo Sensor</h5>
@@ -217,143 +277,71 @@ $result = $conn->query($sql);
                       <option value="Outro">Outro</option>
                     </select>
                   </div>
-                  <div class="card-body">
-                    <?php if (isset($mensagem)): ?>
-                      <div class="alert alert-success"><?php echo $mensagem; ?></div>
-                    <?php endif; ?>
-                    <?php if (isset($erro)): ?>
-                      <div class="alert alert-danger"><?php echo $erro; ?></div>
-                    <?php endif; ?>
-                    <form method="POST">
-                      <div class="row">
-                        <div class="col-md-4 mb-3">
-                          <label for="tipo_sensor" class="form-label">Tipo de Sensor</label>
-                          <select name="tipo_sensor" id="tipo_sensor" class="form-select" required>
-                            <option value="">Selecione...</option>
-                            <option value="Temperatura">Temperatura</option>
-                            <option value="Umidade">Umidade</option>
-                            <option value="Pressão">Pressão</option>
-                            <option value="Luz">Luz</option>
-                            <option value="Outro">Outro</option>
-                          </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                          <label for="local_sensor" class="form-label">Local do Sensor</label>
-                          <input type="text" name="local_sensor" id="local_sensor" class="form-control" placeholder="Ex: Sala 101" required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                          <label for="data_sensor" class="form-label">Data do Sensor</label>
-                          <input type="date" name="data_sensor" id="data_sensor" class="form-control" required>
-                        </div>
-                      </div>
-                      <button type="submit" name="inserir" class="btn btn-primary">Inserir Sensor</button>
-                      <a href="?limpar=1" class="btn btn-secondary">Limpar Formulário</a>
-                    </form>
+                  <div class="col-md-4 mb-3">
+                    <label for="local_sensor" class="form-label">Local do Sensor</label>
+                    <input type="text" name="local_sensor" id="local_sensor" class="form-control" placeholder="Ex: Sala 101" required>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="data_sensor" class="form-label">Data do Sensor</label>
+                    <input type="date" name="data_sensor" id="data_sensor" class="form-control" required>
                   </div>
                 </div>
+                <button type="submit" name="inserir" class="btn btn-primary">Inserir Sensor</button>
+                <a href="?limpar=1" class="btn btn-secondary">Limpar Formulário</a>
+              </form>
             </div>
           </div>
-        
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <footer class="bg-white border-top py-2 fixed-bottom">
-          <div class="container">
-            <div class="d-flex justify-content-around">
-              <button class="btn btn-link" onclick="location.href='geral_admin.php'">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
-              </button>
-              <button class="btn btn-link" onclick="location.href='relatorios_admin.php'">
-                <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
-              </button>
-              <button class="btn btn-link" onclick="location.href='alertas_admin.php'">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
-              </button>
-              <button class="btn btn-link" onclick="location.href='usuario_admin.php'">
-                <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
-              </button>
-            </div>
-          </div>
-        </footer>
-        <script>
-          document.addEventListener("DOMContentLoaded", () => {
-            const navItems = document.querySelectorAll(".nav-item");
-            const path = window.location.pathname.split("/").pop();
-            navItems.forEach(item => {
-              const page = item.getAttribute("data-page") + ".php";
-              if (path === page) {
-                item.classList.add("active");
-              } else {
-                item.classList.remove("active");
-              }
-            });
-          });
+  <footer class="bg-white border-top py-2 fixed-bottom">
+    <div class="container">
+      <div class="d-flex justify-content-around">
+        <button class="btn btn-link" onclick="location.href='geral_admin.php'">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
+        </button>
+        <button class="btn btn-link" onclick="location.href='relatorios_admin.php'">
+          <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
+        </button>
+        <button class="btn btn-link" onclick="location.href='alertas_admin.php'">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
+        </button>
+        <button class="btn btn-link" onclick="location.href='usuario_admin.php'">
+          <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
+        </button>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .nav-tabs .nav-link {
+      color: #212529 !important;
+      background-color: transparent !important;
+      border: none;
+    }
 
-          // Inicializar o mapa
-          var map = L.map('map').setView([-23.5505, -46.6333], 12);
+    .nav-tabs .nav-link.active {
+      background-color: #fff !important;
+      color: #212529 !important;
+      border: 1px solid #dee2e6 !important;
+      border-bottom: none !important;
+    }
 
-          // Tiles do OpenStreetMap
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-          }).addTo(map);
+    .nav-tabs {
+      border-bottom: 1px solid #dee2e6;
+    }
 
-          var marker; // marcador global
-
-          // Função de busca
-          document.getElementById('search').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-              var query = this.value;
-              if (!query) return;
-
-              fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
-                .then(response => response.json())
-                .then(data => {
-                  if (data.length > 0) {
-                    var lat = data[0].lat;
-                    var lon = data[0].lon;
-
-                    // Centralizar mapa
-                    map.setView([lat, lon], 14);
-
-                    // Colocar marcador
-                    if (marker) map.removeLayer(marker);
-                    marker = L.marker([lat, lon]).addTo(map)
-                      .bindPopup(data[0].display_name)
-                      .openPopup();
-                  } else {
-                    alert("Endereço não encontrado!");
-                  }
-                })
-                .catch(err => console.error(err));
-            }
-          });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    .slide-username {
+      position: absolute;
+      left: 30%;
+      top: 100%;
+      padding: 10px 30px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+    }
+  </style>
 </body>
 
 </html>
-
-<style>
-  .nav-tabs .nav-link {
-    color: #212529 !important;
-    background-color: transparent !important;
-    border: none;
-  }
-
-  .nav-tabs .nav-link.active {
-    background-color: #fff !important;
-    color: #212529 !important;
-    border: 1px solid #dee2e6 !important;
-    border-bottom: none !important;
-  }
-
-  .nav-tabs {
-    border-bottom: 1px solid #dee2e6;
-  }
-
-  .slide-username {
-    position: absolute;
-    left: 30%;
-    top: 100%;
-    padding: 10px 30px;
-    border-radius: 20px;
-    font-size: 1.2rem;
-  }
