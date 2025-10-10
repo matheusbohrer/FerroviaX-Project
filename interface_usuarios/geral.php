@@ -28,7 +28,7 @@ while ($row = $result->fetch_assoc()) {
   <title>Painel do Usuário - FerroviaX</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> 
 </head>
 
 <body class="text-light">
