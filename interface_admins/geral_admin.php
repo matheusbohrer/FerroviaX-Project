@@ -296,25 +296,88 @@ $result = $conn->query($sql);
     </div>
   </div>
 
-  <footer class="bg-white border-top py-2 fixed-bottom">
-    <div class="container">
-      <div class="d-flex justify-content-around">
-        <button class="btn btn-link" onclick="location.href='geral_admin.php'">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='relatorios_admin.php'">
-          <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='alertas_admin.php'">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='usuario_admin.php'">
-          <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
-        </button>
-      </div>
+  <footer class="footer-nav fixed-bottom">
+    <div class="nav-container">
+      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
+        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
+        <span>Início</span>
+      </button>
+
+      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
+        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
+        <span>Relatórios</span>
+      </button>
+
+      <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
+        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
+        <span>Alertas</span>
+      </button>
+
+      <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
+        <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" class="user-icon default" />
+        <span>Perfil</span>
+      </button>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const navItems = document.querySelectorAll(".nav-item");
+      const path = window.location.pathname.split("/").pop();
+      navItems.forEach(item => {
+        const page = item.getAttribute("data-page") + ".php";
+        if (path === page) {
+          item.classList.add("active");
+        } else {
+          item.classList.remove("active");
+        }
+      });
+    });
+
+    // Inicializar o mapa
+    var map = L.map('map').setView([-23.5505, -46.6333], 12);
+
+    // Tiles do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var marker; // marcador global
+
+    // Função de busca
+    document.getElementById('search').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        var query = this.value;
+        if (!query) return;
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              var lat = data[0].lat;
+              var lon = data[0].lon;
+
+              // Centralizar mapa
+              map.setView([lat, lon], 14);
+
+              // Colocar marcador
+              if (marker) map.removeLayer(marker);
+              marker = L.marker([lat, lon]).addTo(map)
+                .bindPopup(data[0].display_name)
+                .openPopup();
+            } else {
+              alert("Endereço não encontrado!");
+            }
+          })
+          .catch(err => console.error(err));
+      }
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
   <style>
     .nav-tabs .nav-link {
       color: #212529 !important;
@@ -340,8 +403,113 @@ $result = $conn->query($sql);
       padding: 10px 30px;
       border-radius: 20px;
       font-size: 1.2rem;
+      color: white;
+    }
+
+    .footer-nav {
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 6px 0;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .nav-item {
+      flex: 1;
+      text-align: center;
+      background: none;
+      border: none;
+      outline: none;
+      padding: 6px 0;
+      color: #666;
+      font-size: 12px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 11px;
+      margin-top: 2px;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+
+    .nav-item .icon {
+      height: 26px;
+      width: 26px;
+      display: block;
+      margin: auto;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+
+    .nav-item .active-icon {
+      display: none;
+    }
+
+    .nav-item.active .default {
+      display: none;
+    }
+
+    .nav-item.active .active-icon {
+      display: block;
+    }
+
+    .nav-item.active .icon,
+    .nav-item.active span {
+      opacity: 1;
+      color: #007bff;
+      transform: scale(1.1);
+    }
+
+    .nav-item.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 30%;
+      width: 40%;
+      height: 3px;
+      background: #007bff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .user-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: auto;
+      max-width: 32px;
+      max-height: 32px;
+    }
+
+    /* ======== Tabela Cinza (Gerenciador de Trens) ======== */
+    .train-table {
+      background-color: #b0b0b0;
+      color: #212529;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .train-table th {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    .train-table tr:nth-child(even) {
+      background-color: #c8c8c8;
+    }
+
+    .train-table tr:hover {
+      background-color: #a8a8a8;
     }
   </style>
 </body>
-
 </html>
