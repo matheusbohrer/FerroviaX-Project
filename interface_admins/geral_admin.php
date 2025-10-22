@@ -99,12 +99,12 @@ $sensores = $conn->query("SELECT * FROM sensores ORDER BY id_sensor DESC");
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
-      height: 60px;
+      height: 80px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
 
     header img {
-      height: 40px;
+      height: 50px;
       width: auto;
     }
 
