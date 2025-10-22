@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->execute();
     $resultado = $stmt->get_result();
 
-
     if ($resultado->num_rows === 1) {
       $dados = $resultado->fetch_assoc();
       $senha_armazenada_rash = $dados["senha_usuario"];
@@ -30,14 +29,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($dados["cargo"] == 1) {
           header("Location: ../interface_usuarios/geral.php");
+          exit;
         } elseif ($dados["cargo"] == 2) {
           header("Location: ../interface_admins/geral_admin.php");
+          exit;
         } elseif ($dados["cargo"] == 3) {
           header("Location: ../interface_maquinista/geral_maquinista.php");
+          exit;
         } else {
           $erro = "Cargo inválido.";
         }
+      } else {
+        // Senha incorreta
+        $erro = "E-mail ou senha incorretos.";
       }
+    } else {
+      // E-mail não encontrado
+      $erro = "E-mail ou senha incorretos.";
     }
   }
 }
