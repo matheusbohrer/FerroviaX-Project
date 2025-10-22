@@ -1,388 +1,275 @@
 <?php
 require_once "../php/buscar.php";
+session_start();
 
-// Atualiza o cargo se o formulário for enviado (primeira aba)
+// ---------- ADMINISTRAR USUÁRIOS ----------
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["usuario_id"], $_POST["novo_cargo"])) {
   $usuario_id = intval($_POST["usuario_id"]);
   $novo_cargo = intval($_POST["novo_cargo"]);
   $stmt = $conn->prepare("UPDATE usuario SET cargo = ? WHERE pk_usuario = ?");
   $stmt->bind_param("ii", $novo_cargo, $usuario_id);
   $stmt->execute();
+  $mensagem = "Cargo atualizado com sucesso!";
 }
 
-// Atualiza linha_maquinista e horario_maquinista se o formulário for enviado (segunda aba)
+// ---------- ADMINISTRAR MAQUINISTAS ----------
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["maq_id"], $_POST["linha_maquinista"], $_POST["horario_maquinista"], $_POST["indentificador"])) {
   $maq_id = intval($_POST["maq_id"]);
   $linha_maquinista = trim($_POST["linha_maquinista"]);
   $horario_maquinista = trim($_POST["horario_maquinista"]);
   $indentificador = trim($_POST["indentificador"]);
-  $stmt = $conn->prepare("UPDATE usuario SET linha_maquinista = ?, horario_maquinista = ?, indentificador = ? WHERE pk_usuario = ?");
+  $stmt = $conn->prepare("UPDATE usuario SET linha_maquinista=?, horario_maquinista=?, indentificador=? WHERE pk_usuario=?");
   $stmt->bind_param("sssi", $linha_maquinista, $horario_maquinista, $indentificador, $maq_id);
   $stmt->execute();
+  $mensagem = "Dados do maquinista atualizados!";
 }
 
-// Processar inserção de dados (se o formulário for enviado)
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir'])) {
+// Excluir maquinista
+if (isset($_GET['excluir_maquinista'])) {
+  $id = intval($_GET['excluir_maquinista']);
+  $stmt = $conn->prepare("DELETE FROM usuario WHERE pk_usuario = ?");
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $mensagem = "Maquinista removido com sucesso!";
+}
+
+// ---------- INSERIR SENSOR ----------
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir_sensor'])) {
   $tipo_sensor = trim($_POST['tipo_sensor']);
   $local_sensor = trim($_POST['local_sensor']);
   $data_sensor = $_POST['data_sensor'];
-  $stmt = $conn->prepare("UPDATE sensores SET tipo_sensor = ?, local_sensor = ?, data_sensor = ? WHERE id_sensor = ?");
+
+  $stmt = $conn->prepare("INSERT INTO sensores (tipo_sensor, local_sensor, data_sensor) VALUES (?, ?, ?)");
+  $stmt->bind_param("sss", $tipo_sensor, $local_sensor, $data_sensor);
+  $stmt->execute();
+  $mensagem = "Sensor inserido com sucesso!";
+}
+
+// Editar sensor
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editar_sensor"])) {
+  $id_sensor = intval($_POST["id_sensor"]);
+  $tipo_sensor = trim($_POST["tipo_sensor"]);
+  $local_sensor = trim($_POST["local_sensor"]);
+  $data_sensor = $_POST["data_sensor"];
+
+  $stmt = $conn->prepare("UPDATE sensores SET tipo_sensor=?, local_sensor=?, data_sensor=? WHERE id_sensor=?");
   $stmt->bind_param("sssi", $tipo_sensor, $local_sensor, $data_sensor, $id_sensor);
   $stmt->execute();
+  $mensagem = "Sensor atualizado com sucesso!";
 }
 
-// Processar inserção de novo alerta especial
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['inserir_alerta'])) {
-  $titulo_alerta = trim($_POST['titulo_alerta']);
-  $descricao_alerta = trim($_POST['descricao_alerta']);
-  $data_alerta = $_POST['data_alerta'];
-  $stmt = $conn->prepare("INSERT INTO alertas (titulo_alerta, descricao_alerta, data_alerta) VALUES (?, ?, ?)");
-  $stmt->bind_param("sss", $titulo_alerta, $descricao_alerta, $data_alerta);
+// Excluir sensor
+if (isset($_GET['excluir_sensor'])) {
+  $id_sensor = intval($_GET['excluir_sensor']);
+  $stmt = $conn->prepare("DELETE FROM sensores WHERE id_sensor = ?");
+  $stmt->bind_param("i", $id_sensor);
   $stmt->execute();
+  $mensagem = "Sensor excluído com sucesso!";
 }
 
-// Consulta todos os usuários
-$sql = "SELECT pk_usuario, nome_usuario, email_usuario, cargo, linha_maquinista, horario_maquinista, indentificador FROM usuario";
-$result = $conn->query($sql);
-
+// ---------- CONSULTAS ----------
+$usuarios = $conn->query("SELECT * FROM usuario ORDER BY pk_usuario ASC");
+$maquinistas = $conn->query("SELECT * FROM usuario WHERE cargo=3 ORDER BY pk_usuario ASC");
+$sensores = $conn->query("SELECT * FROM sensores ORDER BY id_sensor DESC");
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Administração FerroviaX</title>
+  <title>Painel Administrativo S.A.</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="text-light">
-  <header class="bg-dark py-3 mb-4 border-bottom position-relative">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center">
-      <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
-      <h1 class="h5 mb-0" id="header-username" style="opacity:0; transition:opacity 0.5s;">
-        Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? ""); ?>
-      </h1>
-    </div>
-    <div id="slide-username" class="slide-username">
-      Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? ""); ?>
-    </div>
-  </header>
-
-  <script>
-    window.onload = function() {
-      const slide = document.getElementById('slide-username');
-      const header = document.getElementById('header-username');
-      slide.style.transform = 'translateY(0)';
-      slide.style.opacity = '1';
-      setTimeout(function() {
-        slide.style.opacity = '0';
-        header.style.opacity = '1';
-      }, 2500);
-    };
-  </script>
-
-  <div class="container">
-    <ul class="nav nav-tabs mb-4 justify-content-center" id="adminTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button" role="tab">Administrar Usuários</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="maquinistas-tab" data-bs-toggle="tab" data-bs-target="#maquinistas" type="button" role="tab">Administrar Maquinistas</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="horarios-tab" data-bs-toggle="tab" data-bs-target="#horarios" type="button" role="tab">Horários para Usuários</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="sensores-tab" data-bs-toggle="tab" data-bs-target="#sensores" type="button" role="tab">Inserir Sensor</button>
-      </li>
-    </ul>
-    <div class="tab-content mb-4" id="adminTabContent">
-      <!-- Área Administrar Usuários -->
-      <div class="tab-pane fade show active" id="usuarios" role="tabpanel">
-        <div class="text-dark text-center mb-6">
-          <h2>Usuários cadastrados</h2>
-        </div>
-        <table class="table table-striped mt-3">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Cargo</th>
-              <th>Alterar Cargo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php if ($result && $result->num_rows > 0): ?>
-              <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
-                  <td><?= $row['pk_usuario'] ?></td>
-                  <td><?= htmlspecialchars($row['nome_usuario']) ?></td>
-                  <td><?= htmlspecialchars($row['email_usuario']) ?></td>
-                  <td><?= htmlspecialchars($row['cargo']) ?></td>
-                  <td>
-                    <form method="post" style="display:inline-flex;">
-                      <input type="hidden" name="usuario_id" value="<?= $row['pk_usuario'] ?>">
-                      <select name="novo_cargo" class="form-select form-select-sm me-2">
-                        <option value="1" <?= $row['cargo'] == 1 ? 'selected' : '' ?>>Usuário</option>
-                        <option value="2" <?= $row['cargo'] == 2 ? 'selected' : '' ?>>Admin</option>
-                        <option value="3" <?= $row['cargo'] == 3 ? 'selected' : '' ?>>Maquinista</option>
-                      </select>
-                      <button type="submit" class="btn btn-secondary btn-sm">Salvar</button>
-                    </form>
-                  </td>
-                </tr>
-              <?php endwhile; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="5">Nenhum usuário encontrado.</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
-      </div><!-- Área Administrar Maquinistas -->
-      <div class="tab-pane fade" id="maquinistas" role="tabpanel">
-        <div class="text-dark text-center mb-6">
-          <h2>Maquinistas</h2>
-        </div>
-        <table class="table table-striped mt-3">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Linha</th>
-              <th>Horário</th>
-              <th>Identificador</th>
-              <th>Alterar Dados</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $result2 = $conn->query($sql);
-            if ($result2 && $result2->num_rows > 0):
-              while ($row = $result2->fetch_assoc()):
-                if ($row['cargo'] != 3) continue;
-            ?>
-                <tr>
-                  <td><?= $row['pk_usuario'] ?></td>
-                  <td><?= htmlspecialchars($row['nome_usuario']) ?></td>
-                  <form method="post" class="d-flex align-items-center">
-                    <input type="hidden" name="maq_id" value="<?= $row['pk_usuario'] ?>">
-                    <td>
-                      <input type="text" name="linha_maquinista" class="form-control form-control-sm me-2" value="<?= htmlspecialchars($row['linha_maquinista']) ?>" required>
-                    </td>
-                    <td>
-                      <input type="text" name="horario_maquinista" class="form-control form-control-sm me-2" value="<?= htmlspecialchars($row['horario_maquinista']) ?>" required>
-                    </td>
-                    <td>
-                      <input type="text" name="indentificador" class="form-control form-control-sm me-2" value="<?= htmlspecialchars($row['indentificador']) ?>" required>
-                    </td>
-                    <td>
-                      <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-                    </td>
-                  </form>
-                </tr>
-              <?php
-              endwhile;
-            else:
-              ?>
-              <tr>
-                <td colspan="6">Nenhum maquinista encontrado.</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
-      </div>
-      <!-- Horários para Usuários -->
-      <div class="tab-pane fade" id="horarios" role="tabpanel">
-        <div class="text-dark text-center mb-4">
-          <h2>Horários dos Maquinistas</h2>
-        </div>
-        <?php
-        $stmt = $conn->prepare("SELECT nome_usuario, linha_maquinista, horario_maquinista, indentificador FROM usuario WHERE cargo = 3 AND indentificador IS NOT NULL ORDER BY indentificador ASC");
-        $stmt->execute();
-        $resultTabs = $stmt->get_result();
-        $maquinistasTabs = [];
-        while ($row = $resultTabs->fetch_assoc()) {
-          $maquinistasTabs[] = $row;
-        }
-        ?>
-        <ul class="nav nav-tabs mb-4 justify-content-center" id="horariosTab" role="tablist">
-          <?php foreach ($maquinistasTabs as $idx => $maq): ?>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link<?= $idx === 0 ? ' active' : '' ?>" id="dia<?= $maq['indentificador'] ?>-tab" data-bs-toggle="tab" data-bs-target="#dia<?= $maq['indentificador'] ?>" type="button" role="tab">
-                Dia <?= htmlspecialchars($maq['indentificador']) ?>
-              </button>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-        <div class="tab-content mb-4" id="horariosTabContent">
-          <?php foreach ($maquinistasTabs as $idx => $maq): ?>
-            <div class="tab-pane fade<?= $idx === 0 ? ' show active' : '' ?>" id="dia<?= $maq['indentificador'] ?>" role="tabpanel">
-              <div class="row">
-                <div class="col-md-4 mb-3">
-                  <div class="card bg-secondary text-light">
-                    <div class="card-body">
-                      <h6 class="card-title mb-1">Maquinista</h6>
-                      <div><?= htmlspecialchars($maq['nome_usuario']) ?></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <div class="card bg-secondary text-light">
-                    <div class="card-body">
-                      <h6 class="card-title mb-1">Linha</h6>
-                      <div><?= htmlspecialchars($maq['linha_maquinista']) ?></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2 mb-3">
-                  <div class="card bg-secondary text-light">
-                    <div class="card-body">
-                      <h6 class="card-title mb-1">Horário</h6>
-                      <div><?= htmlspecialchars($maq['horario_maquinista']) ?></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2 mb-3">
-                  <div class="card bg-secondary text-light">
-                    <div class="card-body">
-                      <h6 class="card-title mb-1">Identificador</h6>
-                      <div><?= htmlspecialchars($maq['indentificador']) ?></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
-      <!-- Formulário de Inserção de Sensor -->
-      <div class="tab-pane fade" id="sensores" role="tabpanel">
-        <div class="text-dark text-center mb-6">
-          <div class="card">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0">Inserir Novo Sensor</h5>
-            </div>
-            <div class="card-body">
-              <?php if (isset($mensagem)): ?>
-                <div class="alert alert-success"><?php echo $mensagem; ?></div>
-              <?php endif; ?>
-              <?php if (isset($erro)): ?>
-                <div class="alert alert-danger"><?php echo $erro; ?></div>
-              <?php endif; ?>
-              <form method="POST">
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <label for="tipo_sensor" class="form-label">Tipo de Sensor</label>
-                    <select name="tipo_sensor" id="tipo_sensor" class="form-select" required>
-                      <option value="">Selecione...</option>
-                      <option value="Temperatura">Temperatura</option>
-                      <option value="Umidade">Umidade</option>
-                      <option value="Pressão">Pressão</option>
-                      <option value="Luz">Luz</option>
-                      <option value="Outro">Outro</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="local_sensor" class="form-label">Local do Sensor</label>
-                    <input type="text" name="local_sensor" id="local_sensor" class="form-control" placeholder="Ex: Sala 101" required>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="data_sensor" class="form-label">Data do Sensor</label>
-                    <input type="date" name="data_sensor" id="data_sensor" class="form-control" required>
-                  </div>
-                </div>
-                <button type="submit" name="inserir" class="btn btn-primary">Inserir Sensor</button>
-                <a href="?limpar=1" class="btn btn-secondary">Limpar Formulário</a>
-              </form>
-            </div>
-          </div>
-        </div>
-        <?php
-        $resultAlertas = $conn->query("SELECT id_alerta, titulo_alerta, descricao_alerta, data_alerta FROM alertas ORDER BY data_alerta DESC");
-        ?>
-        <table class="table table-striped mt-3">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Título</th>
-              <th>Descrição</th>
-              <th>Data</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php if ($resultAlertas && $resultAlertas->num_rows > 0): ?>
-              <?php while ($row = $resultAlertas->fetch_assoc()): ?>
-                <tr>
-                  <td><?= $row['id_alerta'] ?></td>
-                  <td><?= htmlspecialchars($row['titulo_alerta']) ?></td>
-                  <td><?= htmlspecialchars($row['descricao_alerta']) ?></td>
-                  <td><?= htmlspecialchars($row['data_alerta']) ?></td>
-                </tr>
-              <?php endwhile; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="4">Nenhum alerta cadastrado.</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    
-
-  </div>
-
-  <footer class="bg-white border-top py-2 fixed-bottom">
-    <div class="container">
-      <div class="d-flex justify-content-around">
-        <button class="btn btn-link" onclick="location.href='geral_admin.php'">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Home-icon.svg/1024px-Home-icon.svg.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='relatorios_admin.php'">
-          <img src="https://cdn-icons-png.flaticon.com/512/49/49116.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='alertas_admin.php'">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/OOjs_UI_icon_bell.svg/2048px-OOjs_UI_icon_bell.svg.png" style="height:32px;" />
-        </button>
-        <button class="btn btn-link" onclick="location.href='usuario_admin.php'">
-          <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" style="height:32px; border-radius:50%;" />
-        </button>
-      </div>
-    </div>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
   <style>
-    .nav-tabs .nav-link {
-      color: #212529 !important;
-      background-color: transparent !important;
-      border: none;
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
     }
 
-    .nav-tabs .nav-link.active {
-      background-color: #fff !important;
-      color: #212529 !important;
-      border: 1px solid #dee2e6 !important;
-      border-bottom: none !important;
+    /* Cabeçalho fixo colado no topo */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #212529;
+      color: #fff;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      height: 60px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
 
-    .nav-tabs {
-      border-bottom: 1px solid #dee2e6;
+    header img {
+      height: 40px;
+      width: auto;
     }
 
-    .slide-username {
-      position: absolute;
-      left: 30%;
-      top: 100%;
-      padding: 10px 30px;
-      border-radius: 20px;
-      font-size: 1.2rem;
+    header h1 {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* Ajuste do corpo para compensar header fixo */
+    .container {
+      margin-top: 80px;
+    }
+
+    /* Remove qualquer caixa verde de aviso visual */
+    .alert {
+      display: none !important;
+    }
+
+    /* Tabela limpa */
+    table {
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    select, input, button {
+      border-radius: 6px !important;
+    }
+
+    button {
+      cursor: pointer;
     }
   </style>
-</body>
+</head>
 
+<body>
+  <!-- Cabeçalho -->
+  <header>
+    <img src="../imagens/logoBranca.png" alt="Logo FerroviaX">
+    <h1>Administração do Sistema S.A.</h1>
+  </header>
+
+  <div class="container">
+    <ul class="nav nav-tabs mb-4 justify-content-center">
+      <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#usuarios">Usuários</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#maquinistas">Maquinistas</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#sensores">Sensores</button></li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- USUÁRIOS -->
+      <div class="tab-pane fade show active" id="usuarios">
+        <h4 class="text-dark mb-3 text-center">Gerenciamento de Usuários</h4>
+        <table class="table table-striped">
+          <thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Cargo</th><th>Ação</th></tr></thead>
+          <tbody>
+          <?php while ($u = $usuarios->fetch_assoc()): ?>
+            <tr>
+              <td><?= $u['pk_usuario'] ?></td>
+              <td><?= htmlspecialchars($u['nome_usuario']) ?></td>
+              <td><?= htmlspecialchars($u['email_usuario']) ?></td>
+              <td><?= htmlspecialchars($u['cargo']) ?></td>
+              <td>
+                <form method="post" style="display:inline-flex;">
+                  <input type="hidden" name="usuario_id" value="<?= $u['pk_usuario'] ?>">
+                  <select name="novo_cargo" class="form-select form-select-sm me-2">
+                    <option value="1" <?= $u['cargo']==1?'selected':'' ?>>Usuário</option>
+                    <option value="2" <?= $u['cargo']==2?'selected':'' ?>>Admin</option>
+                    <option value="3" <?= $u['cargo']==3?'selected':'' ?>>Maquinista</option>
+                  </select>
+                  <button class="btn btn-sm btn-secondary">Salvar</button>
+                </form>
+              </td>
+            </tr>
+          <?php endwhile; ?>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MAQUINISTAS -->
+      <div class="tab-pane fade" id="maquinistas">
+        <h4 class="text-dark mb-3 text-center">Gerenciamento de Maquinistas</h4>
+        <table class="table table-striped">
+          <thead><tr><th>ID</th><th>Nome</th><th>Linha</th><th>Horário</th><th>Identificador</th><th>Ação</th></tr></thead>
+          <tbody>
+          <?php while ($m = $maquinistas->fetch_assoc()): ?>
+            <tr>
+              <form method="post">
+                <td><?= $m['pk_usuario'] ?></td>
+                <td><?= htmlspecialchars($m['nome_usuario']) ?></td>
+                <input type="hidden" name="maq_id" value="<?= $m['pk_usuario'] ?>">
+                <td><input type="text" name="linha_maquinista" class="form-control form-control-sm" value="<?= htmlspecialchars($m['linha_maquinista']) ?>"></td>
+                <td><input type="text" name="horario_maquinista" class="form-control form-control-sm" value="<?= htmlspecialchars($m['horario_maquinista']) ?>"></td>
+                <td><input type="text" name="indentificador" class="form-control form-control-sm" value="<?= htmlspecialchars($m['indentificador']) ?>"></td>
+                <td>
+                  <button class="btn btn-sm btn-primary">Salvar</button>
+                  <a href="?excluir_maquinista=<?= $m['pk_usuario'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Excluir este maquinista?')">Excluir</a>
+                </td>
+              </form>
+            </tr>
+          <?php endwhile; ?>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SENSORES -->
+      <div class="tab-pane fade" id="sensores">
+        <h4 class="text-dark mb-3 text-center">Gerenciamento de Sensores</h4>
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Inserir Novo Sensor</div>
+          <div class="card-body">
+            <form method="POST">
+              <div class="row">
+                <div class="col-md-4">
+                  <label class="form-label">Tipo</label>
+                  <select name="tipo_sensor" class="form-select" required>
+                    <option value="">Selecione...</option>
+                    <option value="Temperatura">Temperatura</option>
+                    <option value="Umidade">Umidade</option>
+                    <option value="Pressão">Pressão</option>
+                    <option value="Luz">Luz</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Local</label>
+                  <input type="text" name="local_sensor" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Data</label>
+                  <input type="date" name="data_sensor" class="form-control" required>
+                </div>
+              </div>
+              <button name="inserir_sensor" class="btn btn-primary mt-3">Inserir</button>
+            </form>
+          </div>
+        </div>
+
+        <table class="table table-striped">
+          <thead><tr><th>ID</th><th>Tipo</th><th>Local</th><th>Data</th><th>Ação</th></tr></thead>
+          <tbody>
+          <?php while ($s = $sensores->fetch_assoc()): ?>
+            <tr>
+              <form method="post">
+                <td><?= $s['id_sensor'] ?></td>
+                <input type="hidden" name="id_sensor" value="<?= $s['id_sensor'] ?>">
+                <td><input type="text" name="tipo_sensor" value="<?= htmlspecialchars($s['tipo_sensor']) ?>" class="form-control form-control-sm"></td>
+                <td><input type="text" name="local_sensor" value="<?= htmlspecialchars($s['local_sensor']) ?>" class="form-control form-control-sm"></td>
+                <td><input type="date" name="data_sensor" value="<?= htmlspecialchars($s['data_sensor']) ?>" class="form-control form-control-sm"></td>
+                <td>
+                  <button name="editar_sensor" class="btn btn-sm btn-secondary">Editar</button>
+                  <a href="?excluir_sensor=<?= $s['id_sensor'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este sensor?')">Excluir</a>
+                </td>
+              </form>
+            </tr>
+          <?php endwhile; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
