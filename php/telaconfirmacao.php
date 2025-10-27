@@ -12,7 +12,8 @@
 <body>
   <div class="splash-screen">
     <div class="splash-content">
-      <img src="../imagens/logoBranca.png" alt="FerroviaX Logo">
+      <img src="../imagens/confirmacao.png" alt="Confirmação">
+      <br><br>
       <p>Seu cadastro foi realizado com sucesso!</p>
     </div>
   </div>

@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("ssss", $nome_usuario, $email, $hash, $foto_padrao);
 
         if ($stmt->execute()) {
-          header("Location: telalogin.php");
+          header("Location: telaconfirmacao.php");
           exit;
         } else {
           $mensagem = "Erro ao registrar. Tente novamente.";
