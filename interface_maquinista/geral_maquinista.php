@@ -41,7 +41,6 @@ $stmt->store_result();
 $stmt->bind_result($nome_usuario, $linha_maquinista, $horario_maquinista, $indentificador);
 $stmt->fetch();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -50,208 +49,8 @@ $stmt->fetch();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Painel do Maquinista - FerroviaX</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-light text-dark">
-  <header class="bg-dark py-3 mb-4 border-bottom position-relative">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center">
-      <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
-      <h1 class="h5 mb-0" id="header-username" style="opacity:0; transition:opacity 0.5s; color:white;">
-        Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? ""); ?>
-      </h1>
-    </div>
-    <div id="slide-username" class="slide-username">
-      Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? ""); ?>
-    </div>
-  </header>
-
-  <script>
-    window.onload = function() {
-      const slide = document.getElementById('slide-username');
-      const header = document.getElementById('header-username');
-      slide.style.transform = 'translateY(0)';
-      slide.style.opacity = '1';
-      setTimeout(function() {
-        slide.style.opacity = '0';
-        header.style.opacity = '1';
-      }, 2500);
-    };
-  </script>
-
-  <div class="container">
-    <!-- Abas de dias iguais à tela geral.php -->
-    <ul class="nav nav-tabs mb-4 justify-content-center" id="horariosTab" role="tablist">
-      <?php foreach ($maquinistas as $idx => $maq): ?>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link<?= $idx === 0 ? ' active' : '' ?>" id="dia<?= $maq['indentificador'] ?>-tab" data-bs-toggle="tab" data-bs-target="#dia<?= $maq['indentificador'] ?>" type="button" role="tab">
-            Dia <?= htmlspecialchars($maq['indentificador']) ?>
-          </button>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-
-    <div class="tab-content mb-4" id="horariosTabContent">
-      <?php foreach ($maquinistas as $idx => $maq): ?>
-        <div class="tab-pane fade<?= $idx === 0 ? ' show active' : '' ?>" id="dia<?= $maq['indentificador'] ?>" role="tabpanel">
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <div class="card bg-secondary text-light">
-                <div class="card-body">
-                  <h6 class="card-title mb-1">Maquinista</h6>
-                  <div><?= htmlspecialchars($maq['nome_usuario']) ?></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <div class="card bg-secondary text-light">
-                <div class="card-body">
-                  <h6 class="card-title mb-1">Linha</h6>
-                  <div><?= htmlspecialchars($maq['linha_maquinista']) ?></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-2 mb-3">
-              <div class="card bg-secondary text-light">
-                <div class="card-body">
-                  <h6 class="card-title mb-1">Horário</h6>
-                  <div><?= htmlspecialchars($maq['horario_maquinista']) ?></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-2 mb-3">
-              <div class="card bg-secondary text-light">
-                <div class="card-body">
-                  <h6 class="card-title mb-1">Identificador</h6>
-                  <div><?= htmlspecialchars($maq['indentificador']) ?></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      <?php endforeach; ?>
-    </div>
-
-    <!-- Formulário para alterar os próprios horários -->
-    <hr class="my-4">
-    <div class="text-dark text-center mb-4">
-      <h2>Alterar Meus Dados</h2>
-      <?php if ($mensagem): ?>
-        <div class="alert alert-info py-2"><?= htmlspecialchars($mensagem) ?></div>
-      <?php endif; ?>
-    </div>
-    <form method="post" class="row g-3 justify-content-center">
-      <div class="col-md-4">
-        <label class="form-label">Nome</label>
-        <input type="text" class="form-control" value="<?= htmlspecialchars($nome_usuario) ?>" disabled>
-      </div>
-      <div class="col-md-4">
-        <label class="form-label">Linha</label>
-        <input type="text" name="linha_maquinista" class="form-control" value="<?= htmlspecialchars($linha_maquinista) ?>" required>
-      </div>
-      <div class="col-md-2">
-        <label class="form-label">Horário</label>
-        <input type="text" name="horario_maquinista" class="form-control" value="<?= htmlspecialchars($horario_maquinista) ?>" required>
-      </div>
-      <div class="col-md-2">
-        <label class="form-label">Identificador</label>
-        <input type="text" name="indentificador" class="form-control" value="<?= htmlspecialchars($indentificador) ?>" required>
-      </div>
-      <div class="col-12 text-center">
-        <button type="submit" class="btn btn-primary">Salvar</button>
-      </div>
-    </form>
-    <div class="mb-3">
-      <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
-    </div>
-    <h4 class="mb-3">Mapa de Navegação</h4>
-    <div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
-
-    <h4 class="mb-3 mt-4">Maquinistas Disponíveis</h4>
-    <div class="row mb-5">
-      <!-- Cards de maquinistas -->
-    </div>
-  </div>
-
-  <footer class="footer-nav fixed-bottom">
-    <div class="nav-container">
-      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
-        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
-        <span>Início</span>
-      </button>
-
-      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
-        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
-        <span>Relatórios</span>
-      </button>
-
-      <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
-        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
-        <span>Alertas</span>
-      </button>
-
-      <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
-        <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" class="user-icon default" />
-        <span>Perfil</span>
-      </button>
-    </div>
-  </footer>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const navItems = document.querySelectorAll(".nav-item");
-      const path = window.location.pathname.split("/").pop();
-      navItems.forEach(item => {
-        const page = item.getAttribute("data-page") + ".php";
-        if (path === page) {
-          item.classList.add("active");
-        } else {
-          item.classList.remove("active");
-        }
-      });
-    });
-
-    // Inicializar o mapa
-    var map = L.map('map').setView([-23.5505, -46.6333], 12);
-
-    // Tiles do OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    var marker; // marcador global
-
-    // Função de busca
-    document.getElementById('search').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        var query = this.value;
-        if (!query) return;
-
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.length > 0) {
-              var lat = data[0].lat;
-              var lon = data[0].lon;
-
-              // Centralizar mapa
-              map.setView([lat, lon], 14);
-
-              // Colocar marcador
-              if (marker) map.removeLayer(marker);
-              marker = L.marker([lat, lon]).addTo(map)
-                .bindPopup(data[0].display_name)
-                .openPopup();
-            } else {
-              alert("Endereço não encontrado!");
-            }
-          })
-          .catch(err => console.error(err));
-      }
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <style>
     .nav-tabs .nav-link {
@@ -279,6 +78,7 @@ $stmt->fetch();
       border-radius: 20px;
       font-size: 1.2rem;
       color: white;
+      transition: transform 0.5s, opacity 0.5s;
     }
 
     .footer-nav {
@@ -364,3 +164,259 @@ $stmt->fetch();
       max-width: 32px;
       max-height: 32px;
     }
+
+    /* Mapa */
+    #map {
+      height: 400px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 576px) {
+      .slide-username {
+        left: 10%;
+        padding: 8px 16px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-light text-dark">
+  <header class="bg-dark py-3 mb-4 border-bottom position-relative">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+      <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+      <h1 class="h5 mb-0" id="header-username" style="opacity:0; transition:opacity 0.5s; color:white;">
+        Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? ""); ?>
+      </h1>
+    </div>
+    <div id="slide-username" class="slide-username">
+      Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? ""); ?>
+    </div>
+  </header>
+
+  <script>
+    window.onload = function() {
+      const slide = document.getElementById('slide-username');
+      const header = document.getElementById('header-username');
+      slide.style.transform = 'translateY(0)';
+      slide.style.opacity = '1';
+      setTimeout(function() {
+        slide.style.opacity = '0';
+        header.style.opacity = '1';
+      }, 2500);
+    };
+  </script>
+
+  <div class="container">
+    <!-- Abas de dias iguais à tela geral.php -->
+    <ul class="nav nav-tabs mb-4 justify-content-center" id="horariosTab" role="tablist">
+      <?php foreach ($maquinistas as $idx => $maq): ?>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link<?= $idx === 0 ? ' active' : '' ?>" id="dia<?= htmlspecialchars($maq['indentificador']) ?>-tab" data-bs-toggle="tab" data-bs-target="#dia<?= htmlspecialchars($maq['indentificador']) ?>" type="button" role="tab">
+            Dia <?= htmlspecialchars($maq['indentificador']) ?>
+          </button>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+
+    <div class="tab-content mb-4" id="horariosTabContent">
+      <?php foreach ($maquinistas as $idx => $maq): ?>
+        <div class="tab-pane fade<?= $idx === 0 ? ' show active' : '' ?>" id="dia<?= htmlspecialchars($maq['indentificador']) ?>" role="tabpanel">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="card bg-secondary text-light">
+                <div class="card-body">
+                  <h6 class="card-title mb-1">Maquinista</h6>
+                  <div><?= htmlspecialchars($maq['nome_usuario']) ?></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="card bg-secondary text-light">
+                <div class="card-body">
+                  <h6 class="card-title mb-1">Linha</h6>
+                  <div><?= htmlspecialchars($maq['linha_maquinista']) ?></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 mb-3">
+              <div class="card bg-secondary text-light">
+                <div class="card-body">
+                  <h6 class="card-title mb-1">Horário</h6>
+                  <div><?= htmlspecialchars($maq['horario_maquinista']) ?></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 mb-3">
+              <div class="card bg-secondary text-light">
+                <div class="card-body">
+                  <h6 class="card-title mb-1">Identificador</h6>
+                  <div><?= htmlspecialchars($maq['indentificador']) ?></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <!-- Formulário para alterar os próprios horários -->
+    <hr class="my-4">
+    <div class="text-dark text-center mb-4">
+      <h2>Alterar Meus Dados</h2>
+      <?php if ($mensagem): ?>
+        <div class="alert alert-info py-2"><?= htmlspecialchars($mensagem) ?></div>
+      <?php endif; ?>
+    </div>
+    <form method="post" class="row g-3 justify-content-center">
+      <div class="col-md-4">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" value="<?= htmlspecialchars($nome_usuario) ?>" disabled>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Linha</label>
+        <input type="text" name="linha_maquinista" class="form-control" value="<?= htmlspecialchars($linha_maquinista) ?>" required>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Horário</label>
+        <input type="text" name="horario_maquinista" class="form-control" value="<?= htmlspecialchars($horario_maquinista) ?>" required>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Identificador</label>
+        <input type="text" name="indentificador" class="form-control" value="<?= htmlspecialchars($indentificador) ?>" required>
+      </div>
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+
+    <div class="mb-3 mt-4">
+      <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
+    </div>
+
+    <h4 class="mb-3">Mapa de Navegação</h4>
+    <div id="map"></div>
+
+    <h4 class="mb-3 mt-4">Maquinistas Disponíveis</h4>
+    <div class="row mb-5">
+      <!-- Cards de maquinistas -->
+    </div>
+  </div>
+
+  <footer class="footer-nav fixed-bottom">
+    <div class="nav-container">
+      <button class="nav-item" data-page="geral" onclick="location.href='geral_maquinista.php'">
+        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
+        <span>Início</span>
+      </button>
+
+      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios_maquinista.php'">
+        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
+        <span>Relatórios</span>
+      </button>
+
+      <button class="nav-item" data-page="alertas" onclick="location.href='alertas_maquinista.php'">
+        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
+        <span>Alertas</span>
+      </button>
+
+      <button class="nav-item" data-page="usuario" onclick="location.href='usuario_maquinista.php'">
+        <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" class="user-icon default" />
+        <span>Perfil</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Leaflet JS (antes do script que usa 'L') -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j7kGk7b3fZs+0kq2qfQbQkQ5xY1LZ+3f2RkEMkM=" crossorigin=""></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Footer navigation active state
+      const navItems = document.querySelectorAll(".nav-item");
+      const path = window.location.pathname.split("/").pop();
+      navItems.forEach(item => {
+        const page = item.getAttribute("data-page") + ".php";
+        if (path === page) item.classList.add("active");
+        else item.classList.remove("active");
+      });
+
+      // Inicializar o mapa (garante que L está disponível)
+      if (typeof L === 'undefined') {
+        console.error("Leaflet não carregado. Verifique a importação do leaflet.js");
+        return;
+      }
+
+      const initialLat = -23.5505;
+      const initialLon = -46.6333;
+      const map = L.map('map', {
+        preferCanvas: true
+      }).setView([initialLat, initialLon], 12);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      let marker = null;
+
+      // Usa geolocalização do navegador se permitir
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          map.setView([lat, lon], 13);
+          if (marker) map.removeLayer(marker);
+          marker = L.marker([lat, lon]).addTo(map).bindPopup("Minha posição").openPopup();
+        }, () => {
+          // se negar, mantém posição padrão
+        }, {
+          enableHighAccuracy: true,
+          timeout: 5000
+        });
+      }
+
+      // Busca por endereço usando Nominatim
+      const searchInput = document.getElementById('search');
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const query = this.value.trim();
+          if (!query) return;
+          fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`, {
+              headers: {
+                'Accept-Language': 'pt-BR'
+              }
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                map.setView([lat, lon], 14);
+                if (marker) map.removeLayer(marker);
+                marker = L.marker([lat, lon]).addTo(map)
+                  .bindPopup(data[0].display_name)
+                  .openPopup();
+              } else {
+                alert("Endereço não encontrado!");
+              }
+            })
+            .catch(err => {
+              console.error(err);
+              alert("Erro na busca de endereço.");
+            });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
