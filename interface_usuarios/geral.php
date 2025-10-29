@@ -297,6 +297,29 @@ while ($row = $result->fetch_assoc()) {
       });
 
       initMap();
+
+      // Pesquisa de endereço
+document.getElementById('search').addEventListener('change', function() {
+    const address = this.value;
+    if(!address) return;
+
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data && data.length > 0) {
+                const loc = data[0];
+                map.setView([loc.lat, loc.lon], 15);
+                L.marker([loc.lat, loc.lon])
+                    .addTo(map)
+                    .bindPopup(address)
+                    .openPopup();
+            } else {
+                alert("Endereço não encontrado!");
+            }
+        })
+        .catch(err => console.error(err));
+});
+
   });
 
   
