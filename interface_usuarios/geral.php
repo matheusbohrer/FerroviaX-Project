@@ -29,6 +29,7 @@ while ($row = $result->fetch_assoc()) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body class="text-light">
@@ -69,6 +70,7 @@ while ($row = $result->fetch_assoc()) {
         </li>
       <?php endforeach; ?>
     </ul>
+    
 
     <div class="tab-content mb-4" id="horariosTabContent">
       <?php foreach ($maquinistas as $idx => $maq): ?>
@@ -111,11 +113,39 @@ while ($row = $result->fetch_assoc()) {
       <?php endforeach; ?>
     </div>
 
-    <div class="mb-3">
-      <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
+<div class="mb-3">
+  <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
+</div>
+
+<h4 class="mb-3">Mapa de Navegação</h4>
+<div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
+
+<!-- BLOCO COMPLETO DE ROTAS FERROVIÁRIAS -->
+<div class="mt-3 mb-3">
+  <button id="btn-show-routes" class="btn btn-warning"><i class="fas fa-train"></i> Rotas Ferroviárias</button>
+  <div id="routes-info" style="display:none; margin-top:10px;">
+    <div class="card bg-secondary text-light p-3">
+      <h5>Informações das Rotas</h5>
+
+      <!-- Botões de ação das rotas -->
+      <div class="mb-2">
+        <button id="btn-new-route" class="btn btn-success btn-sm me-2"><i class="fas fa-plus"></i> Nova Rota</button>
+        <button id="btn-edit-route" class="btn btn-primary btn-sm me-2"><i class="fas fa-edit"></i> Editar</button>
+        <button id="btn-save-route" class="btn btn-info btn-sm"><i class="fas fa-save"></i> Salvar</button>
+      </div>
+
+      <!-- Lista de rotas -->
+      <div id="routes-container"></div>
+
+      <!-- Detalhes da rota selecionada -->
+      <div id="route-details" class="mt-3" style="display:none;">
+        <h6>Estações da Rota</h6>
+        <div id="stations-container"></div>
+        <button id="btn-add-station" class="btn btn-sm btn-success mt-2"><i class="fas fa-plus"></i> Nova Estação</button>
+      </div>
     </div>
-    <h4 class="mb-3">Mapa de Navegação</h4>
-    <div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
+  </div>
+</div>
 
     <!-- ================= GERENCIADOR DE TRENS (CINZA) ================= -->
     <h4 class="mt-5 mb-3">Gerenciador de Trens</h4>
@@ -199,59 +229,78 @@ while ($row = $result->fetch_assoc()) {
     </div>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const navItems = document.querySelectorAll(".nav-item");
-      const path = window.location.pathname.split("/").pop();
-      navItems.forEach(item => {
-        const page = item.getAttribute("data-page") + ".php";
-        if (path === page) {
-          item.classList.add("active");
-        } else {
-          item.classList.remove("active");
-        }
+<script>
+  let map;
+  let stations = [];
+  let routes = [];
+  let stationMarkers = [];
+
+  // Inicializar mapa
+  function initMap() {
+      map = L.map('map').setView([-14.2350, -51.9253], 5); // centro do Brasil
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      loadStations();
+      loadRoutes();
+  }
+
+  function loadStations() {
+      fetch('api.php?action=get_stations')
+      .then(res => res.json())
+      .then(data => {
+          stations = data;
+          renderStations();
+      })
+      .catch(err => console.error(err));
+  }
+
+  function renderStations() {
+      stationMarkers.forEach(m => map.removeLayer(m));
+      stationMarkers = [];
+
+      stations.forEach(station => {
+          const marker = L.marker([station.latitude, station.longitude]).addTo(map);
+          marker.bindPopup(`<b>${station.nome}</b><br>${station.endereco || ''}`);
+          stationMarkers.push(marker);
       });
-    });
+  }
 
-    // Inicializar o mapa
-    var map = L.map('map').setView([-23.5505, -46.6333], 12);
+  function loadRoutes() {
+      fetch('api.php?action=get_routes')
+      .then(res => res.json())
+      .then(data => {
+          routes = data;
+          renderRoutes();
+      })
+      .catch(err => console.error(err));
+  }
 
-    // Tiles do OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+  function renderRoutes() {
+      const container = document.getElementById('routes-container');
+      container.innerHTML = '';
+      routes.forEach(route => {
+          const div = document.createElement('div');
+          div.className = 'route-item';
+          div.innerHTML = `<strong>${route.nome}</strong> - ${route.estacoes.length} estações`;
+          container.appendChild(div);
+      });
+  }
 
-    var marker; // marcador global
+  // Mostrar/Ocultar Rotas Ferroviárias
+  document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('btn-show-routes').addEventListener('click', () => {
+          const info = document.getElementById('routes-info');
+          info.style.display = (info.style.display === 'none') ? 'block' : 'none';
+      });
 
-    // Função de busca
-    document.getElementById('search').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        var query = this.value;
-        if (!query) return;
+      initMap();
+  });
 
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.length > 0) {
-              var lat = data[0].lat;
-              var lon = data[0].lon;
-
-              // Centralizar mapa
-              map.setView([lat, lon], 14);
-
-              // Colocar marcador
-              if (marker) map.removeLayer(marker);
-              marker = L.marker([lat, lon]).addTo(map)
-                .bindPopup(data[0].display_name)
-                .openPopup();
-            } else {
-              alert("Endereço não encontrado!");
-            }
-          })
-          .catch(err => console.error(err));
-      }
-    });
-  </script>
+  
+</script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
   <style>
@@ -386,6 +435,19 @@ while ($row = $result->fetch_assoc()) {
     .train-table tr:hover {
       background-color: #a8a8a8;
     }
+
+    #routes-container .route-item {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+#routes-container .route-item:hover {
+    background-color: rgba(255,255,255,0.1);
+}
   </style>
+
+
+
 </body>
 </html>
