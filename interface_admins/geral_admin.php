@@ -148,7 +148,7 @@ $sensores = $conn->query("SELECT * FROM sensores ORDER BY id_sensor DESC");
   <!-- Cabeçalho -->
   <header>
     <img src="../imagens/logoBranca.png" alt="Logo FerroviaX">
-    <h1>Administração do Sistema S.A.</h1>
+    <h1>Administração do Sistema FerroviaX</h1>
   </header>
 
   <div class="container">
