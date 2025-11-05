@@ -1,45 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diretrizes da Comunidade - FerroviaX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/diretrizes.css" />
-</head>
-<?php
-session_start();
-?>
-
-<?php
-session_start();
-?>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sobre Nós - FerroviaX</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    /* --- Geral preto e branco --- */
     body {
       background-color: #fff;
       color: #000;
-      padding-bottom: 80px; /* espaço para o rodapé fixo */
+      font-family: 'Inter', sans-serif;
       overflow-x: hidden;
+      padding-bottom: 80px; /* espaço para o rodapé fixo */
     }
 
     header {
       background-color: #000;
       color: #fff;
-      padding: 25px 0;
-      position: relative;
-      overflow: hidden;
-      animation: fadeInDown 1s ease;
       text-align: center;
+      padding: 25px 0;
+      animation: fadeInDown 1s ease;
     }
 
     @keyframes fadeInDown {
@@ -49,71 +29,65 @@ session_start();
 
     .logo {
       height: 55px;
-      filter: grayscale(100%) brightness(200%);
+      display: block;
+      margin: 0 auto 10px;
+      filter: brightness(200%) grayscale(100%);
       transition: transform 0.4s ease;
-      display:block;
-      margin: 0 auto 8px;
     }
+
     .logo:hover { transform: scale(1.06); }
 
-    /* --- Título com brilho que acontece 1 vez + fade-out --- */
-    .title {
-      color: #fff; /* cor padrão após o brilho */
+    h3.title {
       font-weight: 700;
       margin: 0;
-      position: relative;
-      display: inline-block;
-    }
-
-    .shine {
-      /* O efeito usa background-clip para preencher o texto enquanto dura a animação */
-      background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(200,200,200,0.9) 50%, rgba(255,255,255,0.95) 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shineOnce 2.2s linear 1 forwards;
-    }
-
-    @keyframes shineOnce {
-      0% { background-position: -100% 0; opacity: 1; filter: blur(6px); }
-      60% { background-position: 120% 0; filter: blur(0px); }
-      100% { background-position: 220% 0; opacity: 0.95; }
-    }
-
-    /* fade-out suave no fim do efeito (aplicado via JS ao remover classe .shine) */
-    .title--final {
-      transition: color 450ms ease, text-shadow 450ms ease;
       color: #fff;
-      text-shadow: 0 0 6px rgba(255,255,255,0.06);
+    }
+
+    /* --- Imagem principal FerroviaX.png --- */
+    .main-image {
+      display: block;
+      max-width: 580px;
+      width: 85%;
+      height: auto;
+      margin: 20px auto 35px;
+      animation: fadeInUp 1s ease;
     }
 
     /* --- Seções --- */
+    main section {
+      margin-bottom: 35px;
+      padding: 0 10px;
+    }
+
     .section-title {
       border-left: 5px solid #000;
       padding-left: 12px;
-      margin-bottom: 14px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
+      margin-bottom: 14px;
       animation: slideInLeft 0.8s ease;
     }
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-24px); }
-      to { opacity: 1; transform: translateX(0); }
+
+    p, ul {
+      animation: fadeInUp 0.8s ease;
+      line-height: 1.6;
     }
 
-    main p, main ul {
-      animation: fadeInUp 0.8s ease;
-    }
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     a { color: #000; text-decoration: underline; }
     a:hover { color: #555; }
 
-   
+    /* --- Rodapé fixo --- */
     .footer-nav {
       background: #fff;
       border-top: 1px solid #000;
@@ -124,11 +98,13 @@ session_start();
       width: 100%;
       z-index: 1000;
     }
+
     .nav-container {
       display: flex;
       justify-content: space-around;
       align-items: center;
     }
+
     .nav-item {
       flex: 1;
       text-align: center;
@@ -140,62 +116,103 @@ session_start();
       transition: all 0.25s ease;
       position: relative;
     }
-    .nav-item span { display: block; font-size: 11px; margin-top: 2px; opacity: 0.7; }
-    .nav-item .icon { height: 26px; width: 26px; display: block; margin: auto; filter: grayscale(100%); opacity: 0.75; }
-    .user-icon { height: 28px; width: 28px; border-radius: 50%; object-fit: cover; filter: grayscale(100%); opacity: 0.75; }
+
+    .nav-item span {
+      display: block;
+      font-size: 11px;
+      margin-top: 2px;
+      opacity: 0.7;
+    }
+
+    .icon {
+      height: 26px;
+      width: 26px;
+      display: block;
+      margin: auto;
+      filter: grayscale(100%);
+      opacity: 0.75;
+    }
+
+    .user-icon {
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      opacity: 0.75;
+    }
 
     .nav-item.active .default, .nav-item.active .user-icon {
-      opacity: 1; transform: scale(1.12); box-shadow: 0 0 8px #000;
-    }
-    .nav-item.active span { opacity: 1; color: #000; }
-    .nav-item.active::after {
-      content: ""; position: absolute; bottom: 0; left: 30%; width: 40%; height: 3px; background: #000; border-radius: 2px;
+      opacity: 1;
+      transform: scale(1.12);
+      box-shadow: 0 0 8px #000;
     }
 
-    /* Pequeno ajuste responsivo */
+    .nav-item.active span { opacity: 1; color: #000; }
+
+    .nav-item.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 30%;
+      width: 40%;
+      height: 3px;
+      background: #000;
+      border-radius: 2px;
+    }
+
+    /* --- Responsividade --- */
+    @media (max-width: 768px) {
+      .main-image { max-width: 220px; margin: 16px auto 28px; }
+      .section-title { border-left-width: 4px; padding-left: 8px; }
+    }
+
     @media (max-width: 420px) {
       .logo { height: 46px; }
-      .section-title { padding-left: 8px; border-left-width: 4px; }
+      h3.title { font-size: 1.25rem; }
+      .main-image { max-width: 180px; }
     }
 
   </style>
 </head>
+
 <body>
 
   <header>
     <img src="../imagens/logoBranca.png" alt="Logo FerroviaX" class="logo">
-    <!-- Título com efeito: .shine é aplicada para a animação e removida via JS ao terminar -->
-    <h3 class="title title--final"><span id="sobreTitulo" class="shine">Sobre Nós</span></h3>
+    <h3 class="title">Sobre Nós</h3>
   </header>
 
-  <main class="container my-4">
-    <section class="mb-4">
-      <h4 class="section-title">Quem Somos</h4>
-      <p>
+  <main class="container my-4 text-center">
+    <img src="../imagens/FerroviaX.png" alt="FerroviaX" class="main-image">
+
+    <section>
+      <h4 class="section-title text-start">Quem Somos</h4>
+      <p class="text-start">
         A <strong>FerroviaX</strong> é uma empresa dedicada à inovação no transporte ferroviário e logística inteligente.
         Nosso objetivo é otimizar o deslocamento de cargas e pessoas com tecnologia, eficiência e segurança.
       </p>
     </section>
 
-    <section class="mb-4">
-      <h4 class="section-title">Nossa Missão</h4>
-      <p>
+    <section>
+      <h4 class="section-title text-start">Nossa Missão</h4>
+      <p class="text-start">
         Garantir soluções de transporte ágeis e sustentáveis, conectando pessoas, empresas e oportunidades
         em todo o território nacional.
       </p>
     </section>
 
-    <section class="mb-4">
-      <h4 class="section-title">Nossa Visão</h4>
-      <p>
+    <section>
+      <h4 class="section-title text-start">Nossa Visão</h4>
+      <p class="text-start">
         Ser referência no setor ferroviário brasileiro, reconhecida pela inovação, compromisso ambiental
         e excelência em serviços de mobilidade e logística.
       </p>
     </section>
 
-    <section class="mb-4">
-      <h4 class="section-title">Nossos Valores</h4>
-      <ul>
+    <section>
+      <h4 class="section-title text-start">Nossos Valores</h4>
+      <ul class="text-start">
         <li>Inovação constante e melhoria contínua;</li>
         <li>Compromisso com a sustentabilidade e o meio ambiente;</li>
         <li>Ética, transparência e respeito;</li>
@@ -204,14 +221,14 @@ session_start();
     </section>
 
     <section>
-      <h4 class="section-title">Contato</h4>
-      <p>
+      <h4 class="section-title text-start">Contato</h4>
+      <p class="text-start">
         📧 E-mail: <a href="mailto:contato@ferroviax.com">contato@ferroviax.com</a><br>
-        📍 Endereço: SESI de Referência Joinville - R. Urussanga, 138 - Bucarein, Joinville - SC,
+        📍 Endereço: SESI de Referência Joinville - R. Urussanga, 138 - Bucarein, Joinville - SC
       </p>
     </section>
 
-    <div class="text-center mt-5">
+    <div class="mt-4 mb-5">
       <a href="usuario.php" class="btn btn-outline-dark fw-bold">Voltar ao Perfil</a>
     </div>
   </main>
@@ -242,43 +259,15 @@ session_start();
   </footer>
 
   <script>
-    (function(){
-      const titulo = document.getElementById('sobreTitulo');
-      if (!titulo) return;
-
-      function onAnimationEnd() {
-        
-        titulo.classList.remove('shine');
-        
-        titulo.parentElement.classList.add('title--final');
-        titulo.removeEventListener('animationend', onAnimationEnd);
-      }
-
-      // se a animação já estiver definida, escuta o fim
-      titulo.addEventListener('animationend', onAnimationEnd);
-
-     
-      setTimeout(() => {
-        if (titulo.classList.contains('shine')) {
-          onAnimationEnd();
-        }
-      }, 2600);
-    })();
-
-    // Marca item ativo no rodapé com base no nome da página
+    // Ativar item do rodapé conforme página
     document.addEventListener("DOMContentLoaded", () => {
       const navItems = document.querySelectorAll(".nav-item");
       const path = window.location.pathname.split("/").pop();
       navItems.forEach(item => {
         const page = item.getAttribute("data-page") + ".php";
-        if (path === page) {
-          item.classList.add("active");
-        } else {
-          item.classList.remove("active");
-        }
+        if (path === page) item.classList.add("active");
       });
     });
   </script>
 </body>
 </html>
-
