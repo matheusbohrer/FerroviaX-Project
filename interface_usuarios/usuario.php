@@ -110,6 +110,7 @@ require_once "../php/buscar.php";
         <li class="list-group-item" onclick="location.href='promocoes.php'">Promoções</li>
         <li class="list-group-item" onclick="location.href='familia.php'">Família e Adolescentes</li>
         <li class="list-group-item" onclick="location.href='diretrizes.php'">Diretrizes da Comunidade</li>
+        <li class="list-group-item" onclick="location.href='sobre.php'">Sobre nós</li>
         <li class="list-group-item" onclick="abrirPopupAvaliacao()">Avalie nosso site</li>
       </ul>
       <div class="avaliacao-popup" id="avaliacaoPopup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
