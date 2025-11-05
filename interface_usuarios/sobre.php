@@ -46,11 +46,12 @@
     /* --- Imagem principal FerroviaX.png --- */
     .main-image {
       display: block;
-      max-width: 580px;
+      max-width: 880px;
       width: 85%;
       height: auto;
       margin: 20px auto 35px;
       animation: fadeInUp 1s ease;
+      border-radius: 8px;
     }
 
     /* --- Seções --- */
