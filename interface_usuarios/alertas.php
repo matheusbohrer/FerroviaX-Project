@@ -136,16 +136,16 @@ require_once "../php/buscar.php";
   <!-- Rodapé -->
   <footer class="footer-nav fixed-bottom">
     <div class="nav-container">
-      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
+      <button class="nav-item active" data-page="geral" onclick="location.href='geral.php'">
         <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
         <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
         <span>Início</span>
       </button>
 
-      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
-        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
-        <span>Relatórios</span>
+      <button class="nav-item active" data-page="historico" onclick="location.href='historico.php'">
+        <img src="https://img.icons8.com/ios/50/time-machine.png" class="icon default">
+        <img src="https://img.icons8.com/ios-filled/50/time-machine.png" class="icon active-icon">
+        <span>Histórico</span>
       </button>
 
       <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">

@@ -28,7 +28,7 @@ while ($row = $result->fetch_assoc()) {
   <title>Painel do Usuário - FerroviaX</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> 
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
@@ -70,7 +70,7 @@ while ($row = $result->fetch_assoc()) {
         </li>
       <?php endforeach; ?>
     </ul>
-    
+
 
     <div class="tab-content mb-4" id="horariosTabContent">
       <?php foreach ($maquinistas as $idx => $maq): ?>
@@ -113,39 +113,39 @@ while ($row = $result->fetch_assoc()) {
       <?php endforeach; ?>
     </div>
 
-<div class="mb-3">
-  <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
-</div>
+    <div class="mb-3">
+      <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
+    </div>
 
-<h4 class="mb-3">Mapa de Navegação</h4>
-<div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
+    <h4 class="mb-3">Mapa de Navegação</h4>
+    <div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
 
-<!-- BLOCO COMPLETO DE ROTAS FERROVIÁRIAS -->
-<div class="mt-3 mb-3">
-  <button id="btn-show-routes" class="btn btn-warning"><i class="fas fa-train"></i> Rotas Ferroviárias</button>
-  <div id="routes-info" style="display:none; margin-top:10px;">
-    <div class="card bg-secondary text-light p-3">
-      <h5>Informações das Rotas</h5>
+    <!-- BLOCO COMPLETO DE ROTAS FERROVIÁRIAS -->
+    <div class="mt-3 mb-3">
+      <button id="btn-show-routes" class="btn btn-warning"><i class="fas fa-train"></i> Rotas Ferroviárias</button>
+      <div id="routes-info" style="display:none; margin-top:10px;">
+        <div class="card bg-secondary text-light p-3">
+          <h5>Informações das Rotas</h5>
 
-      <!-- Botões de ação das rotas -->
-      <div class="mb-2">
-        <button id="btn-new-route" class="btn btn-success btn-sm me-2"><i class="fas fa-plus"></i> Nova Rota</button>
-        <button id="btn-edit-route" class="btn btn-primary btn-sm me-2"><i class="fas fa-edit"></i> Editar</button>
-        <button id="btn-save-route" class="btn btn-info btn-sm"><i class="fas fa-save"></i> Salvar</button>
-      </div>
+          <!-- Botões de ação das rotas -->
+          <div class="mb-2">
+            <button id="btn-new-route" class="btn btn-success btn-sm me-2"><i class="fas fa-plus"></i> Nova Rota</button>
+            <button id="btn-edit-route" class="btn btn-primary btn-sm me-2"><i class="fas fa-edit"></i> Editar</button>
+            <button id="btn-save-route" class="btn btn-info btn-sm"><i class="fas fa-save"></i> Salvar</button>
+          </div>
 
-      <!-- Lista de rotas -->
-      <div id="routes-container"></div>
+          <!-- Lista de rotas -->
+          <div id="routes-container"></div>
 
-      <!-- Detalhes da rota selecionada -->
-      <div id="route-details" class="mt-3" style="display:none;">
-        <h6>Estações da Rota</h6>
-        <div id="stations-container"></div>
-        <button id="btn-add-station" class="btn btn-sm btn-success mt-2"><i class="fas fa-plus"></i> Nova Estação</button>
+          <!-- Detalhes da rota selecionada -->
+          <div id="route-details" class="mt-3" style="display:none;">
+            <h6>Estações da Rota</h6>
+            <div id="stations-container"></div>
+            <button id="btn-add-station" class="btn btn-sm btn-success mt-2"><i class="fas fa-plus"></i> Nova Estação</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
     <!-- ================= GERENCIADOR DE TRENS (CINZA) ================= -->
     <h4 class="mt-5 mb-3">Gerenciador de Trens</h4>
@@ -204,16 +204,16 @@ while ($row = $result->fetch_assoc()) {
 
   <footer class="footer-nav fixed-bottom">
     <div class="nav-container">
-      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
+      <button class="nav-item active" data-page="geral" onclick="location.href='geral.php'">
         <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
         <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
         <span>Início</span>
       </button>
 
-      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
-        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
-        <span>Relatórios</span>
+      <button class="nav-item" data-page="historico" onclick="location.href='historico.php'">
+        <img src="https://img.icons8.com/ios/50/time-machine.png" class="icon default">
+        <img src="https://img.icons8.com/ios-filled/50/time-machine.png" class="icon active-icon">
+        <span>Histórico</span>
       </button>
 
       <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
@@ -223,107 +223,105 @@ while ($row = $result->fetch_assoc()) {
       </button>
 
       <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
-        <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" class="user-icon default" />
+        <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
         <span>Perfil</span>
       </button>
     </div>
   </footer>
 
-<script>
-  let map;
-  let stations = [];
-  let routes = [];
-  let stationMarkers = [];
+  <script>
+    let map;
+    let stations = [];
+    let routes = [];
+    let stationMarkers = [];
 
-  // Inicializar mapa
-  function initMap() {
+    // Inicializar mapa
+    function initMap() {
       map = L.map('map').setView([-14.2350, -51.9253], 5); // centro do Brasil
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
+        attribution: '© OpenStreetMap contributors'
       }).addTo(map);
 
       loadStations();
       loadRoutes();
-  }
+    }
 
-  function loadStations() {
+    function loadStations() {
       fetch('api.php?action=get_stations')
-      .then(res => res.json())
-      .then(data => {
+        .then(res => res.json())
+        .then(data => {
           stations = data;
           renderStations();
-      })
-      .catch(err => console.error(err));
-  }
+        })
+        .catch(err => console.error(err));
+    }
 
-  function renderStations() {
+    function renderStations() {
       stationMarkers.forEach(m => map.removeLayer(m));
       stationMarkers = [];
 
       stations.forEach(station => {
-          const marker = L.marker([station.latitude, station.longitude]).addTo(map);
-          marker.bindPopup(`<b>${station.nome}</b><br>${station.endereco || ''}`);
-          stationMarkers.push(marker);
+        const marker = L.marker([station.latitude, station.longitude]).addTo(map);
+        marker.bindPopup(`<b>${station.nome}</b><br>${station.endereco || ''}`);
+        stationMarkers.push(marker);
       });
-  }
+    }
 
-  function loadRoutes() {
+    function loadRoutes() {
       fetch('api.php?action=get_routes')
-      .then(res => res.json())
-      .then(data => {
+        .then(res => res.json())
+        .then(data => {
           routes = data;
           renderRoutes();
-      })
-      .catch(err => console.error(err));
-  }
+        })
+        .catch(err => console.error(err));
+    }
 
-  function renderRoutes() {
+    function renderRoutes() {
       const container = document.getElementById('routes-container');
       container.innerHTML = '';
       routes.forEach(route => {
-          const div = document.createElement('div');
-          div.className = 'route-item';
-          div.innerHTML = `<strong>${route.nome}</strong> - ${route.estacoes.length} estações`;
-          container.appendChild(div);
+        const div = document.createElement('div');
+        div.className = 'route-item';
+        div.innerHTML = `<strong>${route.nome}</strong> - ${route.estacoes.length} estações`;
+        container.appendChild(div);
       });
-  }
+    }
 
-  // Mostrar/Ocultar Rotas Ferroviárias
-  document.addEventListener('DOMContentLoaded', () => {
+    // Mostrar/Ocultar Rotas Ferroviárias
+    document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('btn-show-routes').addEventListener('click', () => {
-          const info = document.getElementById('routes-info');
-          info.style.display = (info.style.display === 'none') ? 'block' : 'none';
+        const info = document.getElementById('routes-info');
+        info.style.display = (info.style.display === 'none') ? 'block' : 'none';
       });
 
       initMap();
 
       // Pesquisa de endereço
-document.getElementById('search').addEventListener('change', function() {
-    const address = this.value;
-    if(!address) return;
+      document.getElementById('search').addEventListener('change', function() {
+        const address = this.value;
+        if (!address) return;
 
-    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-        .then(res => res.json())
-        .then(data => {
-            if(data && data.length > 0) {
-                const loc = data[0];
-                map.setView([loc.lat, loc.lon], 15);
-                L.marker([loc.lat, loc.lon])
-                    .addTo(map)
-                    .bindPopup(address)
-                    .openPopup();
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.length > 0) {
+              const loc = data[0];
+              map.setView([loc.lat, loc.lon], 15);
+              L.marker([loc.lat, loc.lon])
+                .addTo(map)
+                .bindPopup(address)
+                .openPopup();
             } else {
-                alert("Endereço não encontrado!");
+              alert("Endereço não encontrado!");
             }
-        })
-        .catch(err => console.error(err));
-});
+          })
+          .catch(err => console.error(err));
+      });
 
-  });
-
-  
-</script>
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
   <style>
@@ -460,17 +458,18 @@ document.getElementById('search').addEventListener('change', function() {
     }
 
     #routes-container .route-item {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-}
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+      cursor: pointer;
+    }
 
-#routes-container .route-item:hover {
-    background-color: rgba(255,255,255,0.1);
-}
+    #routes-container .route-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
   </style>
 
 
 
 </body>
+
 </html>

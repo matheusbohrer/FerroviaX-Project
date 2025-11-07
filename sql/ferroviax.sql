@@ -50,6 +50,17 @@ CREATE TABLE alertas (
     data_alerta DATETIME NOT NULL
 );
 
+CREATE TABLE alertas_recebidos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fk_usuario INT,
+  fk_alerta INT,
+  titulo VARCHAR(200),
+  descricao TEXT,
+  linha VARCHAR(100),
+  tipo VARCHAR(50),
+  data_recebido DATETIME
+);
+
 INSERT INTO `usuario` (`pk_usuario`, `nome_usuario`, `email_usuario`, `senha_usuario`, `foto_usuario`, `cargo`, `linha_maquinista`, `horario_maquinista`, `indentificador`) VALUES
 (1, 'teste', 'teste@gmail.com', '$2y$10$nkRfcP12t9TIIM.ku/pMSelaBfocFim2lihYlQt2Hqk5Ikw9W7Ogq', 'uploads/foto_12_1758981995.png', 3, 'Linha Preta', '12:00 - 06:00', 4),
 (2, 'admin', 'admin@gmail.com', '$2y$10$x4fBcwO/YmjMhw.RTvR8ReOotVgrc6tUH6j9vPDu2efjyYCvSQFrS', 'uploads/foto_2_1759494876.png', 2, 'Nenhuma', 'Nenhum', NULL),
