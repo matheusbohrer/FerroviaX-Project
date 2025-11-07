@@ -1,326 +1,203 @@
 <?php
 require_once "../php/buscar.php";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['criar_alerta'])) {
+  $titulo = trim($_POST['titulo']);
+  $descricao = trim($_POST['descricao']);
+  $linha = trim($_POST['linha']);
+  $tipo = trim($_POST['tipo']);
+  $data_alerta = date("Y-m-d H:i:s");
+  $stmt = $conn->prepare("INSERT INTO alertas (titulo, descricao, linha, tipo, data_alerta) VALUES (?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssss", $titulo, $descricao, $linha, $tipo, $data_alerta);
+  $stmt->execute();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_alerta'])) {
+  $id = intval($_POST['id_alerta']);
+  $titulo = trim($_POST['titulo']);
+  $descricao = trim($_POST['descricao']);
+  $linha = trim($_POST['linha']);
+  $tipo = trim($_POST['tipo']);
+  $stmt = $conn->prepare("UPDATE alertas SET titulo=?, descricao=?, linha=?, tipo=? WHERE id_alerta=?");
+  $stmt->bind_param("ssssi", $titulo, $descricao, $linha, $tipo, $id);
+  $stmt->execute();
+}
+
+if (isset($_GET['excluir_alerta'])) {
+  $id = intval($_GET['excluir_alerta']);
+  $stmt = $conn->prepare("DELETE FROM alertas WHERE id_alerta = ?");
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+}
+
+$alertas = $conn->query("SELECT * FROM alertas ORDER BY data_alerta DESC");
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FerroviaX - Alertas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Alertas</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+html, body { margin: 0; padding: 0; background: #f8f9fa; }
+header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  background: #212529; color: #fff; z-index: 1000;
+  padding: 10px 20px; height: 80px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+header img { height: 50px; }
+.container { margin-top: 90px; }
+table { background: #fff; border-radius: 8px; }
+th { background: #f1f1f1; }
+select, input, textarea, button { border-radius: 6px !important; }
+
+.footer-nav { background: #fff; border-top: 1px solid #ddd; padding: 6px 0; }
+.nav-container { display: flex; justify-content: space-around; align-items: center; }
+.nav-item {
+  flex: 1; text-align: center; background: none; border: none;
+  padding: 6px 0; color: #666; font-size: 12px; position: relative;
+}
+.nav-item span { display: block; margin-top: 2px; opacity: .6; }
+.nav-item .icon { height: 26px; opacity: .6; }
+.nav-item .active-icon { display: none; }
+.nav-item.active .default { display: none; }
+.nav-item.active .active-icon { display: block; }
+.nav-item.active span, .nav-item.active .icon { opacity: 1; color: #007bff; transform: scale(1.1); }
+.nav-item.active::after {
+  content: ""; position: absolute; bottom: 0; left: 30%;
+  width: 40%; height: 3px; background: #007bff; border-radius: 2px;
+}
+</style>
 </head>
 
-<body class="bg-light" style="min-height:100vh; position:relative;">
-  <!-- Cabeçalho FerroviaX -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container justify-content-center">
-      <a class="navbar-brand mx-auto" href="#">
-        <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height: 60px;">
-      </a>
-    </div>
-  </nav>
+<body>
 
-  <main class="container pb-5">
-    <h2 class="mb-4 text-center fw-bold">Alertas e Notificações</h2>
+<header>
+  <img src="../imagens/logoBranca.png">
+  <h1 style="font-size:1rem;">Admin - Gerenciamento de Alertas</h1>
+</header>
 
-    <div class="mb-3">
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Novo trem chegando!</strong> <span class="text-muted">1d</span></div>
-          <div class="small">Saindo às 11:00</div>
-        </div>
-        <button class="btn btn-outline-primary btn-sm">Ver mais</button>
-      </div>
+<div class="container">
 
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://pm1.aminoapps.com/7687/4743f9ffed3bb00d39710c0bfc25bb82a0f43e55r1-304-304v2_00.jpg" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Moto Moto</strong> <span class="text-muted">1d</span></div>
-          <div class="small">Avalie o maquinista</div>
-        </div>
-        <button class="btn btn-warning btn-sm">☆</button>
-      </div>
+<ul class="nav nav-tabs mb-4 justify-content-center">
+  <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#alertas">Alertas Ativos</button></li>
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#novo">Criar Novo</button></li>
+</ul>
 
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://img.freepik.com/vetores-gratis/saudacao-alegre-do-papai-noel-dos-desenhos-animados-para-a-celebracao-do-natal_1308-153957.jpg?semt=ais_hybrid&w=740" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Santa Claus</strong> <span class="text-muted">3d</span></div>
-          <div class="small">Avalie o maquinista</div>
-        </div>
-        <button class="btn btn-warning btn-sm">☆</button>
-      </div>
+<div class="tab-content">
 
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Novo trem chegando!</strong> <span class="text-muted">3d</span></div>
-          <div class="small">Saindo às 20:00</div>
-        </div>
-        <button class="btn btn-outline-primary btn-sm">Ver mais</button>
-      </div>
+<div class="tab-pane fade show active" id="alertas">
+  <h4 class="text-center mb-3">Alertas Emitidos</h4>
 
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Novo trem chegando!</strong> <span class="text-muted">4d</span></div>
-          <div class="small">Saindo às 13:30</div>
-        </div>
-        <button class="btn btn-outline-primary btn-sm">Ver mais</button>
-      </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th><th>Título</th><th>Linha</th><th>Tipo</th><th>Data</th><th>Ação</th>
+      </tr>
+    </thead>
 
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://lojaautoformula.com.br/cdn/shop/collections/AF_FEED_IG_REDBULL_-_2023-10-10T221600.481.png?v=1741615741&width=1296" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Max Verstappen</strong> <span class="text-muted">4d</span></div>
-          <div class="small">Avalie o maquinista</div>
-        </div>
-        <button class="btn btn-warning btn-sm">☆</button>
-      </div>
-    </div>
+    <tbody>
+    <?php while ($a = $alertas->fetch_assoc()): ?>
+      <tr>
+        <form method="POST">
+          <td><?= $a['id_alerta'] ?></td>
+          <input type="hidden" name="id_alerta" value="<?= $a['id_alerta'] ?>">
 
-    <!-- Popup de avaliação (exemplo visual, sem JS) -->
-    <div class="modal fade" id="avaliacaoModal" tabindex="-1" aria-labelledby="avaliacaoModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="avaliacaoModalLabel">Avalie nosso Aplicativo!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          <td><input type="text" name="titulo" class="form-control form-control-sm" value="<?= htmlspecialchars($a['titulo']) ?>"></td>
+          <td><input type="text" name="linha" class="form-control form-control-sm" value="<?= htmlspecialchars($a['linha']) ?>"></td>
+
+          <td>
+            <select name="tipo" class="form-select form-select-sm">
+              <option value="Atraso" <?= $a['tipo']=="Atraso"?"selected":"" ?>>Atraso</option>
+              <option value="Manutenção" <?= $a['tipo']=="Manutenção"?"selected":"" ?>>Manutenção</option>
+              <option value="Interdição" <?= $a['tipo']=="Interdição"?"selected":"" ?>>Interdição</option>
+              <option value="Aviso" <?= $a['tipo']=="Aviso"?"selected":"" ?>>Aviso</option>
+            </select>
+          </td>
+
+          <td><?= $a['data_alerta'] ?></td>
+
+          <td>
+            <button name="editar_alerta" class="btn btn-sm btn-secondary">Salvar</button>
+            <a href="?excluir_alerta=<?= $a['id_alerta'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Excluir este alerta?')">Excluir</a>
+          </td>
+        </form>
+      </tr>
+    <?php endwhile; ?>
+    </tbody>
+  </table>
+</div>
+
+<div class="tab-pane fade" id="novo">
+  <h4 class="text-center mb-3">Criar Novo Alerta</h4>
+
+  <div class="card">
+    <div class="card-header bg-primary text-white">Novo Alerta</div>
+    <div class="card-body">
+
+      <form method="POST">
+        <label class="form-label">Título</label>
+        <input type="text" name="titulo" class="form-control" required>
+
+        <label class="form-label mt-3">Descrição</label>
+        <textarea name="descricao" class="form-control" rows="3" required></textarea>
+
+        <div class="row mt-3">
+          <div class="col-6">
+            <label class="form-label">Linha</label>
+            <input type="text" name="linha" class="form-control" required>
           </div>
-          <div class="modal-body">
-            <p>E ganhe recompensas!</p>
-            <div class="d-flex gap-2">
-              <button class="btn btn-primary flex-fill">Quero avaliar!</button>
-              <button class="btn btn-secondary flex-fill" data-bs-dismiss="modal">Mais tarde</button>
-            </div>
+          <div class="col-6">
+            <label class="form-label">Tipo</label>
+            <select name="tipo" class="form-select">
+              <option>Atraso</option>
+              <option>Manutenção</option>
+              <option>Interdição</option>
+              <option>Aviso</option>
+            </select>
           </div>
         </div>
-      </div>
+
+        <button name="criar_alerta" class="btn btn-primary mt-3">Criar Alerta</button>
+      </form>
+
     </div>
-  </main>
+  </div>
+</div>
 
- <footer class="footer-nav fixed-bottom">
-    <div class="nav-container">
-      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
-        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
-        <span>Início</span>
-      </button>
+</div>
+</div>
 
-      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
-        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
-        <span>Relatórios</span>
-      </button>
+<footer class="footer-nav fixed-bottom">
+  <div class="nav-container">
+    <button class="nav-item" onclick="location.href='geral_admin.php'">
+      <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default">
+      <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon">
+      <span>Início</span>
+    </button>
 
-      <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
-        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
-        <span>Alertas</span>
-      </button>
+    <button class="nav-item" onclick="location.href='relatorios_admin.php'">
+      <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default">
+      <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon">
+      <span>Relatórios</span>
+    </button>
 
-      <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
-        <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" alt="Avatar" class="user-icon default" />
-        <span>Perfil</span>
-      </button>
-    </div>
-  </footer>
+    <button class="nav-item active">
+      <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default">
+      <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon">
+      <span>Alertas</span>
+    </button>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const navItems = document.querySelectorAll(".nav-item");
-      const path = window.location.pathname.split("/").pop();
-      navItems.forEach(item => {
-        const page = item.getAttribute("data-page") + ".php";
-        if (path === page) {
-          item.classList.add("active");
-        } else {
-          item.classList.remove("active");
-        }
-      });
-    });
+    <button class="nav-item" onclick="location.href='configuracoes_admin.php'">
+      <img src="https://img.icons8.com/ios/50/000000/settings.png" class="icon default">
+      <img src="https://img.icons8.com/ios-filled/50/000000/settings.png" class="icon active-icon">
+      <span>Configurações</span>
+    </button>
+  </div>
+</footer>
 
-    // Inicializar o mapa
-    var map = L.map('map').setView([-23.5505, -46.6333], 12);
-
-    // Tiles do OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    var marker; // marcador global
-
-    // Função de busca
-    document.getElementById('search').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        var query = this.value;
-        if (!query) return;
-
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.length > 0) {
-              var lat = data[0].lat;
-              var lon = data[0].lon;
-
-              // Centralizar mapa
-              map.setView([lat, lon], 14);
-
-              // Colocar marcador
-              if (marker) map.removeLayer(marker);
-              marker = L.marker([lat, lon]).addTo(map)
-                .bindPopup(data[0].display_name)
-                .openPopup();
-            } else {
-              alert("Endereço não encontrado!");
-            }
-          })
-          .catch(err => console.error(err));
-      }
-    });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-
-  <style>
-    .nav-tabs .nav-link {
-      color: #212529 !important;
-      background-color: transparent !important;
-      border: none;
-    }
-
-    .nav-tabs .nav-link.active {
-      background-color: #fff !important;
-      color: #212529 !important;
-      border: 1px solid #dee2e6 !important;
-      border-bottom: none !important;
-    }
-
-    .nav-tabs {
-      border-bottom: 1px solid #dee2e6;
-    }
-
-    .slide-username {
-      position: absolute;
-      left: 30%;
-      top: 100%;
-      padding: 10px 30px;
-      border-radius: 20px;
-      font-size: 1.2rem;
-      color: white;
-    }
-
-    .footer-nav {
-      background: #fff;
-      border-top: 1px solid #ddd;
-      padding: 6px 0;
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    .nav-item {
-      flex: 1;
-      text-align: center;
-      background: none;
-      border: none;
-      outline: none;
-      padding: 6px 0;
-      color: #666;
-      font-size: 12px;
-      transition: color 0.3s ease;
-      position: relative;
-    }
-
-    .nav-item span {
-      display: block;
-      font-size: 11px;
-      margin-top: 2px;
-      opacity: 0.6;
-      transition: 0.3s;
-    }
-
-    .nav-item .icon {
-      height: 26px;
-      width: 26px;
-      display: block;
-      margin: auto;
-      opacity: 0.6;
-      transition: 0.3s;
-    }
-
-    .nav-item .active-icon {
-      display: none;
-    }
-
-    .nav-item.active .default {
-      display: none;
-    }
-
-    .nav-item.active .active-icon {
-      display: block;
-    }
-
-    .nav-item.active .icon,
-    .nav-item.active span {
-      opacity: 1;
-      color: #007bff;
-      transform: scale(1.1);
-    }
-
-    .nav-item.active::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 30%;
-      width: 40%;
-      height: 3px;
-      background: #007bff;
-      border-radius: 2px;
-      transition: 0.3s;
-    }
-
-    .user-icon {
-      width: 28px;
-      height: 28px;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-      margin: auto;
-      max-width: 32px;
-      max-height: 32px;
-    }
-
-    /* ======== Tabela Cinza (Gerenciador de Trens) ======== */
-    .train-table {
-      background-color: #b0b0b0;
-      color: #212529;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .train-table th {
-      background-color: #6c757d;
-      color: #fff;
-    }
-
-    .train-table tr:nth-child(even) {
-      background-color: #c8c8c8;
-    }
-
-    .train-table tr:hover {
-      background-color: #a8a8a8;
-    }
-  </style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

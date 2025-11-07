@@ -41,6 +41,15 @@ CREATE TABLE `usuario` (
   `indentificador` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE alertas (
+    id_alerta INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descricao TEXT NOT NULL,
+    linha VARCHAR(120) NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    data_alerta DATETIME NOT NULL
+);
+
 INSERT INTO `usuario` (`pk_usuario`, `nome_usuario`, `email_usuario`, `senha_usuario`, `foto_usuario`, `cargo`, `linha_maquinista`, `horario_maquinista`, `indentificador`) VALUES
 (1, 'teste', 'teste@gmail.com', '$2y$10$nkRfcP12t9TIIM.ku/pMSelaBfocFim2lihYlQt2Hqk5Ikw9W7Ogq', 'uploads/foto_12_1758981995.png', 3, 'Linha Preta', '12:00 - 06:00', 4),
 (2, 'admin', 'admin@gmail.com', '$2y$10$x4fBcwO/YmjMhw.RTvR8ReOotVgrc6tUH6j9vPDu2efjyYCvSQFrS', 'uploads/foto_2_1759494876.png', 2, 'Nenhuma', 'Nenhum', NULL),
