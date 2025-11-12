@@ -105,8 +105,6 @@ require_once "../php/buscar.php";
     <div class="opcoes-lista mb-4">
       <ul class="list-group">
         <li class="list-group-item" onclick="location.href='configuracoes.php'">Configurações de Conta</li>
-        <li class="list-group-item" onclick="location.href='mensagens.php'">Mensagens</li>
-        <li class="list-group-item" onclick="location.href='presente.php'">Cartão Presente</li>
         <li class="list-group-item" onclick="location.href='promocoes.php'">Promoções</li>
         <li class="list-group-item" onclick="location.href='familia.php'">Família e Adolescentes</li>
         <li class="list-group-item" onclick="location.href='diretrizes.php'">Diretrizes da Comunidade</li>
@@ -129,33 +127,32 @@ require_once "../php/buscar.php";
     </div>
   </div>
 
-  <footer class="footer-nav fixed-bottom">
-  <div class="nav-container">
-    <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
-      <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
-      <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
-      <span>Início</span>
-    </button>
+<footer class="footer-nav fixed-bottom">
+    <div class="nav-container">
+      <button class="nav-item active" data-page="geral" onclick="location.href='geral.php'">
+        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
+        <span>Início</span>
+      </button>
 
-    <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
-      <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
-      <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
-      <span>Relatórios</span>
-    </button>
+      <button class="nav-item" data-page="historico" onclick="location.href='historico.php'">
+        <img src="https://img.icons8.com/ios/50/time-machine.png" class="icon default">
+        <img src="https://img.icons8.com/ios-filled/50/time-machine.png" class="icon active-icon">
+        <span>Histórico</span>
+      </button>
 
-    <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
-      <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
-      <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
-      <span>Alertas</span>
-    </button>
+      <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
+        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
+        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
+        <span>Alertas</span>
+      </button>
 
-    <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
-      <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
-      <span>Perfil</span>
-    </button>
-  </div>
-</footer>
-
+      <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
+        <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
+        <span>Perfil</span>
+      </button>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
   <script>
