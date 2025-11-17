@@ -11,14 +11,14 @@ CREATE TABLE `itinerario` (
   `id_trem` int NOT NULL,
   `dia_itinerario` date NOT NULL,
   `horario_itinerario` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `sensores` (
   `id_sensor` int NOT NULL,
-  `tipo_sensor` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `local_sensor` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tipo_sensor` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `local_sensor` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `data_sensor` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `sensores` (`id_sensor`, `tipo_sensor`, `local_sensor`, `data_sensor`) VALUES
 (1, 'sensor de temperatura', 'terminal 1', '2023-10-15');
@@ -27,7 +27,7 @@ CREATE TABLE `trem` (
   `pk_trem` int NOT NULL,
   `nome_trem` varchar(20) NOT NULL,
   `linha_trem` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `usuario` (
   `pk_usuario` int NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `usuario` (
   `linha_maquinista` varchar(50) DEFAULT 'Nenhuma',
   `horario_maquinista` varchar(50) DEFAULT 'Nenhum',
   `indentificador` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE alertas (
     id_alerta INT AUTO_INCREMENT PRIMARY KEY,
