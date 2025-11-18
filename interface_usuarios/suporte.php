@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Suporte FerroviaX</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -166,12 +167,14 @@
     }
   </script>
 </head>
-<body>
 
-  <header>
-    <button class="back-button" onclick="voltarPagina()">&#8592;</button>
-    Suporte FerroviaX
-  </header>
+<header class="bg-dark py-3 mb-4 border-bottom position-relative">
+  <div class="container d-flex flex-wrap justify-content-center align-items-center">
+    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+  </div>
+</header>
+<body class="bg-light">
+
 
   <main>
     <h3>Perguntas Frequentes</h3>

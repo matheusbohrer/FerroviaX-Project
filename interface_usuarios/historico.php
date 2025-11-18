@@ -25,8 +25,10 @@ $result = $stmt->get_result();
 
 <body class="bg-light">
 
-<header class="p-3 bg-dark text-white text-center shadow-sm">
-  <img src="../imagens/logoBranca.png" style="height:55px;">
+<header class="bg-dark py-3 mb-4 border-bottom position-relative">
+  <div class="container d-flex flex-wrap justify-content-center align-items-center">
+    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+  </div>
 </header>
 
 <div class="container py-4">

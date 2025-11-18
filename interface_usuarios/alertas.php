@@ -13,14 +13,11 @@ require_once "../php/buscar.php";
 </head>
 
 <body class="bg-light" style="min-height:100vh; position:relative;">
-  <!-- Cabeçalho FerroviaX -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container justify-content-center">
-      <a class="navbar-brand mx-auto" href="#">
-        <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height: 60px;">
-      </a>
-    </div>
-  </nav>
+<header class="bg-dark py-3 mb-4 border-bottom position-relative">
+  <div class="container d-flex flex-wrap justify-content-center align-items-center">
+    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+  </div>
+</header>
 
   <main class="container pb-5">
     <h2 class="mb-4 text-center fw-bold">Alertas e Notificações</h2>

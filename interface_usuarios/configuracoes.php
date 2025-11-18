@@ -5,20 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Configurações de Conta - FerroviaX</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../css/configuracoes.css" />
 </head>
 <body>
-  <div class="app">
-    <header class="config-header">
-  <button class="voltar-btn" onclick="history.back()" aria-label="Voltar">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#111" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
-          <line x1="19" y1="12" x2="5" y2="12" />
-          <polyline points="12 19 5 12 12 5" />
-        </svg>
+<header class="bg-dark py-3 mb-4 border-bottom position-relative">
+
+  <!-- Botão voltar -->
+  <button onclick="history.back()" 
+          class="btn btn-outline-secondary position-absolute" 
+          style="left: 15px; top: 50%; transform: translateY(-50%);">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" 
+         stroke="#fff" stroke-width="2" stroke-linecap="round" 
+         stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12" />
+      <polyline points="12 19 5 12 12 5" />
+    </svg>
   </button>
-  <h1>Configurações de Conta</h1>
+
+  <!-- Logo centralizada -->
+  <div class="container d-flex justify-content-center align-items-center">
+    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+  </div>
+
 </header>
+
+<!-- TÍTULO DA PÁGINA -->
+<div class="app">
+  <header class="config-header text-center mb-3">
+    <h1>Configurações de Conta</h1>
+  </header>
+</div>
+
+
 
     <main class="config-container">
       <section class="config-opcoes">

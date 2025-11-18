@@ -57,14 +57,13 @@ require_once "../php/buscar.php";
 </head>
 
 <body class="bg-light">
-
+<header class="bg-dark py-3 mb-4 border-bottom position-relative">
+  <div class="container d-flex flex-wrap justify-content-center align-items-center">
+    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+  </div>
+</header>
   <div class="container py-4">
-    <header class="mb-4">
-      <div class="d-flex justify-content-between align-items-center">
-        <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
 
-      </div>
-    </header>
 
     <div class="text-center mb-4">
       <div class="perfil-foto" onclick="window.location.href='perfil.php'">

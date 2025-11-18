@@ -12,21 +12,11 @@
 
 <body class="bg-light" style="min-height:100vh; position:relative;">
   <!-- Cabeçalho FerroviaX -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container justify-content-center">
-      <button class="btn btn-outline-light me-2" onclick="history.back()" aria-label="Voltar">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#fff" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
-          <line x1="19" y1="12" x2="5" y2="12" />
-          <polyline points="12 19 5 12 12 5" />
-        </svg>
-      </button>
-      <a class="navbar-brand mx-auto" href="#">
-        <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height: 40px;">
-      </a>
-      <span class="navbar-text text-white fw-bold ms-2">Saldo</span>
-    </div>
-  </nav>
+<header class="bg-dark py-3 mb-4 border-bottom position-relative">
+  <div class="container d-flex flex-wrap justify-content-center align-items-center">
+    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+  </div>
+</header>
 
   <div class="container pb-5">
     <section class="text-center mb-4">
@@ -63,16 +53,16 @@
   <!-- Rodapé fixo -->
   <footer class="footer-nav fixed-bottom">
     <div class="nav-container">
-      <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
+      <button class="nav-item active" data-page="geral" onclick="location.href='geral.php'">
         <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
         <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
         <span>Início</span>
       </button>
 
-      <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
-        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/combo-chart.png" class="icon active-icon" />
-        <span>Relatórios</span>
+      <button class="nav-item" data-page="historico" onclick="location.href='historico.php'">
+        <img src="https://img.icons8.com/ios/50/time-machine.png" class="icon default">
+        <img src="https://img.icons8.com/ios-filled/50/time-machine.png" class="icon active-icon">
+        <span>Histórico</span>
       </button>
 
       <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
