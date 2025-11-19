@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sobre Nós - FerroviaX</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -11,7 +12,8 @@
       color: #000;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
-      padding-bottom: 80px; /* espaço para o rodapé fixo */
+      padding-bottom: 80px;
+      /* espaço para o rodapé fixo */
     }
 
     header {
@@ -23,8 +25,15 @@
     }
 
     @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .logo {
@@ -35,7 +44,9 @@
       transition: transform 0.4s ease;
     }
 
-    .logo:hover { transform: scale(1.06); }
+    .logo:hover {
+      transform: scale(1.06);
+    }
 
     h3.title {
       font-weight: 700;
@@ -70,23 +81,44 @@
       animation: slideInLeft 0.8s ease;
     }
 
-    p, ul {
+    p,
+    ul {
       animation: fadeInUp 0.8s ease;
       line-height: 1.6;
     }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
-    a { color: #000; text-decoration: underline; }
-    a:hover { color: #555; }
+    a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #555;
+    }
 
     /* --- Rodapé fixo --- */
     .footer-nav {
@@ -143,13 +175,17 @@
       opacity: 0.75;
     }
 
-    .nav-item.active .default, .nav-item.active .user-icon {
+    .nav-item.active .default,
+    .nav-item.active .user-icon {
       opacity: 1;
       transform: scale(1.12);
       box-shadow: 0 0 8px #000;
     }
 
-    .nav-item.active span { opacity: 1; color: #000; }
+    .nav-item.active span {
+      opacity: 1;
+      color: #000;
+    }
 
     .nav-item.active::after {
       content: "";
@@ -164,16 +200,30 @@
 
     /* --- Responsividade --- */
     @media (max-width: 768px) {
-      .main-image { max-width: 220px; margin: 16px auto 28px; }
-      .section-title { border-left-width: 4px; padding-left: 8px; }
+      .main-image {
+        max-width: 220px;
+        margin: 16px auto 28px;
+      }
+
+      .section-title {
+        border-left-width: 4px;
+        padding-left: 8px;
+      }
     }
 
     @media (max-width: 420px) {
-      .logo { height: 46px; }
-      h3.title { font-size: 1.25rem; }
-      .main-image { max-width: 180px; }
-    }
+      .logo {
+        height: 46px;
+      }
 
+      h3.title {
+        font-size: 1.25rem;
+      }
+
+      .main-image {
+        max-width: 180px;
+      }
+    }
   </style>
 </head>
 
@@ -183,6 +233,14 @@
     <img src="../imagens/logoBranca.png" alt="Logo FerroviaX" class="logo">
     <h3 class="title">Sobre Nós</h3>
   </header>
+
+  <button class="btn btn-outline-secondary mb-3" onclick="history.back()" aria-label="Voltar" style="margin-left: 20px; margin-top: 12px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#111" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+      <line x1="19" y1="12" x2="5" y2="12" />
+      <polyline points="12 19 5 12 12 5" />
+    </svg>
+  </button>
 
   <main class="container my-4 text-center">
     <img src="../imagens/FerroviaX.png" alt="FerroviaX" class="main-image">
@@ -238,17 +296,17 @@
   <footer class="footer-nav" role="navigation" aria-label="Navegação inferior">
     <div class="nav-container">
       <button class="nav-item" data-page="geral" onclick="location.href='geral.php'">
-        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" alt="Início"/>
+        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" alt="Início" />
         <span>Início</span>
       </button>
 
       <button class="nav-item" data-page="relatorios" onclick="location.href='relatorios.php'">
-        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" alt="Relatórios"/>
+        <img src="https://img.icons8.com/ios/50/000000/combo-chart.png" class="icon default" alt="Relatórios" />
         <span>Relatórios</span>
       </button>
 
       <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
-        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" alt="Alertas"/>
+        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" alt="Alertas" />
         <span>Alertas</span>
       </button>
 
@@ -271,4 +329,5 @@
     });
   </script>
 </body>
+
 </html>

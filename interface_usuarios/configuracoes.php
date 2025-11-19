@@ -11,24 +11,21 @@
 <body>
 <header class="bg-dark py-3 mb-4 border-bottom position-relative">
 
-  <!-- Botão voltar -->
-  <button onclick="history.back()" 
-          class="btn btn-outline-secondary position-absolute" 
-          style="left: 15px; top: 50%; transform: translateY(-50%);">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" 
-         stroke="#fff" stroke-width="2" stroke-linecap="round" 
-         stroke-linejoin="round">
-      <line x1="19" y1="12" x2="5" y2="12" />
-      <polyline points="12 19 5 12 12 5" />
-    </svg>
-  </button>
+
 
   <!-- Logo centralizada -->
   <div class="container d-flex justify-content-center align-items-center">
     <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
   </div>
-
 </header>
+
+    <button class="btn btn-outline-secondary mb-3" onclick="history.back()" aria-label="Voltar" style="margin-left: 20px;" >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#111" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+        <line x1="19" y1="12" x2="5" y2="12" />
+        <polyline points="12 19 5 12 12 5" />
+      </svg>
+    </button>
 
 <!-- TÍTULO DA PÁGINA -->
 <div class="app">

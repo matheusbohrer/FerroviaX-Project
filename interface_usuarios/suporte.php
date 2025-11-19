@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Suporte FerroviaX</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #fff; /* Toda a tela branca */
+      background-color: #fff;
+      /* Toda a tela branca */
       color: #111;
     }
 
@@ -24,6 +28,8 @@
       position: relative;
     }
 
+    
+
     /* Botão de voltar */
     .back-button {
       position: absolute;
@@ -35,6 +41,7 @@
       font-size: 1.5em;
       cursor: pointer;
       color: #333;
+      
     }
 
     .back-button:hover {
@@ -104,6 +111,7 @@
       cursor: pointer;
       margin-top: 10px;
       transition: background 0.3s;
+      
     }
 
     .btn:hover {
@@ -154,6 +162,8 @@
         font-size: 1.4em;
       }
     }
+
+    
   </style>
 
   <script>
@@ -168,14 +178,24 @@
   </script>
 </head>
 
+
 <header class="bg-dark py-3 mb-4 border-bottom position-relative">
-  <div class="container d-flex flex-wrap justify-content-center align-items-center">
+  <!-- Logo centralizada -->
+  <div class="container d-flex justify-content-center align-items-center">
     <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
   </div>
 </header>
+
+<button class="btn btn-outline-secondary mb-3" onclick="history.back()" aria-label="Voltar">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#111" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12 19 5 12 12 5" />
+  </svg>
+</button>
+
+
 <body class="bg-light">
-
-
   <main>
     <h3>Perguntas Frequentes</h3>
     <br>
@@ -206,8 +226,9 @@
     <div class="contact-card">
       <p><strong>Fale Conosco</strong></p>
       <p><strong>Email:</strong> suporte@ferroviax.com<br>
-      <strong>Telefone:</strong> (47) 91234-5678<br>
-      <strong>Horário:</strong> Segunda a Sexta, das 8h às 18h</p>
+        <strong>Telefone:</strong> (47) 91234-5678<br>
+        <strong>Horário:</strong> Segunda a Sexta, das 8h às 18h
+      </p>
       <button class="btn" onclick="alert('Abrindo chat com o suporte...')">Entrar em contato</button>
     </div>
   </main>
@@ -220,4 +241,5 @@
   </footer>
 
 </body>
+
 </html>

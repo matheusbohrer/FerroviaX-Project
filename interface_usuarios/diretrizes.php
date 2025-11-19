@@ -11,17 +11,24 @@
 </head>
 
 <body>
+  <header class="bg-dark py-3 mb-4 border-bottom position-relative">
+    <!-- Logo centralizada -->
+    <div class="container d-flex justify-content-center align-items-center">
+      <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+    </div>
+  </header>
+
+  <button class="btn btn-outline-secondary mb-3" onclick="history.back()" aria-label="Voltar" style="margin-left: 20px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#111" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+      <line x1="19" y1="12" x2="5" y2="12" />
+      <polyline points="12 19 5 12 12 5" />
+    </svg>
+  </button>
+
+
   <div class="app">
     <header class="diretrizes-header">
-<div class="p-3">
-    <button onclick="history.back()" class="btn btn-outline-secondary">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#111" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
-        <line x1="19" y1="12" x2="5" y2="12" />
-        <polyline points="12 19 5 12 12 5" />
-      </svg>
-    </button>
-  </div>
       <h1>Diretrizes da Comunidade</h1>
     </header>
 
@@ -51,35 +58,35 @@
       </section>
     </main>
 
- <footer class="footer-nav fixed-bottom">
-    <div class="nav-container">
-      <button class="nav-item active" data-page="geral" onclick="location.href='geral.php'">
-        <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
-        <span>Início</span>
-      </button>
+    <footer class="footer-nav fixed-bottom">
+      <div class="nav-container">
+        <button class="nav-item active" data-page="geral" onclick="location.href='geral.php'">
+          <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
+          <img src="https://img.icons8.com/ios-filled/50/000000/home.png" class="icon active-icon" />
+          <span>Início</span>
+        </button>
 
-      <button class="nav-item" data-page="historico" onclick="location.href='historico.php'">
-        <img src="https://img.icons8.com/ios/50/time-machine.png" class="icon default">
-        <img src="https://img.icons8.com/ios-filled/50/time-machine.png" class="icon active-icon">
-        <span>Histórico</span>
-      </button>
+        <button class="nav-item" data-page="historico" onclick="location.href='historico.php'">
+          <img src="https://img.icons8.com/ios/50/time-machine.png" class="icon default">
+          <img src="https://img.icons8.com/ios-filled/50/time-machine.png" class="icon active-icon">
+          <span>Histórico</span>
+        </button>
 
-      <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
-        <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
-        <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
-        <span>Alertas</span>
-      </button>
+        <button class="nav-item" data-page="alertas" onclick="location.href='alertas.php'">
+          <img src="https://img.icons8.com/ios/50/000000/bell.png" class="icon default" />
+          <img src="https://img.icons8.com/ios-filled/50/000000/bell.png" class="icon active-icon" />
+          <span>Alertas</span>
+        </button>
 
-      <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
-        <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
-        <span>Perfil</span>
-      </button>
-    </div>
-  </footer>
+        <button class="nav-item" data-page="usuario" onclick="location.href='usuario.php'">
+          <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Avatar" class="user-icon default" />
+          <span>Perfil</span>
+        </button>
+      </div>
+    </footer>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
@@ -216,7 +223,7 @@
     });
   });
 </script>
-  </div>
+</div>
 </body>
 
 </html>

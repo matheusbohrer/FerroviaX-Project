@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -12,13 +11,23 @@
 
 <body class="bg-light" style="min-height:100vh; position:relative;">
   <!-- Cabeçalho FerroviaX -->
-<header class="bg-dark py-3 mb-4 border-bottom position-relative">
-  <div class="container d-flex flex-wrap justify-content-center align-items-center">
-    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
-  </div>
-</header>
+  <header class="bg-dark py-3 mb-4 border-bottom position-relative">
+    <div class="container d-flex flex-wrap justify-content-center align-items-center">
+      <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+    </div>
+  </header>
 
   <div class="container pb-5">
+
+    <button class="btn btn-outline-secondary mb-3" onclick="history.back()" aria-label="Voltar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#111" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+        <line x1="19" y1="12" x2="5" y2="12" />
+        <polyline points="12 19 5 12 12 5" />
+      </svg>
+    </button>
+
+
     <section class="text-center mb-4">
       <span class="text-muted">Saldo disponível</span>
       <h2 class="display-5 fw-bold mt-2">R$ 128,75</h2>
@@ -199,6 +208,8 @@
     max-width: 32px;
     max-height: 32px;
   }
+
+  
 </style>
 
 <script>
@@ -216,4 +227,4 @@
     });
   });
 </script>
-  <script src
+<script src
