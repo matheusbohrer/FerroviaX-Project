@@ -1,6 +1,10 @@
 <?php
 require_once "../php/buscar.php";
+
+$alertas = $conn->query("SELECT * FROM alertas ORDER BY data_alerta DESC");
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -13,108 +17,60 @@ require_once "../php/buscar.php";
 </head>
 
 <body class="bg-light" style="min-height:100vh; position:relative;">
-<header class="bg-dark py-3 mb-4 border-bottom position-relative">
-  <div class="container d-flex flex-wrap justify-content-center align-items-center">
-    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
-  </div>
-</header>
+  <header class="bg-dark py-3 mb-4 border-bottom position-relative">
+    <div class="container d-flex flex-wrap justify-content-center align-items-center">
+      <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+    </div>
+  </header>
 
   <main class="container pb-5">
     <h2 class="mb-4 text-center fw-bold">Alertas e Notificações</h2>
 
     <div class="mb-3">
 
-      <!-- Alerta 1 -->
-      <div class="alerta-item border rounded p-2 mb-2 bg-white shadow-sm">
-        <div class="d-flex align-items-center">
-          <span class="text-danger fs-4 me-2">•</span>
-          <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-          <div class="flex-grow-1">
-            <div><strong>Novo trem chegando!</strong> <span class="text-muted">1d</span></div>
-            <div class="small">Saindo às 11:00</div>
+      <?php while ($a = $alertas->fetch_assoc()): ?>
+        <div class="alerta-item border rounded p-2 mb-2 bg-white shadow-sm">
+          <div class="d-flex align-items-center">
+            <span class="text-danger fs-4 me-2">•</span>
+            <img src="https://img.icons8.com/ios-filled/50/000000/train.png" class="me-2" style="height:40px;">
+
+            <div class="flex-grow-1">
+              <div>
+                <strong><?= htmlspecialchars($a['titulo']) ?></strong>
+                <span class="text-muted small">
+                  <?= date("d/m H:i", strtotime($a['data_alerta'])) ?>
+                </span>
+              </div>
+
+              <div class="small">
+                <?= htmlspecialchars($a['descricao']) ?>
+              </div>
+
+              <div class="text-primary small mt-1">
+                <strong>Linha:</strong> <?= htmlspecialchars($a['linha']) ?> |
+                <strong>Tipo:</strong> <?= htmlspecialchars($a['tipo']) ?>
+              </div>
+            </div>
+
+            <button class="btn btn-outline-primary btn-sm ver-mais">Ver mais</button>
           </div>
-          <button class="btn btn-outline-primary btn-sm ver-mais">Ver mais</button>
-        </div>
-        <div class="info-extra mt-2 text-muted small" style="display: none;">
-          <br>
-          <div><strong>Origem:</strong> Campo Grande - MS</div>
-          <div><strong>Destino:</strong> Corumbá - MS</div>
-        </div>
-      </div>
 
-      <!-- Avaliação 1 -->
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://pm1.aminoapps.com/7687/4743f9ffed3bb00d39710c0bfc25bb82a0f43e55r1-304-304v2_00.jpg" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Moto Moto</strong> <span class="text-muted">1d</span></div>
-          <div class="small">Avalie o maquinista</div>
-        </div>
-        <button class="btn btn-outline-warning btn-sm estrela-btn">☆</button>
-      </div>
-
-      <!-- Alerta 2 -->
-      <div class="alerta-item border rounded p-2 mb-2 bg-white shadow-sm">
-        <div class="d-flex align-items-center">
-          <span class="text-danger fs-4 me-2">•</span>
-          <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-          <div class="flex-grow-1">
-            <div><strong>Novo trem chegando!</strong> <span class="text-muted">3d</span></div>
-            <div class="small">Saindo às 20:00</div>
+          <div class="info-extra mt-2 text-muted small" style="display:none;">
+            <br>
+            <div><strong>Título:</strong> <?= htmlspecialchars($a['titulo']) ?></div>
+            <div><strong>Descrição:</strong> <?= htmlspecialchars($a['descricao']) ?></div>
+            <div><strong>Linha:</strong> <?= htmlspecialchars($a['linha']) ?></div>
+            <div><strong>Tipo:</strong> <?= htmlspecialchars($a['tipo']) ?></div>
+            <div><strong>Data:</strong> <?= $a['data_alerta'] ?></div>
           </div>
-          <button class="btn btn-outline-primary btn-sm ver-mais">Ver mais</button>
         </div>
-        <div class="info-extra mt-2 text-muted small" style="display: none;">
-          <br>
-          <div><strong>Origem:</strong> Dourados - MS</div>
-          <div><strong>Destino:</strong> Campo Grande - MS</div>
-        </div>
-      </div>
+      <?php endwhile; ?>
 
-      <!-- Avaliação 2 -->
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://img.freepik.com/vetores-gratis/saudacao-alegre-do-papai-noel-dos-desenhos-animados-para-a-celebracao-do-natal_1308-153957.jpg?semt=ais_hybrid&w=740" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Santa Claus</strong> <span class="text-muted">3d</span></div>
-          <div class="small">Avalie o maquinista</div>
-        </div>
-        <button class="btn btn-outline-warning btn-sm estrela-btn">☆</button>
-      </div>
 
-      <!-- Alerta 3 -->
-      <div class="alerta-item border rounded p-2 mb-2 bg-white shadow-sm">
-        <div class="d-flex align-items-center">
-          <span class="text-danger fs-4 me-2">•</span>
-          <img src="https://img.icons8.com/ios-filled/50/000000/train.png" alt="Trem" class="me-2" style="height:40px;">
-          <div class="flex-grow-1">
-            <div><strong>Novo trem chegando!</strong> <span class="text-muted">4d</span></div>
-            <div class="small">Saindo às 13:30</div>
-          </div>
-          <button class="btn btn-outline-primary btn-sm ver-mais">Ver mais</button>
-        </div>
-        <div class="info-extra mt-2 text-muted small" style="display: none;">
-          <br>
-          <div><strong>Origem:</strong> Três Lagoas - MS</div>
-          <div><strong>Destino:</strong> Aquidauana - MS</div>
-        </div>
-      </div>
-
-      <!-- Avaliação 3 -->
-      <div class="d-flex align-items-center border rounded p-2 mb-2 bg-white shadow-sm">
-        <span class="text-danger fs-4 me-2">•</span>
-        <img src="https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/redbullracing/maxver01/2025redbullracingmaxver01right.webp" alt="Avatar" class="me-2 rounded-circle" style="height:40px; width:40px;">
-        <div class="flex-grow-1">
-          <div><strong>Max Verstappen</strong> <span class="text-muted">4d</span></div>
-          <div class="small">Avalie o maquinista</div>
-        </div>
-        <button class="btn btn-outline-warning btn-sm estrela-btn">☆</button>
-      </div>
-    </div>
 
     <!-- Popup de Avaliação do Maquinista -->
-    <div class="avaliacao-popup" id="avaliacaoPopup" 
-         style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; 
+    <div class="avaliacao-popup" id="avaliacaoPopup"
+      style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; 
                 background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
       <div class="bg-white text-dark p-4 rounded-4 text-center" style="min-width:300px;">
         <p class="fs-5 mb-3">Como você avalia o maquinista?</p>
@@ -297,4 +253,5 @@ require_once "../php/buscar.php";
     }
   </script>
 </body>
+
 </html>
