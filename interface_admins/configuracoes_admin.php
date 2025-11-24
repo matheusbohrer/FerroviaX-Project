@@ -185,6 +185,13 @@ require_once "../php/buscar.php";
       </div>
 
       <div class="col-12">
+        <div class="card card-setting p-3" onclick="location.href='avaliacoes_admin.php'">
+          <h6 class="mb-1">Avaliações dos Usuários</h6>
+          <p class="mb-0 text-muted">Veja as notas e feedbacks enviados pelos usuários.</p>
+        </div>
+      </div>
+      
+      <div class="col-12">
         <div class="card card-setting p-3">
           <h6 class="mb-1">Preferências da Interface</h6>
           <p class="mb-0 text-muted">Ajustes visuais e preferências do painel admin.</p>

@@ -57,11 +57,11 @@ require_once "../php/buscar.php";
 </head>
 
 <body class="bg-light">
-<header class="bg-dark py-3 mb-4 border-bottom position-relative">
-  <div class="container d-flex flex-wrap justify-content-center align-items-center">
-    <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
-  </div>
-</header>
+  <header class="bg-dark py-3 mb-4 border-bottom position-relative">
+    <div class="container d-flex flex-wrap justify-content-center align-items-center">
+      <img src="../imagens/logoBranca.png" alt="FerroviaX Logo" style="height:48px;">
+    </div>
+  </header>
   <div class="container py-4">
 
 
@@ -126,7 +126,52 @@ require_once "../php/buscar.php";
     </div>
   </div>
 
-<footer class="footer-nav fixed-bottom">
+  <script>
+    let avaliacaoSelecionada = 0;
+
+    function abrirPopupAvaliacao() {
+      document.getElementById('avaliacaoPopup').style.display = 'flex';
+    }
+
+    // ⭐ CÓDIGO PRONTO PARA ENVIAR A AVALIAÇÃO
+    function enviarAvaliacao() {
+      if (avaliacaoSelecionada > 0) {
+
+        fetch("../php/salvar_avaliacao.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `estrelas=${avaliacaoSelecionada}`
+          })
+          .then(res => res.text())
+          .then(res => {
+            alert("Obrigado pela sua avaliação!");
+            document.getElementById('avaliacaoPopup').style.display = 'none';
+          })
+          .catch(err => alert("Erro ao enviar sua avaliação."));
+
+      } else {
+        alert('Por favor, selecione uma quantidade de estrelas.');
+      }
+    }
+
+    document.querySelectorAll('.estrela').forEach(star => {
+      star.addEventListener('click', function() {
+        avaliacaoSelecionada = parseInt(this.getAttribute('data-valor'));
+        atualizarEstrelas(avaliacaoSelecionada);
+      });
+    });
+
+    function atualizarEstrelas(valor) {
+      document.querySelectorAll('.estrela').forEach(star => {
+        const starValue = parseInt(star.getAttribute('data-valor'));
+        star.style.opacity = starValue <= valor ? '1' : '0.3';
+      });
+    }
+  </script>
+  
+  <footer class="footer-nav fixed-bottom">
     <div class="nav-container">
       <button class="nav-item active" data-page="geral" onclick="location.href='geral.php'">
         <img src="https://img.icons8.com/ios/50/000000/home.png" class="icon default" />
@@ -188,97 +233,97 @@ require_once "../php/buscar.php";
 
 <style>
   .footer-nav {
-  background: #fff;
-  border-top: 1px solid #ddd;
-  padding: 6px 0;
-}
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 6px 0;
+  }
 
-.nav-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
+  .nav-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 
-.nav-item {
-  flex: 1;
-  text-align: center;
-  background: none;
-  border: none;
-  outline: none;
-  padding: 6px 0;
-  color: #666;
-  font-size: 12px;
-  transition: color 0.3s ease;
-  position: relative;
-}
+  .nav-item {
+    flex: 1;
+    text-align: center;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 6px 0;
+    color: #666;
+    font-size: 12px;
+    transition: color 0.3s ease;
+    position: relative;
+  }
 
-.nav-item span {
-  display: block;
-  font-size: 11px;
-  margin-top: 2px;
-  opacity: 0.6;
-  transition: 0.3s;
-}
+  .nav-item span {
+    display: block;
+    font-size: 11px;
+    margin-top: 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
 
-.nav-item .icon {
-  height: 26px;
-  width: 26px;
-  display: block;
-  margin: auto;
-  opacity: 0.6;
-  transition: 0.3s;
-}
+  .nav-item .icon {
+    height: 26px;
+    width: 26px;
+    display: block;
+    margin: auto;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
 
-/* avatar do usuário */
-.user-icon {
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-  opacity: 0.6;
-  transition: 0.3s;
-}
+  /* avatar do usuário */
+  .user-icon {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
 
-.nav-item .active-icon {
-  display: none;
-}
+  .nav-item .active-icon {
+    display: none;
+  }
 
-.nav-item.active .default,
-.nav-item.active .user-icon {
-  opacity: 1;
-  transform: scale(1.15);
-  box-shadow: 0 0 6px #007bff;
-}
+  .nav-item.active .default,
+  .nav-item.active .user-icon {
+    opacity: 1;
+    transform: scale(1.15);
+    box-shadow: 0 0 6px #007bff;
+  }
 
-.nav-item.active span {
-  opacity: 1;
-  color: #007bff;
-}
+  .nav-item.active span {
+    opacity: 1;
+    color: #007bff;
+  }
 
-.nav-item.active::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 30%;
-  width: 40%;
-  height: 3px;
-  background: #007bff;
-  border-radius: 2px;
-  transition: 0.3s;
-}
+  .nav-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    width: 40%;
+    height: 3px;
+    background: #007bff;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
 
-.list-group-item {
-  cursor: pointer;
-  transition: background 0.2s;
-}
+  .list-group-item {
+    cursor: pointer;
+    transition: background 0.2s;
+  }
 
-.list-group-item:hover {
-  background: #f1f1f1; /* leve destaque no hover */
-}
-
+  .list-group-item:hover {
+    background: #f1f1f1;
+    /* leve destaque no hover */
+  }
 </style>
 <script>
-   document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
     const navItems = document.querySelectorAll(".nav-item");
     const path = window.location.pathname.split("/").pop();
 
@@ -292,4 +337,5 @@ require_once "../php/buscar.php";
     });
   });
 </script>
+
 </html>

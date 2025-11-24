@@ -41,6 +41,12 @@ CREATE TABLE `usuario` (
   `indentificador` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`pk_usuario`);
+
+ALTER TABLE `usuario`
+  MODIFY `pk_usuario` int NOT NULL AUTO_INCREMENT;
+
 CREATE TABLE alertas (
     id_alerta INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
@@ -59,6 +65,15 @@ CREATE TABLE alertas_recebidos (
   linha VARCHAR(100),
   tipo VARCHAR(50),
   data_recebido DATETIME
+);
+
+CREATE TABLE avaliacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_usuario INT NOT NULL,
+    estrelas INT NOT NULL,
+    comentario TEXT,
+    data_avaliacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_usuario) REFERENCES usuario(pk_usuario) ON DELETE CASCADE
 );
 
 INSERT INTO `usuario` (`pk_usuario`, `nome_usuario`, `email_usuario`, `senha_usuario`, `foto_usuario`, `cargo`, `linha_maquinista`, `horario_maquinista`, `indentificador`) VALUES
@@ -85,9 +100,6 @@ ALTER TABLE `sensores`
 ALTER TABLE `trem`
   ADD PRIMARY KEY (`pk_trem`);
 
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`pk_usuario`);
-
 ALTER TABLE `itinerario`
   MODIFY `id_itinerario` int NOT NULL AUTO_INCREMENT;
 
@@ -97,10 +109,15 @@ ALTER TABLE `sensores`
 ALTER TABLE `trem`
   MODIFY `pk_trem` int NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `usuario`
-  MODIFY `pk_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 ALTER TABLE `itinerario`
   ADD CONSTRAINT `itinerario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`pk_usuario`),
   ADD CONSTRAINT `itinerario_ibfk_2` FOREIGN KEY (`id_trem`) REFERENCES `trem` (`pk_trem`);
+
+ALTER TABLE alertas_recebidos
+  ADD CONSTRAINT fk_receb_user FOREIGN KEY (fk_usuario) REFERENCES usuario(pk_usuario) ON DELETE CASCADE,
+  ADD CONSTRAINT fk_receb_alerta FOREIGN KEY (fk_alerta) REFERENCES alertas(id_alerta) ON DELETE CASCADE;
+
 COMMIT;
+
+
