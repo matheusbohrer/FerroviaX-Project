@@ -49,37 +49,80 @@ Infraestrutura
 │
 ├── css/
 │   ├── alertas.css
-│   ├── login.css
-│   └── ...
+│   ├── cartao.css
+│   └── configuracoes.css
+│   ├── diretrizes.css
+│   ├── familia.css
+│   ├── historico.css
+│   ├── manutencao.css
+│   ├── mensagens.css
+│   ├── promocoes.css
+│   ├── rotas.css
+│   ├── saldo.css
+│   ├── telainicial.css
+│   ├── telaopcao.css
+│   ├── usuario.css
+
 ├── imagens/
-│   ├── alertas.js
-│   ├── mapa.js
-│   └── ...
+│   ├── perfil_usuarios/
+│   ├── analize.png
+│   ├── confirmacao.png
+│   ├── FerroviaPreto.png
+│   ├── FerroviaX.png
+│   ├── foto_padrão.png
+│   ├── image.png
+│   ├── local.png
+│   ├── logoBranca.png
+│   ├── manutencao.png
+│   ├── ModeloConnectMySQL.png
+│   ├── perfil.png
+│   ├── rotas2.png
+│   ├── suport.png
+│   ├── trem-branco-cinza.png
+│   ├── trem-preto(branco).png
+
 │
 ├── interface_admins/
-│   ├── logo.png
-│   ├── icones/
-│   └── ...
+│   ├── alertas_admin.php
+│   ├── avaliacoes_admin.php
+│   ├── configuracoes_admin.php
+│   ├── geral_admin.php
+│   ├── relatorios_admin.php
+
 │
 ├── interface_usuarios/
-│   ├── conexao.php
-│   ├── buscar.php
-│   ├── enviar_alerta.php
-│   ├── autenticar.php
-│   └── ...
+  ├─ alertas.php
+  ├─ configuracoes.php
+  ├─ diretrizes.php
+  ├─ familia.php
+  ├─ geral.php
+  ├─ historico.php
+  ├─ manutencao.php
+  ├─ perfil.php
+  ├─ promocoes.php
+  ├─ saldo.php
+  ├─ sobre.php
+  ├─ suporte.php
+  └─ usuario.php
 │
 ├── php/
-│   ├── dashboard.php
-│   ├── alertas_admin.php
-│   └── ...
-│
-├── uploads/
-│   ├── alertas.php
-│   ├── saldo.php
-│   └── ...
+  ├─ api_rotas.php
+  ├─ bd.php
+  ├─ buscar.php
+  ├─ salvar_avaliacao.php
+  ├─ telaconfirmacao.php
+  ├─ telainicial.php
+  ├─ telalogin.php
+  ├─ telaopcao.php
+  ├─ telaregistro.php
 │
 ├── sql/
-│   └── ferroviax.sql
+  ├─ ferroviax.sql
+  ├─ popular_banco.sql
+  └─ trem.sql
+│
+├── uploads/
+│  ...
 │
 ├── README.md
 └── index.php
