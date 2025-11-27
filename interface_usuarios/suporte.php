@@ -28,7 +28,7 @@
       position: relative;
     }
 
-    
+
 
     /* Botão de voltar */
     .back-button {
@@ -41,7 +41,7 @@
       font-size: 1.5em;
       cursor: pointer;
       color: #333;
-      
+
     }
 
     .back-button:hover {
@@ -111,37 +111,16 @@
       cursor: pointer;
       margin-top: 10px;
       transition: background 0.3s;
-      
+
     }
 
     .btn:hover {
       background-color: #555;
     }
 
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #fff;
-      border-top: 1px solid #ccc;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 10px 0;
-    }
 
-    footer div {
-      text-align: center;
-      font-size: 0.85em;
-      color: #555;
-    }
 
-    footer img {
-      width: 22px;
-      height: 22px;
-      display: block;
-      margin: auto;
-    }
+
 
     /* Responsividade */
     @media (max-width: 600px) {
@@ -162,8 +141,6 @@
         font-size: 1.4em;
       }
     }
-
-    
   </style>
 
   <script>
@@ -229,16 +206,174 @@
         <strong>Telefone:</strong> (47) 91234-5678<br>
         <strong>Horário:</strong> Segunda a Sexta, das 8h às 18h
       </p>
-      <button class="btn" onclick="alert('Abrindo chat com o suporte...')">Entrar em contato</button>
+      <button class="btn" onclick="abrirSuporte()">Abrir suporte</button>
     </div>
   </main>
 
-  <footer>
-    <div><img src="home.png" alt="Início"><span>Início</span></div>
-    <div><img src="report.png" alt="Relatórios"><span>Relatórios</span></div>
-    <div><img src="alert.png" alt="Alertas"><span>Alertas</span></div>
-    <div><img src="profile.png" alt="Perfil"><span>Perfil</span></div>
+  <footer class="footer-nav fixed-bottom">
+    <div class="nav-container">
+      <button class="nav-item" onclick="location.href='geral.php'">
+        <img src="https://img.icons8.com/ios/50/home.png" class="icon default">
+        <img src="https://img.icons8.com/ios-filled/50/home.png" class="icon active-icon">
+        <span>Início</span>
+      </button>
+
+      <button class="nav-item">
+        <img src="https://img.icons8.com/ios/50/time-machine.png" class="icon default">
+        <img src="https://img.icons8.com/ios-filled/50/time-machine.png" class="icon active-icon">
+        <span>Histórico</span>
+      </button>
+
+      <button class="nav-item" onclick="location.href='alertas.php'">
+        <img src="https://img.icons8.com/ios/50/bell.png" class="icon default">
+        <img src="https://img.icons8.com/ios-filled/50/bell.png" class="icon active-icon">
+        <span>Alertas</span>
+      </button>
+
+      <button class="nav-item active" onclick="location.href='usuario.php'">
+        <img src="<?php echo htmlspecialchars($imagem_atual ?? ''); ?>" class="user-icon default">
+        <span>Perfil</span>
+      </button>
+    </div>
   </footer>
+
+  <style>
+    .footer-nav {
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 6px 0;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .nav-item {
+      flex: 1;
+      text-align: center;
+      background: none;
+      border: none;
+      outline: none;
+      padding: 6px 0;
+      color: #666;
+      font-size: 12px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 11px;
+      margin-top: 2px;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+
+    .nav-item .icon {
+      height: 26px;
+      width: 26px;
+      display: block;
+      margin: auto;
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+
+    .nav-item .active-icon {
+      display: none;
+    }
+
+    .nav-item.active .default {
+      display: none;
+    }
+
+    .nav-item.active .active-icon {
+      display: block;
+    }
+
+    .nav-item.active .icon,
+    .nav-item.active span {
+      opacity: 1;
+      color: #007bff;
+      transform: scale(1.1);
+    }
+
+    .nav-item.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 30%;
+      width: 40%;
+      height: 3px;
+      background: #007bff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .user-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: auto;
+      max-width: 32px;
+      max-height: 32px;
+    }
+
+
+    .modal-suporte {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: #fff;
+      width: 90%;
+      max-width: 380px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+
+  <!-- MODAL DE SUPORTE -->
+  <div id="modalSuporte" class="modal-suporte">
+    <div class="modal-content">
+
+      <h4 class="mb-3">Solicitar Suporte</h4>
+
+      <form action="../php/enviar_suporte.php" method="POST">
+        <label for="assunto">Assunto</label>
+        <input type="text" id="assunto" name="assunto" required class="form-control mb-2">
+
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" rows="4" required class="form-control mb-3"></textarea>
+
+        <button type="submit" class="btn w-100" style="background:#222;color:#fff;">Enviar Solicitação</button>
+      </form>
+
+      <button class="btn btn-danger w-100 mt-2" onclick="fecharSuporte()">Cancelar</button>
+
+    </div>
+  </div>
+
+  <script>
+    function abrirSuporte() {
+      document.getElementById('modalSuporte').style.display = 'flex';
+    }
+
+    function fecharSuporte() {
+      document.getElementById('modalSuporte').style.display = 'none';
+    }
+  </script>
 
 </body>
 

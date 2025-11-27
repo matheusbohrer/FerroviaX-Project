@@ -16,6 +16,7 @@ require_once "../php/buscar.php";
       margin: 0;
       padding: 0;
       background: #f8f9fa;
+      min-height: 100vh;
     }
 
     header {
@@ -171,9 +172,9 @@ require_once "../php/buscar.php";
       </div>
 
       <div class="col-12">
-        <div class="card card-setting p-3">
-          <h6 class="mb-1">Backup e Restauração</h6>
-          <p class="mb-0 text-muted">Exportação dos dados e restauração de arquivos do sistema.</p>
+        <div class="card card-setting p-3" onclick="location.href='suporte_admin.php'">
+          <h6 class="mb-1">Suporte</h6>
+          <p class="mb-0 text-muted">Chamados recebidos do suporte.</p>
         </div>
       </div>
 

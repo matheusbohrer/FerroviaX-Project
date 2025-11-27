@@ -217,7 +217,7 @@ $sensores = $conn->query("SELECT * FROM sensores ORDER BY id_sensor DESC");
   <div class="container">
     <ul class="nav nav-tabs mb-4 justify-content-center">
       <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#usuarios">Usuários</button></li>
-      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#maquinistas">Maquinistas</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#maquinistas">Trens</button></li>
       <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#sensores">Sensores</button></li>
     </ul>
 
