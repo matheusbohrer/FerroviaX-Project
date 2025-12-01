@@ -2,6 +2,36 @@
 require_once "../php/buscar.php";
 session_start();
 
+if (isset($_POST['acao']) && $_POST['acao'] == 'criar') {
+    $nome = $_POST['nome_maquinista'];
+    $destino = $_POST['destino'];
+    $horario = $_POST['horario'];
+
+    $conn->query("INSERT INTO trem (nome_maquinista, destino, horario)
+                  VALUES ('$nome', '$destino', '$horario')");
+}
+
+// EDITAR TREM
+if (isset($_POST['acao']) && $_POST['acao'] == 'editar') {
+    $id = $_POST['id_trem'];
+    $nome = $_POST['nome_maquinista'];
+    $destino = $_POST['destino'];
+    $horario = $_POST['horario'];
+
+    $conn->query("UPDATE trem SET 
+                  nome_maquinista='$nome',
+                  destino='$destino',
+                  horario='$horario'
+                  WHERE id_trem='$id'");
+}
+
+// EXCLUIR
+if (isset($_GET['excluir'])) {
+    $id = $_GET['excluir'];
+    $conn->query("DELETE FROM trem WHERE id_trem='$id'");
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["usuario_id"], $_POST["novo_cargo"])) {
   $usuario_id = intval($_POST["usuario_id"]);
   $novo_cargo = intval($_POST["novo_cargo"]);
@@ -260,38 +290,86 @@ $sensores = $conn->query("SELECT * FROM sensores ORDER BY id_sensor DESC");
       </div>
 
       <div class="tab-pane fade" id="maquinistas">
-        <h4 class="text-center mb-3">Gerenciamento de Maquinistas</h4>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Linha</th>
-              <th>Horário</th>
-              <th>Identificador</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php while ($m = $maquinistas->fetch_assoc()): ?>
-              <tr>
-                <form method="post">
-                  <td><?= $m['pk_usuario'] ?></td>
-                  <td><?= htmlspecialchars($m['nome_usuario']) ?></td>
-                  <input type="hidden" name="maq_id" value="<?= $m['pk_usuario'] ?>">
-                  <td><input type="text" name="linha_maquinista" class="form-control form-control-sm" value="<?= htmlspecialchars($m['linha_maquinista']) ?>"></td>
-                  <td><input type="text" name="horario_maquinista" class="form-control form-control-sm" value="<?= htmlspecialchars($m['horario_maquinista']) ?>"></td>
-                  <td><input type="text" name="indentificador" class="form-control form-control-sm" value="<?= htmlspecialchars($m['indentificador']) ?>"></td>
-                  <td>
-                    <button class="btn btn-sm btn-primary">Salvar</button>
-                    <a href="?excluir_maquinista=<?= $m['pk_usuario'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Excluir?')">Excluir</a>
-                  </td>
-                </form>
-              </tr>
-            <?php endwhile; ?>
-          </tbody>
-        </table>
-      </div>
+        <h4 class="text-center mb-3">Gerenciamento de Trens</h4>
+
+<!-- FORMULÁRIO PARA CRIAR NOVO TREM -->
+<div class="card p-3 mb-4">
+  <h5>Cadastrar Novo Trem</h5>
+  <form method="post">
+    <input type="hidden" name="acao" value="criar">
+
+    <div class="mb-2">
+      <label>Nome do Maquinista:</label>
+      <input type="text" name="nome_maquinista" class="form-control" required>
+    </div>
+
+    <div class="mb-2">
+      <label>Destino:</label>
+      <input type="text" name="destino" class="form-control" required>
+    </div>
+
+    <div class="mb-2">
+      <label>Horário:</label>
+      <input type="time" name="horario" class="form-control" required>
+    </div>
+
+    <button class="btn btn-success mt-2">Cadastrar Trem</button>
+  </form>
+</div>
+
+<!-- LISTAGEM + EDIÇÃO -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Maquinista</th>
+      <th>Destino</th>
+      <th>Horário</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+      $trem = $conn->query("SELECT * FROM trem ORDER BY id_trem DESC");
+      while($t = $trem->fetch_assoc()):
+    ?>
+    <tr>
+      <form method="post">
+        <input type="hidden" name="acao" value="editar">
+        <input type="hidden" name="id_trem" value="<?= $t['id_trem'] ?>">
+
+        <td><?= $t['id_trem'] ?></td>
+
+        <td>
+          <input type="text" class="form-control form-control-sm"
+            name="nome_maquinista" value="<?= $t['nome_maquinista'] ?>">
+        </td>
+
+        <td>
+          <input type="text" class="form-control form-control-sm"
+            name="destino" value="<?= $t['destino'] ?>">
+        </td>
+
+        <td>
+          <input type="time" class="form-control form-control-sm"
+            name="horario" value="<?= $t['horario'] ?>">
+        </td>
+
+        <td>
+          <button class="btn btn-primary btn-sm">Salvar</button>
+          <a href="?excluir=<?= $t['id_trem'] ?>" 
+             class="btn btn-danger btn-sm"
+             onclick="return confirm('Excluir trem?')">
+             Excluir
+          </a>
+        </td>
+      </form>
+    </tr>
+    <?php endwhile; ?>
+  </tbody>
+</table>
+</div>
+
 
       <div class="tab-pane fade" id="sensores">
         <h4 class="text-center mb-3">Gerenciamento de Sensores</h4>
@@ -354,7 +432,6 @@ $sensores = $conn->query("SELECT * FROM sensores ORDER BY id_sensor DESC");
           </tbody>
         </table>
       </div>
-
     </div>
   </div>
 

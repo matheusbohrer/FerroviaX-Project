@@ -117,7 +117,7 @@ while ($row = $result->fetch_assoc()) {
       <input type="text" id="search" class="form-control" placeholder="Digite um endereço..." />
     </div>
 
-    <h4 class="mb-3">Mapa de Navegação</h4>
+    <h4 class="mb-3" style="color: black;">Mapa de Navegação</h4>
     <div id="map" style="height:400px; border-radius:10px; overflow:hidden;"></div>
 
     <!-- BLOCO COMPLETO DE ROTAS FERROVIÁRIAS -->
@@ -148,59 +148,37 @@ while ($row = $result->fetch_assoc()) {
     </div>
 
     <!-- ================= GERENCIADOR DE TRENS (CINZA) ================= -->
-    <h4 class="mt-5 mb-3">Gerenciador de Trens</h4>
-    <div class="card bg-secondary text-light mb-4">
-      <div class="card-body">
-        <table class="table table-bordered align-middle mb-0 train-table">
-          <thead>
-            <tr>
-              <th scope="col">Trem</th>
-              <th scope="col">Status</th>
-              <th scope="col">Horário de Saída</th>
-              <th scope="col">Destino</th>
-              <th scope="col">Última Atualização</th>
-            </tr>
-          </thead>
-          <tbody id="train-table-body">
-            <tr>
-              <td>Trem 001</td>
-              <td><span class="badge bg-success">Ativo</span></td>
-              <td>08:30</td>
-              <td>Estação Central</td>
-              <td>Há 5 minutos</td>
-            </tr>
-            <tr>
-              <td>Trem 002</td>
-              <td><span class="badge bg-danger">Inativo</span></td>
-              <td>10:00</td>
-              <td>Porto belo</td>
-              <td>Há 8 minutos</td>
-            </tr>
-            <tr>
-              <td>Trem 003</td>
-              <td><span class="badge bg-success">Ativo</span></td>
-              <td>09:15</td>
-              <td>São Paulo</td>
-              <td>Há 2 minutos</td>
-            </tr>
-            <tr>
-              <td>Trem 004</td>
-              <td><span class="badge bg-secondary">Manutenção</span></td>
-              <td>--</td>
-              <td>--</td>
-              <td>Há 1 hora</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <h4 class="mt-5 mb-3 titulo-preto" >Estações de Trens</h4>
+
+<div class="card bg-secondary text-light mb-4">
+  <div class="card-body">
+    <table class="table table-bordered align-middle mb-0 train-table">
+      <thead>
+        <tr>
+          <th>Trem</th>
+          <th>Destino</th>
+          <th>Horário</th>
+          <th>Maquinista</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          $trens = $conn->query("SELECT * FROM trem");
+          while($t = $trens->fetch_assoc()):
+        ?>
+        <tr>
+          <td>Trem <?= $t['id_trem'] ?></td>
+          <td><?= htmlspecialchars($t['destino']) ?></td>
+          <td><?= $t['horario'] ?></td>
+          <td><?= htmlspecialchars($t['nome_maquinista']) ?></td>
+        </tr>
+        <?php endwhile; ?>
+      </tbody>
+    </table>
+  </div>
+</div>
     <!-- ================================================================ -->
 
-    <h4 class="mb-3 mt-4">Maquinistas Disponíveis</h4>
-    <div class="row mb-5">
-      <!-- Cards de maquinistas -->
-    </div>
-  </div>
 
   <footer class="footer-nav fixed-bottom">
     <div class="nav-container">
@@ -325,6 +303,14 @@ while ($row = $result->fetch_assoc()) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
   <style>
+    body {
+    overflow-y: auto;   /* garante scroll vertical */
+    min-height: 130vh;  /* altura mínima da tela */
+    }
+
+    .titulo-preto {
+      color: #000 !important;
+    }
     .nav-tabs .nav-link {
       color: #212529 !important;
       background-color: transparent !important;

@@ -24,10 +24,13 @@ INSERT INTO `sensores` (`id_sensor`, `tipo_sensor`, `local_sensor`, `data_sensor
 (1, 'sensor de temperatura', 'terminal 1', '2023-10-15');
 
 CREATE TABLE `trem` (
-  `pk_trem` int NOT NULL,
-  `nome_trem` varchar(20) NOT NULL,
-  `linha_trem` varchar(45) NOT NULL
+  `id_trem` INT NOT NULL AUTO_INCREMENT,
+  `nome_maquinista` VARCHAR(50) NOT NULL,
+  `destino` VARCHAR(100) NOT NULL,
+  `horario` TIME NOT NULL,
+  PRIMARY KEY (`id_trem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 CREATE TABLE `usuario` (
   `pk_usuario` int NOT NULL,
@@ -107,8 +110,6 @@ ALTER TABLE `itinerario`
 ALTER TABLE `sensores`
   ADD PRIMARY KEY (`id_sensor`);
 
-ALTER TABLE `trem`
-  ADD PRIMARY KEY (`pk_trem`);
 
 ALTER TABLE `itinerario`
   MODIFY `id_itinerario` int NOT NULL AUTO_INCREMENT;
@@ -116,13 +117,10 @@ ALTER TABLE `itinerario`
 ALTER TABLE `sensores`
   MODIFY `id_sensor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
-ALTER TABLE `trem`
-  MODIFY `pk_trem` int NOT NULL AUTO_INCREMENT;
-
 
 ALTER TABLE `itinerario`
   ADD CONSTRAINT `itinerario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`pk_usuario`),
-  ADD CONSTRAINT `itinerario_ibfk_2` FOREIGN KEY (`id_trem`) REFERENCES `trem` (`pk_trem`);
+  ADD CONSTRAINT `itinerario_ibfk_2` FOREIGN KEY (`id_trem`) REFERENCES `trem` (`id_trem`);
 
 ALTER TABLE alertas_recebidos
   ADD CONSTRAINT fk_receb_user FOREIGN KEY (fk_usuario) REFERENCES usuario(pk_usuario) ON DELETE CASCADE,

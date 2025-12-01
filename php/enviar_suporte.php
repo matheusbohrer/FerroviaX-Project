@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once "buscar.php";
 
 if (!isset($_SESSION['usuario_id'])) {
@@ -18,4 +17,6 @@ if ($stmt->execute()) {
 } else {
     echo "<script>alert('Erro ao enviar solicitação'); history.back();</script>";
 }
+
+
 ?>

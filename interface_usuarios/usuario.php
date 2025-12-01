@@ -13,7 +13,7 @@ require_once "../php/buscar.php";
   <title>Perfil do Usuário - FerroviaX</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    .perfil-foto {
+    .perfil-foto { 
       position: relative;
       width: 120px;
       margin: 0 auto;
@@ -64,7 +64,7 @@ require_once "../php/buscar.php";
   </header>
   <div class="container py-4">
 
-
+  <form action="../php/enviar_suporte.php" method="POST">
     <div class="text-center mb-4">
       <div class="perfil-foto" onclick="window.location.href='perfil.php'">
         <img src="<?php echo htmlspecialchars($imagem_atual); ?>" alt="Foto atual" class="rounded-circle border" style="width:120px;height:120px;object-fit:cover;">
@@ -73,7 +73,7 @@ require_once "../php/buscar.php";
       <h2 class="mt-3 mb-1"><?php echo htmlspecialchars($_SESSION['nome_usuario'] ?? "Bem-vindo $usuario"); ?></h2>
       <span class="badge bg-warning text-dark">⭐ 5.00</span>
     </div>
-
+  </form>
     <div class="row mb-4">
       <div class="col-4">
         <div class="card text-center h-100" onclick="location.href='manutencao.php'" style="cursor:pointer;">
@@ -110,6 +110,14 @@ require_once "../php/buscar.php";
         <li class="list-group-item" onclick="location.href='sobre.php'">Sobre nós</li>
         <li class="list-group-item" onclick="abrirPopupAvaliacao()">Avalie nosso site</li>
       </ul>
+
+   
+    <div class="mt-3 text-center">
+    <a href="../php/logout.php" class="btn btn-danger w-100 py-2" style="font-size: 1rem;">
+      Sair
+    </a>
+    </div>
+
       <div class="avaliacao-popup" id="avaliacaoPopup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
         <div class="bg-white text-dark p-4 rounded-4 text-center" style="min-width:300px;">
           <p class="fs-5 mb-3">Como você avalia nosso site?</p>
